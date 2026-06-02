@@ -1,7 +1,8 @@
-const CACHE_NAME = 'chillout-pirates-kosten-v6-layout';
+const CACHE_NAME = 'chillout-pirates-kosten-v13-hilfe-handbuch';
 const ASSETS = [
   './',
   './index.html',
+  './app.js',
   './manifest.webmanifest',
   './assets/logo.png',
   './assets/icon-180.png',
@@ -22,3 +23,5 @@ self.addEventListener('fetch', event => {
     return response;
   }).catch(() => caches.match('./index.html'))));
 });
+
+// layout update 2026-06-02

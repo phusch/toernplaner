@@ -1,7 +1,7 @@
 {
   "name": "Chillout Pirates Kostenaufteilung",
   "short_name": "Pirates Kosten",
-  "description": "Kostenaufteilung Dirk 60 – offline nutzbar",
+  "description": "Kostenaufteilung Giftman 60 – offline nutzbar",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
