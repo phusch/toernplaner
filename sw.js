@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chillout-pirates-kosten-v13-hilfe-handbuch';
+const CACHE_NAME = 'chillout-pirates-kosten-v13-trip-names';
 const ASSETS = [
   './',
   './index.html',
@@ -24,4 +24,4 @@ self.addEventListener('fetch', event => {
   }).catch(() => caches.match('./index.html'))));
 });
 
-// layout update 2026-06-02
+// trip name update 2026-06-07
