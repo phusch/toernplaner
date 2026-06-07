@@ -1,291 +1,386 @@
-# Törnplaner / Chillout Pirates Kalkulation – V1.3 Trip Names
+# Törnplaner / Chillout Pirates Kalkulation – V1.4 Endversion Rollenlogik
 
-Diese Version basiert auf **V1.2 Save Guard** und ergänzt nur die bessere Verwaltung von Törnnamen.  
-Ziel von V1.3 ist **komfortableres Benennen, Umbenennen und Kopieren von Törns**, nicht eine neue Berechnungslogik.
+Diese Version basiert auf **V1.3 Trip Names** und der geprüften **V1.4.1-Korrektur**. Sie ist die freigegebene **Endversion V1.4** für die neue Rollen- und Kostenlogik.
 
-## Wichtigste Sicherheitsregel
+Die Änderungen betreffen gezielt:
 
-In V1.3 wurden **keine Berechnungsformeln geändert**.
+- Teilnehmerrollen
+- Kostenbereiche
+- Giftmann-Beteiligung
+- Giftmann-Restverteilung
+- Anzeige in Einzelbeträge und Teilnehmerverwaltung
 
-Nicht geändert wurden insbesondere:
+Nicht Ziel dieser Version ist ein optischer Umbau. Supabase, Törnnamen, Save Guard und lokale Speicherung bleiben aus V1.3 erhalten.
 
-- `calc()`
-- Giftman/Giftmann-Berechnung
-- Einzelbeträge-Logik
-- Teilnehmerverwaltung-Berechnung
-- Mannschaftskasse-Berechnung
-- optische Sonderstellung der Mannschaftskasse
-
-Die neue Version ergänzt nur Verwaltungs- und Speicherkomfort rund um Törnnamen und Cloud-Kopien.
+**Freigabehinweis:** Diese V1.4-Endversion übernimmt die korrigierte Rollenlogik aus V1.4.1. Der von dir geprüfte Fall, bei dem die Rechnung wieder V1.3 entspricht und Giftmann bei der Mannschaftskasse als Kostenverursacher berücksichtigt wird, ist Grundlage dieser finalen Fassung.
 
 ---
 
-## Was ist neu in V1.3?
+## Wichtig
 
-### 1. Törnname direkt in der Törnkarte änderbar
-
-In der Törn-Verwaltung gibt es jetzt in jeder Törnkarte ein eigenes Feld:
-
-```text
-Törnname
-```
-
-Dort kannst du den Namen direkt ändern, zum Beispiel:
-
-```text
-Friesland 2027
-Seealpen Männer-Törn 2028
-Chillout Pirates Teststand
-```
-
-Die Änderung wird lokal gespeichert und betrifft nur die Törn-Verwaltung.  
-Die eigentliche Kostenberechnung wird dadurch nicht verändert.
-
-Zusätzlich bleibt ein Button vorhanden:
-
-```text
-Name per Dialog
-```
-
-Damit kannst du den Törn weiterhin klassisch über ein kleines Eingabefenster umbenennen.
+V1.4 ist die freigegebene Endversion der neuen Rollen- und Kostenlogik. Sie sollte trotzdem wie jede neue Version mit einem Backup betrieben werden, weil sie die bisherige Berechnungslogik erweitert.
 
 ---
 
-### 2. Cloud-Kopie bekommt beim Import einen eigenen Namen
+## Neue Grundregel für Kostenpositionen
 
-Wenn du im Supabase-Bereich auf diesen Button klickst:
+Bei Kostenpositionen gibt es nur noch drei auswählbare Bereiche:
 
 ```text
-Als Kopie importieren
+Fixkosten
+Mannschaftskasse
+Sonstige
 ```
 
-fragt die App jetzt direkt nach einem neuen Namen für die lokale Kopie.
+Es gibt keine automatische Namenserkennung.
+
+Das bedeutet:
+
+```text
+Charter, Schiff, Diesel, Hafengebühr, Essen, Taxi, Versicherung usw.
+```
+
+werden nicht automatisch zugeordnet. Du wählst den Bereich selbst pro Kostenposition.
+
+---
+
+## Migration alter Kostenpositionen
+
+Beim Laden alter Daten werden Kostenbereiche so übernommen:
+
+```text
+alte Fixkosten Boot / Charterlogik → Fixkosten
+alte Mannschaftskasse              → Mannschaftskasse
+alles andere                       → Sonstige
+```
+
+Danach bietet die App nur noch die drei neuen Bereiche an.
+
+---
+
+## Neue Teilnehmerrollen
+
+Direkt bei jedem Teilnehmer auswählbar:
+
+```text
+Vollzahler
+Nur Fixkosten
+Nur Sonstige
+Giftmann
+Schenker
+```
+
+### Vollzahler
+
+Zahlt:
+
+```text
+Fixkosten
+Mannschaftskasse
+Sonstige
+Kaution wie bisher
+offenen Giftmann-Rest, falls Geschenke nicht reichen
+```
+
+### Nur Fixkosten
+
+Zahlt nur:
+
+```text
+Fixkosten
+```
+
+Zahlt nicht:
+
+```text
+Mannschaftskasse
+Sonstige
+Giftmann-Rest
+```
+
+### Nur Sonstige
+
+Zahlt nur:
+
+```text
+Sonstige
+```
+
+Zahlt ausdrücklich nicht:
+
+```text
+Fixkosten
+Mannschaftskasse
+Giftmann-Rest
+```
+
+### Giftmann
+
+Giftmann ist eine Sonderrolle.
+
+Grundregel:
+
+```text
+Giftmann zahlt 0,00 €
+```
+
+Bei Giftmann gibt es drei Häkchen:
+
+```text
+[ ] beteiligt sich rechnerisch an Fixkosten
+[ ] beteiligt sich rechnerisch an Mannschaftskasse
+[ ] beteiligt sich rechnerisch an Sonstige
+```
+
+Nur aktivierte Bereiche erzeugen einen rechnerischen Giftmann-Anteil.
+
+### Schenker
+
+Zahlt nur:
+
+```text
+Geschenkbeitrag
+```
+
+Reist nicht mit und nimmt nicht an Fixkosten, Mannschaftskasse oder Sonstige teil.
+
+---
+
+## Geschenklogik Giftmann
+
+Geschenke decken den rechnerischen Gesamtbetrag des Giftmanns unabhängig vom Bereich.
 
 Beispiel:
 
 ```text
-Cloud-Törn – Cloud-Kopie
+Giftmann Fixkosten-Anteil:       400 €
+Giftmann Mannschaftskasse:       200 €
+Giftmann Sonstige:               100 €
+Giftmann rechnerisch gesamt:     700 €
+Geschenke gesamt:                500 €
+Offener Giftmann-Rest:           200 €
 ```
 
-Du kannst dann sofort einen besseren Namen vergeben, z. B.:
+Der offene Rest wird nur auf diese Rolle verteilt:
 
 ```text
-Friesland 2027 – Cloud-Testkopie
+Vollzahler
 ```
 
-Wenn du den Dialog abbrichst, wird **nichts importiert** und deine lokalen Daten bleiben unverändert.
+Nicht auf:
+
+```text
+Nur Fixkosten
+Nur Sonstige
+Giftmann
+Schenker
+```
 
 ---
 
-### 3. Doppelte Törnnamen werden automatisch entschärft
+## Kaution
 
-Wenn ein Name lokal schon existiert, hängt die App automatisch eine Nummer an:
+Kaution bleibt als Sonderlogik erhalten.
+
+In dieser V1.4-Endversion bleibt sie wie bisher bei den Vollzahlern in der ersten Überweisung. Sie wird nicht als normale Kostenposition behandelt und gehört nicht zu Fixkosten, Mannschaftskasse oder Sonstige.
+
+---
+
+## Teilnehmerverwaltung
+
+Die Teilnehmerverwaltung zeigt jetzt je nach Rolle getrennte Zahlungsbereiche:
 
 ```text
-Friesland 2027
-Friesland 2027 (2)
-Friesland 2027 (3)
+Vollzahler:
+- Fixkosten / Kaution
+- Mannschaftskasse
+- Sonstige
+
+Nur Fixkosten:
+- Fixkosten
+
+Nur Sonstige:
+- Sonstige
+
+Giftmann:
+- Giftmann entlastet / keine Anforderung = 0,00 €
+
+Schenker:
+- Geschenkbeitrag Giftmann
 ```
 
-Das verhindert Verwechslungen in der Törn-Verwaltung und beim Cloud-Test.
+Damit bleibt sichtbar, warum eine Person welchen Betrag zahlen soll.
+
+---
+
+## Einzelbeträge
+
+Der Reiter Einzelbeträge bleibt bewusst kompakt.
+
+Die Rollen werden aber neu ausgewertet:
+
+```text
+Vollzahler       → Gesamtbetrag aus Fixkosten + Mannschaftskasse + Sonstige + ggf. Giftmann-Rest
+Nur Fixkosten    → nur Fixkosten
+Nur Sonstige     → nur Sonstige
+Giftmann         → 0,00 €
+Schenker         → Geschenkbeitrag
+```
+
+Die CSV enthält zusätzlich Spalten für:
+
+```text
+Fixkosten/Kaution
+Mannschaftskasse
+Sonstige
+Geschenk
+```
+
+---
+
+## Supabase / Cloud
+
+Supabase bleibt wie in V1.3:
+
+```text
+manuell speichern
+manuell laden
+alle lokalen Törns in Cloud speichern
+Cloud-Import als Kopie möglich
+```
+
+Wichtig: Nach einer Rollen- oder Kostenbereichsänderung bitte zuerst lokal speichern und danach Cloud speichern.
 
 ---
 
 ## Speicher-Procedere
 
-### Normal an einem Törn arbeiten
+Empfohlene Reihenfolge:
 
 ```text
 1. Törn öffnen
-2. Änderungen machen
-3. Anzeige oben prüfen: „Ungespeichert“
-4. Speichern klicken
-5. Anzeige oben prüfen: „Gespeichert“
-6. Bei Bedarf: Aktiven Törn in Cloud speichern
-```
-
-### Törnnamen ändern
-
-```text
-1. Reiter „Törns“ öffnen
-2. In der Törnkarte das Feld „Törnname“ ändern
-3. Feld verlassen oder Enter drücken
-4. Die App speichert den Namen lokal
-5. Danach bei Bedarf erneut in Cloud speichern
-```
-
-Wichtig: Wenn du den Namen nur lokal änderst, ist der Cloud-Stand noch nicht automatisch umbenannt.  
-Damit Supabase den neuen Namen bekommt, danach klicken:
-
-```text
-Aktiven Törn in Cloud speichern
-```
-
-oder:
-
-```text
-Alle lokalen Törns in Cloud speichern
-```
-
-### Alle Törns sauber sichern
-
-```text
-1. Einloggen in Supabase
-2. Speichern klicken
-3. Alle lokalen Törns in Cloud speichern
-4. Backup exportieren
-```
-
-Das Backup bleibt weiterhin wichtig, weil es alle Törns in einer Datei sichert und unabhängig von Supabase funktioniert.
-
-### Cloud-Stand ohne Risiko prüfen
-
-```text
-1. Einloggen
-2. Cloud-Liste laden
-3. Cloud-Törn auswählen
-4. Als Kopie importieren
-5. Neuen Namen vergeben
-6. Kopie prüfen
-7. Erst danach entscheiden, ob ein alter lokaler Stand gelöscht werden soll
+2. Rollen und Kostenbereiche prüfen
+3. Änderungen durchführen
+4. Anzeige oben prüfen: Ungespeichert
+5. Speichern klicken
+6. Einzelbeträge kontrollieren
+7. Teilnehmerverwaltung kontrollieren
+8. optional: Aktiven Törn in Cloud speichern
+9. optional: Backup exportieren
 ```
 
 ---
 
-## Die fünf Prioritäten aus V1.2 bleiben erhalten
+## Pflicht-Testfälle für V1.4
 
-### Priorität 1: Ungespeichert-Warnung
+Bitte vor Freigabe als stabil testen:
 
-Die App erkennt weiterhin, ob seit dem letzten Speichern Änderungen gemacht wurden.
-
-Oben beim aktiven Törn steht:
+### Test 1: Standardfall
 
 ```text
-Gespeichert
+Vollzahler + Schenker + Giftmann
+Giftmann-Häkchen Fixkosten und Mannschaftskasse aktiv
+Geschenke reichen aus
 ```
 
-oder:
+Erwartung:
 
 ```text
-Ungespeichert
+Giftmann zahlt 0,00 €
+Kontrollabweichung ohne Kaution ~ 0,00 €
+Kautionsdifferenz ~ 0,00 €
 ```
 
-Bei riskanten Aktionen warnt die App, zum Beispiel beim Törnwechsel, Backup-Import oder Cloud-Laden.
+### Test 2: Nur Fixkosten
 
-### Priorität 2: Alle Törns in Cloud speichern
-
-Der Button bleibt erhalten:
+Eine Person auf Rolle stellen:
 
 ```text
-Alle lokalen Törns in Cloud speichern
+Nur Fixkosten
 ```
 
-Damit werden alle lokalen Törns nacheinander nach Supabase übertragen.
-
-### Priorität 3: Speicherstatus je Törn
-
-Jede Törnkarte zeigt weiterhin:
+Erwartung:
 
 ```text
-Lokal gespeichert: Datum/Uhrzeit
-Cloud: gespeichert Datum/Uhrzeit · Rev. X
+Person zahlt nur Fixkosten
+keine Mannschaftskasse
+keine Sonstige
+kein Giftmann-Rest
 ```
 
-oder:
+### Test 3: Nur Sonstige
+
+Eine Person auf Rolle stellen:
 
 ```text
-Cloud: noch nicht gespeichert
+Nur Sonstige
 ```
 
-### Priorität 4: Sicherer Cloud-Import
-
-Cloud-Laden bleibt bewusst sicher:
+Erwartung:
 
 ```text
-Ausgewählten Cloud-Törn übernehmen
+Person zahlt nur Sonstige
+keine Fixkosten
+keine Mannschaftskasse
+kein Giftmann-Rest
 ```
 
-überschreibt nur nach Rückfrage.
+### Test 4: Giftmann ohne Häkchen
+
+Alle Giftmann-Häkchen ausschalten.
+
+Erwartung:
 
 ```text
-Als Kopie importieren
+Giftmann rechnerischer Anteil = 0,00 €
+Geschenke werden als Überschuss behandelt
+Giftmann zahlt 0,00 €
 ```
 
-legt eine neue lokale Kopie an und fragt jetzt nach einem neuen Namen.
+### Test 5: Geschenke reichen nicht
 
-### Priorität 5: Automatisches lokales Speichern bleibt vorerst deaktiviert
+Schenkerbetrag reduzieren.
 
-Automatisches Speichern ist weiterhin bewusst nicht aktiviert.
-
-Der sichere Arbeitsfluss bleibt:
+Erwartung:
 
 ```text
-Änderung machen
-→ Ergebnis prüfen
-→ bewusst Speichern klicken
-→ optional Cloud speichern
-```
-
----
-
-## Supabase-Zugangsdaten
-
-In der App brauchst du weiterhin:
-
-```text
-Project URL
-Publishable / anon Key
-E-Mail
-Passwort
-```
-
-Wichtig:
-
-```text
-Niemals service_role oder secret key in die App eintragen.
-```
-
-Die Project URL und der öffentliche Key stehen in Supabase unter:
-
-```text
-Project Settings
-→ API / API Keys
+offener Giftmann-Rest wird nur auf Vollzahler verteilt
+Nur Fixkosten bleibt nur Fixkosten
+Nur Sonstige bleibt nur Sonstige
+Giftmann bleibt 0,00 €
 ```
 
 ---
 
-## Was wird in Supabase gespeichert?
-
-V1.3 speichert den Törnzustand weiterhin als JSON.
-
-Das ist Absicht:
-
-- Die lokale App bleibt die Rechenbasis.
-- Supabase speichert nur den Zustand.
-- Die bestehende Berechnung wird nicht auseinandergezogen.
-- Giftman/Giftmann bleibt durch die unveränderte lokale Logik geschützt.
-
----
-
-## Pflichtprüfung nach dem ersten Öffnen
-
-Nach dem ersten Öffnen von V1.3 bitte prüfen:
+## Geänderte Dateien
 
 ```text
-Giftman 1. Überweisung: 0,00 €
-Giftman Charter fällig: 0,00 €
-Giftman Mannschaftskasse fällig: 0,00 €
-Einzelbeträge und Teilnehmerverwaltung konsistent
-Mannschaftskasse weiterhin wie bisher
+index.html
+README.md
+sw.js
 ```
 
----
-
-## Versionsstand
+## Nicht geändert
 
 ```text
-V1.0 stabil
-V1.1 Cloud-Test
-V1.2 Save Guard
-V1.3 Trip Names
+app.js
+assets/
+manifest.webmanifest
+supabase_migration_001_initial_sync_schema.sql
 ```
+
+Hinweis: Die laufende App steckt weiterhin in `index.html`. Die Datei `app.js` liegt im Paket, wird aber von der aktuellen HTML nicht als Hauptlogik geladen.
+
+
+
+## V1.4 Endversion – Korrekturen aus der Arbeitsphase
+
+Diese Endversion enthält die geprüften Korrekturen aus der V1.4.1-Arbeitsphase:
+
+1. **Giftmann-Beteiligung bei alten oder teilweise gespeicherten Daten**  
+   Fehlende Häkchen werden nicht mehr stillschweigend als `false` behandelt. Der V1.0/V1.3-Standard bleibt erhalten: Giftmann zählt rechnerisch zu Fixkosten und Mannschaftskasse, Sonstige bleibt zunächst aus, sofern nichts anderes gesetzt wurde. Dadurch wird Giftmann bei Mannschaftskasse-Kosten wieder als Person berücksichtigt, wenn das Mannschaftskasse-Häkchen aktiv ist.
+
+2. **Teilnehmerverwaltung zeigt endgültigen Gesamtbetrag**  
+   Je Teilnehmer wird zusätzlich eine Zeile „Endgültig zahlbar gesamt“ angezeigt. Dieser Betrag ist der zahlbare Betrag nach Giftmann-Entlastung, Schenkerbeträgen, Restverteilung auf Vollzahler und Kaution.
+
+Nicht geändert wurden die drei Grundregeln: nur Kostenbereiche Fixkosten, Mannschaftskasse, Sonstige; Giftmann zahlt selbst 0 €; offener Giftmann-Rest wird nur auf Vollzahler verteilt.
