@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chillout-pirates-kosten-v142-overview-total-v1';
+const CACHE_NAME = 'chillout-pirates-kosten-v142-storage-status-v1';
 const ASSETS = [
   './',
   './index.html',
@@ -24,4 +24,4 @@ self.addEventListener('fetch', event => {
   }).catch(() => caches.match('./index.html'))));
 });
 
-// v1.4.2 overview total display 2026-06-08
+// v1.4.2 storage status display 2026-06-08
