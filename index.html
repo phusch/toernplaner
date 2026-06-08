@@ -12,7 +12,7 @@
 <title>Chillout Pirates – Kostenaufteilung</title>
 <style>
 :root{--bg:#050505;--bg2:#0b0b0a;--card:#11100f;--line:#3b3329;--cream:#e7d7b8;--muted:#a99a81;--teal:#58a99d;--orange:#b9691c;--purple:#8d5bb3;--green:#64b56c;--red:#d96b5f;--ink:#0b0a09;--shadow:0 18px 50px rgba(0,0,0,.55)}
-*{box-sizing:border-box} html{background:var(--bg)} body{margin:0;color:var(--cream);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.35;background:radial-gradient(circle at 10% 0%,rgba(88,169,157,.22),transparent 30%),radial-gradient(circle at 90% 5%,rgba(185,105,28,.15),transparent 30%),linear-gradient(180deg,#050505 0%,#0b0b0a 65%,#050505 100%);min-height:100vh} body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background-image:repeating-linear-gradient(45deg,rgba(231,215,184,.13) 0 1px,transparent 1px 10px);mix-blend-mode:screen}.wrap{max-width:1180px;margin:0 auto;padding:18px}.hero{display:grid;grid-template-columns:116px 1fr;gap:18px;align-items:center;padding-top:calc(12px + env(safe-area-inset-top))}.logo{width:116px;height:116px;border-radius:50%;object-fit:cover;border:2px solid rgba(231,215,184,.55);box-shadow:0 0 0 5px rgba(88,169,157,.10),0 18px 45px rgba(0,0,0,.7)}.brand h1{margin:0;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.10em;font-size:clamp(30px,6vw,62px);text-shadow:0 2px 0 #000,0 0 22px rgba(231,215,184,.16)}.brand .sub{margin:4px 0 0;color:var(--teal);text-transform:uppercase;letter-spacing:.20em;font-weight:900;font-size:clamp(13px,2.3vw,22px)}.divider{display:flex;align-items:center;gap:16px;color:var(--teal);margin-top:8px}.divider:before,.divider:after{content:"";height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);flex:1}.tabs{display:flex;gap:10px;margin:16px 0;overflow:auto;padding-bottom:2px}.tab,button{font:inherit;border:1px solid rgba(231,215,184,.20);border-radius:12px;padding:11px 14px;background:linear-gradient(180deg,#201d1a,#0c0b0a);color:var(--cream);font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;box-shadow:0 10px 26px rgba(0,0,0,.35);white-space:nowrap}.tab.active,button.primary{border-color:rgba(88,169,157,.8);background:linear-gradient(180deg,#1d6159,#103b37)}button.secondary{color:var(--teal)}button.danger{color:#ffd3cc;border-color:rgba(217,107,95,.45)}.grid{display:grid;grid-template-columns:.94fr 1.26fr;gap:18px;align-items:start}.card{background:linear-gradient(180deg,rgba(27,25,22,.95),rgba(10,10,9,.95));border:1px solid rgba(231,215,184,.20);border-radius:18px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}.card:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(88,169,157,.14)}h2{margin:0 0 14px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.08em;font-size:18px}.icon{color:var(--teal);margin-right:8px}.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kpi{border:1px solid rgba(88,169,157,.35);border-radius:16px;padding:18px 14px;min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(88,169,157,.22),transparent 58%),linear-gradient(180deg,rgba(15,54,50,.75),rgba(6,15,14,.88))}.kpi.gift{border-color:rgba(141,91,179,.5);background:radial-gradient(circle at 50% 0%,rgba(141,91,179,.25),transparent 60%),linear-gradient(180deg,rgba(42,27,49,.75),rgba(13,10,15,.88))}.kpi .emoji{font-size:30px}.kpi span{font-size:13px;color:#d9cbb2;margin-top:7px}.kpi b{font-family:Georgia,"Times New Roman",serif;font-size:clamp(29px,5vw,42px);letter-spacing:.04em;margin-top:7px}.checks{display:grid;gap:8px;margin-top:16px}.check{display:flex;justify-content:space-between;gap:12px;border:1px solid rgba(231,215,184,.18);border-radius:12px;padding:11px 12px;background:rgba(255,255,255,.035)}.ok{color:var(--green);font-weight:900}.bad{color:var(--red);font-weight:900}.parchment{background:linear-gradient(180deg,rgba(222,195,150,.96),rgba(176,139,88,.92));color:#1b130b;border-color:rgba(231,215,184,.65)}.parchment h2{color:#1b130b}.parchment .check{background:rgba(255,255,255,.28);border-color:rgba(67,43,23,.18)}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid rgba(231,215,184,.14);padding:9px 8px;text-align:left;vertical-align:middle}th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:900}input,select,textarea{font:inherit;width:100%;border:1px solid rgba(231,215,184,.20);border-radius:10px;padding:10px 9px;background:#11100f;color:var(--cream)}textarea{resize:vertical;min-height:70px}input[type=number]{text-align:right}.role-dirk select{background:linear-gradient(180deg,#236a61,#17463f)}.role-mit select{background:linear-gradient(180deg,#b9691c,#81420d)}.role-gift select{background:linear-gradient(180deg,#8d5bb3,#5c3478)}.role-none select{background:linear-gradient(180deg,#484848,#2b2b2b)}.role-fixed select{background:linear-gradient(180deg,#4f6b9f,#283c61)}.role-other select{background:linear-gradient(180deg,#78623b,#4b3b20)}.role-dirk td:first-child,.role-mit td:first-child,.role-gift td:first-child,.role-none td:first-child,.role-fixed td:first-child,.role-other td:first-child{font-weight:800}.giftmann-options{margin-top:7px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-size:12px;color:var(--muted)}.giftmann-options label{display:flex;align-items:center;gap:4px;font-weight:700}.giftmann-options input{width:auto}.legacy-role-note{font-size:12px;color:var(--muted);margin-top:6px}.scroll{overflow:auto}.people-table{table-layout:fixed}.people-table th:nth-child(1),.people-table td:nth-child(1){width:42%;word-break:break-word}.people-table th:nth-child(2),.people-table td:nth-child(2){width:46%}.people-table th:nth-child(3),.people-table td:nth-child(3){width:12%;text-align:right}.edit-people{table-layout:auto}.edit-people th:nth-child(1),.edit-people td:nth-child(1){width:46%}.edit-people th:nth-child(2),.edit-people td:nth-child(2){width:42%}.edit-people th:nth-child(3),.edit-people td:nth-child(3){width:12%;text-align:right}.preview-people th:nth-child(1),.preview-people td:nth-child(1){width:48%}.preview-people th:nth-child(2),.preview-people td:nth-child(2){width:52%}.people-control{margin:0 0 14px}.money,.result-table td:nth-child(n+4),.result-table th:nth-child(n+4){text-align:right;white-space:nowrap}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.pillrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.pill{border:1px solid rgba(88,169,157,.35);border-radius:12px;padding:10px;background:rgba(88,169,157,.10);text-align:center}.pill b{font-size:22px;display:block}.note{margin-top:14px;padding:12px;border-radius:14px;background:rgba(88,169,157,.12);border:1px solid rgba(88,169,157,.28);color:#d8efe9}.status{margin-top:10px;color:var(--muted);font-size:13px}.hide{display:none!important}.footer{margin:18px 0;text-align:center;color:var(--teal);font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.12em;font-weight:900}.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;z-index:99;padding:12px 16px;border-radius:999px;background:#0f3f3a;color:#fff;border:1px solid rgba(88,169,157,.8);box-shadow:var(--shadow);transition:.25s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.trip-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.trip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:14px}.trip-card{border:1px solid rgba(88,169,157,.35);border-radius:16px;padding:16px;background:radial-gradient(circle at 50% 0%,rgba(88,169,157,.15),transparent 62%),linear-gradient(180deg,rgba(20,19,17,.92),rgba(7,7,6,.92));box-shadow:0 12px 30px rgba(0,0,0,.32)}.trip-card h3{margin:0 0 8px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.06em}.trip-name-edit{margin:4px 0 10px;border-color:rgba(88,169,157,.45);font-weight:900}.trip-name-row{display:grid;gap:5px;margin-bottom:8px}.trip-meta{color:var(--muted);font-size:13px;margin:6px 0 12px}.trip-actions{display:flex;gap:8px;flex-wrap:wrap}.active-trip{margin:-6px 0 14px;padding:10px 12px;border:1px solid rgba(88,169,157,.28);border-radius:14px;background:rgba(88,169,157,.10);color:#d8efe9}.small{font-size:12px;color:var(--muted)}
+*{box-sizing:border-box} html{background:var(--bg)} body{margin:0;color:var(--cream);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.35;background:radial-gradient(circle at 10% 0%,rgba(88,169,157,.22),transparent 30%),radial-gradient(circle at 90% 5%,rgba(185,105,28,.15),transparent 30%),linear-gradient(180deg,#050505 0%,#0b0b0a 65%,#050505 100%);min-height:100vh} body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background-image:repeating-linear-gradient(45deg,rgba(231,215,184,.13) 0 1px,transparent 1px 10px);mix-blend-mode:screen}.wrap{max-width:1180px;margin:0 auto;padding:18px}.hero{display:grid;grid-template-columns:116px 1fr;gap:18px;align-items:center;padding-top:calc(12px + env(safe-area-inset-top))}.logo{width:116px;height:116px;border-radius:50%;object-fit:cover;border:2px solid rgba(231,215,184,.55);box-shadow:0 0 0 5px rgba(88,169,157,.10),0 18px 45px rgba(0,0,0,.7)}.brand h1{margin:0;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.10em;font-size:clamp(30px,6vw,62px);text-shadow:0 2px 0 #000,0 0 22px rgba(231,215,184,.16)}.brand .sub{margin:4px 0 0;color:var(--teal);text-transform:uppercase;letter-spacing:.20em;font-weight:900;font-size:clamp(13px,2.3vw,22px)}.divider{display:flex;align-items:center;gap:16px;color:var(--teal);margin-top:8px}.divider:before,.divider:after{content:"";height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent);flex:1}.tabs{display:flex;gap:10px;margin:16px 0;overflow:auto;padding-bottom:2px}.tab,button{font:inherit;border:1px solid rgba(231,215,184,.20);border-radius:12px;padding:11px 14px;background:linear-gradient(180deg,#201d1a,#0c0b0a);color:var(--cream);font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;box-shadow:0 10px 26px rgba(0,0,0,.35);white-space:nowrap}.tab.active,button.primary{border-color:rgba(88,169,157,.8);background:linear-gradient(180deg,#1d6159,#103b37)}button.secondary{color:var(--teal)}button.danger{color:#ffd3cc;border-color:rgba(217,107,95,.45)}.grid{display:grid;grid-template-columns:.94fr 1.26fr;gap:18px;align-items:start}.card{background:linear-gradient(180deg,rgba(27,25,22,.95),rgba(10,10,9,.95));border:1px solid rgba(231,215,184,.20);border-radius:18px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}.card:after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(88,169,157,.14)}h2{margin:0 0 14px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.08em;font-size:18px}.icon{color:var(--teal);margin-right:8px}.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kpi{border:1px solid rgba(88,169,157,.35);border-radius:16px;padding:18px 14px;min-height:130px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(88,169,157,.22),transparent 58%),linear-gradient(180deg,rgba(15,54,50,.75),rgba(6,15,14,.88))}.kpi.gift{border-color:rgba(141,91,179,.5);background:radial-gradient(circle at 50% 0%,rgba(141,91,179,.25),transparent 60%),linear-gradient(180deg,rgba(42,27,49,.75),rgba(13,10,15,.88))}.kpi .emoji{font-size:30px}.kpi span{font-size:13px;color:#d9cbb2;margin-top:7px}.kpi b{font-family:Georgia,"Times New Roman",serif;font-size:clamp(29px,5vw,42px);letter-spacing:.04em;margin-top:7px}.checks{display:grid;gap:8px;margin-top:16px}.check{display:flex;justify-content:space-between;gap:12px;border:1px solid rgba(231,215,184,.18);border-radius:12px;padding:11px 12px;background:rgba(255,255,255,.035)}.ok{color:var(--green);font-weight:900}.bad{color:var(--red);font-weight:900}.parchment{background:linear-gradient(180deg,rgba(222,195,150,.96),rgba(176,139,88,.92));color:#1b130b;border-color:rgba(231,215,184,.65)}.parchment h2{color:#1b130b}.parchment .check{background:rgba(255,255,255,.28);border-color:rgba(67,43,23,.18)}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid rgba(231,215,184,.14);padding:9px 8px;text-align:left;vertical-align:middle}th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:900}input,select,textarea{font:inherit;width:100%;border:1px solid rgba(231,215,184,.20);border-radius:10px;padding:10px 9px;background:#11100f;color:var(--cream)}textarea{resize:vertical;min-height:70px}input[type=number]{text-align:right}.role-dirk select{background:linear-gradient(180deg,#236a61,#17463f)}.role-mit select{background:linear-gradient(180deg,#b9691c,#81420d)}.role-gift select{background:linear-gradient(180deg,#8d5bb3,#5c3478)}.role-none select{background:linear-gradient(180deg,#484848,#2b2b2b)}.role-fixed select{background:linear-gradient(180deg,#4f6b9f,#283c61)}.role-other select{background:linear-gradient(180deg,#78623b,#4b3b20)}.role-dirk td:first-child,.role-mit td:first-child,.role-gift td:first-child,.role-none td:first-child,.role-fixed td:first-child,.role-other td:first-child{font-weight:800}.giftmann-options{margin-top:7px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-size:12px;color:var(--muted)}.giftmann-options label{display:flex;align-items:center;gap:4px;font-weight:700}.giftmann-options input{width:auto}.legacy-role-note{font-size:12px;color:var(--muted);margin-top:6px}.scroll{overflow:auto}.people-table{table-layout:fixed}.people-table th:nth-child(1),.people-table td:nth-child(1){width:42%;word-break:break-word}.people-table th:nth-child(2),.people-table td:nth-child(2){width:46%}.people-table th:nth-child(3),.people-table td:nth-child(3){width:12%;text-align:right}.edit-people{table-layout:auto}.edit-people th:nth-child(1),.edit-people td:nth-child(1){width:46%}.edit-people th:nth-child(2),.edit-people td:nth-child(2){width:42%}.edit-people th:nth-child(3),.edit-people td:nth-child(3){width:12%;text-align:right}.preview-people th:nth-child(1),.preview-people td:nth-child(1){width:36%;word-break:break-word}.preview-people th:nth-child(2),.preview-people td:nth-child(2){width:40%;white-space:normal;word-break:break-word}.preview-people th:nth-child(3),.preview-people td:nth-child(3){width:24%;text-align:right;white-space:nowrap}.people-control{margin:0 0 14px}.money,.result-table td:nth-child(n+4),.result-table th:nth-child(n+4){text-align:right;white-space:nowrap}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.pillrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.pill{border:1px solid rgba(88,169,157,.35);border-radius:12px;padding:10px;background:rgba(88,169,157,.10);text-align:center}.pill b{font-size:22px;display:block}.note{margin-top:14px;padding:12px;border-radius:14px;background:rgba(88,169,157,.12);border:1px solid rgba(88,169,157,.28);color:#d8efe9}.status{margin-top:10px;color:var(--muted);font-size:13px}.hide{display:none!important}.footer{margin:18px 0;text-align:center;color:var(--teal);font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.12em;font-weight:900}.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;z-index:99;padding:12px 16px;border-radius:999px;background:#0f3f3a;color:#fff;border:1px solid rgba(88,169,157,.8);box-shadow:var(--shadow);transition:.25s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.trip-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.trip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:14px}.trip-card{border:1px solid rgba(88,169,157,.35);border-radius:16px;padding:16px;background:radial-gradient(circle at 50% 0%,rgba(88,169,157,.15),transparent 62%),linear-gradient(180deg,rgba(20,19,17,.92),rgba(7,7,6,.92));box-shadow:0 12px 30px rgba(0,0,0,.32)}.trip-card h3{margin:0 0 8px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;letter-spacing:.06em}.trip-name-edit{margin:4px 0 10px;border-color:rgba(88,169,157,.45);font-weight:900}.trip-name-row{display:grid;gap:5px;margin-bottom:8px}.trip-meta{color:var(--muted);font-size:13px;margin:6px 0 12px}.trip-actions{display:flex;gap:8px;flex-wrap:wrap}.active-trip{margin:-6px 0 14px;padding:10px 12px;border:1px solid rgba(88,169,157,.28);border-radius:14px;background:rgba(88,169,157,.10);color:#d8efe9}.small{font-size:12px;color:var(--muted)}
 .cost-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:18px}
 .cost-sum{border:1px solid var(--line);border-radius:16px;padding:12px;background:linear-gradient(180deg,rgba(185,105,28,.16),rgba(0,0,0,.12))}
 .cost-sum span{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}.cost-sum b{font-size:20px}
@@ -81,12 +81,12 @@
 <header class="wrap hero"><img class="logo" src="assets/logo.png" alt="Chillout Pirates Logo"><div class="brand"><h1>Chillout Pirates</h1><div class="divider">★</div><p class="sub">Kostenaufteilung · Love me Fender</p></div></header>
 <main class="wrap">
   <div class="tabs"><button class="tab active" onclick="showTab('trips', this)">🗺 Törns</button><button class="tab" onclick="showTab('overview', this)">☠ Übersicht</button><button class="tab" onclick="showTab('people', this)">👥 Teilnehmer</button><button class="tab" onclick="showTab('settings', this)">⚙ Kosten</button><button class="tab" onclick="showTab('admin', this)">📬 Teilnehmerverwaltung</button><button class="tab" onclick="showTab('results', this)">🧾 Einzelbeträge</button></div><div class="active-trip" id="activeTripBadge"></div>
-  <section id="tab-trips" class="card"><div class="trip-head"><div><h2><span class="icon">🗺</span>Törn-Verwaltung</h2><p class="small">Mehrere Kalkulationen lokal im Browser speichern. Cloud-Speichern ist weiterhin manuell. Neu in V1.4 Endversion: Rollenlogik mit Vollzahler, Nur Fixkosten, Nur Sonstige, Giftmann und Schenker.</p></div><div class="toolbar" style="margin-top:0"><button class="primary" onclick="createTrip()">Neuen Törn anlegen</button><button class="secondary" onclick="importBackup()">Backup importieren</button></div></div><div class="trip-grid" id="tripList"></div><p class="note">Hinweis: Die Törns bleiben weiterhin dauerhaft auf diesem Gerät und in diesem Browser gespeichert. Supabase ist optional: erst einloggen, dann bewusst „Cloud speichern“ oder „Cloud-Liste laden“ klicken.</p><div class="note-block" id="cloudSyncBlock"><h2><span class="icon">☁️</span>Supabase Cloud-Speicher</h2><p class="small">Project URL und öffentlichen publishable/anon Key eintragen. Niemals den service_role oder secret key verwenden.</p><div class="control-grid cloud-grid"><div class="control-tile wide"><label for="cloudUrl">Project URL</label><input id="cloudUrl" type="url" placeholder="https://dein-projekt.supabase.co" autocomplete="off"></div><div class="control-tile wide"><label for="cloudKey">Publishable / anon Key</label><input id="cloudKey" type="password" placeholder="sb_publishable... oder eyJ..." autocomplete="off"></div><div class="control-tile"><label for="cloudEmail">E-Mail</label><input id="cloudEmail" type="email" placeholder="name@example.de" autocomplete="username"></div><div class="control-tile"><label for="cloudPassword">Passwort</label><input id="cloudPassword" type="password" placeholder="Passwort" autocomplete="current-password"></div></div><div class="toolbar cloud-actions"><button class="secondary" onclick="cloudSaveConfig()">Verbindung speichern</button><button class="secondary" onclick="cloudRegister()">Registrieren</button><button class="secondary" onclick="cloudLogin()">Einloggen</button><button class="secondary" onclick="cloudLogout()">Logout</button><button class="primary" onclick="cloudSaveActiveTrip()">Aktiven Törn in Cloud speichern</button><button class="primary" onclick="cloudSaveAllTrips()">Alle lokalen Törns in Cloud speichern</button><button class="secondary" onclick="cloudLoadTripList()">Cloud-Liste laden</button><button class="secondary" onclick="cloudImportSelectedTrip(false)">Ausgewählten Cloud-Törn übernehmen</button><button class="secondary" onclick="cloudImportSelectedTrip(true)">Als Kopie importieren</button></div><select id="cloudTripSelect" aria-label="Cloud-Törn auswählen"><option value="">Noch keine Cloud-Liste geladen</option></select><div class="status" id="cloudStatus">Cloud nicht verbunden.</div><p class="cloud-hint">Sicherheitsprinzip: Cloud-Laden warnt vor ungespeicherten Eingaben. Überschreiben ist nur nach Bestätigung möglich, alternativ als Kopie importieren. Die Rollen-/Kostenlogik ist in V1.4 final freigegeben.</p></div><div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Allgemeine Bemerkungen zur Törn-Verwaltung ..." onchange="updatePageNote('trips',this.value)" id="note-trips"></textarea></div></section>
+  <section id="tab-trips" class="card"><div class="trip-head"><div><h2><span class="icon">🗺</span>Törn-Verwaltung</h2><p class="small">Mehrere Kalkulationen lokal im Browser speichern. Cloud-Speichern ist weiterhin manuell. Neu in V1.4.2: Giftmann-Häkchen bedeuten „Bereich geschenkt“; Giftmann zahlt nicht geschenkte Bereiche selbst.</p></div><div class="toolbar" style="margin-top:0"><button class="primary" onclick="createTrip()">Neuen Törn anlegen</button><button class="secondary" onclick="importBackup()">Backup importieren</button></div></div><div class="trip-grid" id="tripList"></div><p class="note">Hinweis: Die Törns bleiben weiterhin dauerhaft auf diesem Gerät und in diesem Browser gespeichert. Supabase ist optional: erst einloggen, dann bewusst „Cloud speichern“ oder „Cloud-Liste laden“ klicken.</p><div class="note-block" id="cloudSyncBlock"><h2><span class="icon">☁️</span>Supabase Cloud-Speicher</h2><p class="small">Project URL und öffentlichen publishable/anon Key eintragen. Niemals den service_role oder secret key verwenden.</p><div class="control-grid cloud-grid"><div class="control-tile wide"><label for="cloudUrl">Project URL</label><input id="cloudUrl" type="url" placeholder="https://dein-projekt.supabase.co" autocomplete="off"></div><div class="control-tile wide"><label for="cloudKey">Publishable / anon Key</label><input id="cloudKey" type="password" placeholder="sb_publishable... oder eyJ..." autocomplete="off"></div><div class="control-tile"><label for="cloudEmail">E-Mail</label><input id="cloudEmail" type="email" placeholder="name@example.de" autocomplete="username"></div><div class="control-tile"><label for="cloudPassword">Passwort</label><input id="cloudPassword" type="password" placeholder="Passwort" autocomplete="current-password"></div></div><div class="toolbar cloud-actions"><button class="secondary" onclick="cloudSaveConfig()">Verbindung speichern</button><button class="secondary" onclick="cloudRegister()">Registrieren</button><button class="secondary" onclick="cloudLogin()">Einloggen</button><button class="secondary" onclick="cloudLogout()">Logout</button><button class="primary" onclick="cloudSaveActiveTrip()">Aktiven Törn in Cloud speichern</button><button class="primary" onclick="cloudSaveAllTrips()">Alle lokalen Törns in Cloud speichern</button><button class="secondary" onclick="cloudLoadTripList()">Cloud-Liste laden</button><button class="secondary" onclick="cloudImportSelectedTrip(false)">Ausgewählten Cloud-Törn übernehmen</button><button class="secondary" onclick="cloudImportSelectedTrip(true)">Als Kopie importieren</button></div><select id="cloudTripSelect" aria-label="Cloud-Törn auswählen"><option value="">Noch keine Cloud-Liste geladen</option></select><div class="status" id="cloudStatus">Cloud nicht verbunden.</div><p class="cloud-hint">Sicherheitsprinzip: Cloud-Laden warnt vor ungespeicherten Eingaben. Überschreiben ist nur nach Bestätigung möglich, alternativ als Kopie importieren. Die Rollen-/Kostenlogik ist in V1.4.2 korrigiert: Giftmann-Häkchen bedeuten „geschenkt“.</p></div><div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Allgemeine Bemerkungen zur Törn-Verwaltung ..." onchange="updatePageNote('trips',this.value)" id="note-trips"></textarea></div></section>
   <section class="hide" id="tab-overview">
     <section class="card">
       <h2><span class="icon">👥</span>Rollen-Übersicht</h2>
       <div class="pillrow">
-        <div class="pill"><b id="countMit">–</b>Vollzahler</div>
+        <div class="pill"><b id="countMit">–</b>Mitreisende</div>
         <div class="pill"><b id="countAboard">–</b>An Bord inkl. Giftmann</div>
         <div class="pill"><b id="countGift">–</b>Schenker</div>
         <div class="pill"><b id="countNone">–</b>Teilzahler</div>
@@ -95,15 +95,15 @@
     <section class="card" style="margin-top:18px">
       <h2><span class="icon">🏴‍☠️</span>Ergebnisse</h2>
       <div class="kpis">
-        <div class="kpi"><div class="emoji">👥</div><span>Vollzahler zahlen</span><b id="kpiTrip">–</b><span>pro Person ohne Kaution</span></div>
+        <div class="kpi"><div class="emoji">👥</div><span>Mitreisende zahlen</span><b id="kpiTrip">–</b><span>pro Person ohne Kaution</span></div>
         <div class="kpi gift"><div class="emoji">🎁</div><span>Schenker zahlen</span><b id="kpiGift">–</b><span>pro Person</span></div>
-        <div class="kpi"><div class="emoji">🧍</div><span>Giftmanns rechnerischer Anteil</span><b id="kpiGiftman">–</b><span>wird durch Geschenke/Vollzahler getragen</span></div>
-        <div class="kpi"><div class="emoji">🪙</div><span>1. Überweisung inkl. Kaution</span><b id="kpiTransfer">–</b><span>pro Vollzahler</span></div>
+        <div class="kpi"><div class="emoji">🧍</div><span>Giftmann zahlt selbst</span><b id="kpiGiftman">–</b><span>nach Geschenklogik ohne Kaution</span></div>
+        <div class="kpi"><div class="emoji">🪙</div><span>1. Überweisung inkl. Kaution</span><b id="kpiTransfer">–</b><span>pro Mitreisendem</span></div>
       </div>
     </section>
     <section class="card" style="margin-top:18px">
-      <h2><span class="icon">👥</span>Teilnehmer & Rollen</h2>
-      <div class="scroll"><table class="people-table preview-people"><thead><tr><th>Name</th><th>Rolle</th></tr></thead><tbody id="peoplePreview"></tbody></table></div>
+      <h2><span class="icon">👥</span>Teilnehmer & Rollen & Gesamtbetrag</h2>
+      <div class="scroll"><table class="people-table preview-people"><thead><tr><th>Name</th><th>Rolle</th><th>Gesamtbetrag</th></tr></thead><tbody id="peoplePreview"></tbody></table></div>
       <div class="toolbar"><button class="secondary" onclick="activateTab(1)">Rollen ändern</button><button class="primary" onclick="manualSave()">Speichern</button><button class="secondary" onclick="shareSummary()">Teilen</button></div>
       <div class="status" id="standDate">Stand: –</div>
     </section>
@@ -115,7 +115,7 @@
   </section><section class="card hide" id="tab-people">
     <h2><span class="icon">👥</span>Personen/Rollen schnell ändern</h2>
     <div class="pillrow people-control" id="peopleControlCounts">
-      <div class="pill"><b>–</b>Vollzahler</div>
+      <div class="pill"><b>–</b>Mitreisende</div>
       <div class="pill"><b>–</b>Schenker</div>
       <div class="pill"><b>–</b>An Bord inkl. Giftmann</div>
       <div class="pill"><b>–</b>Teilzahler</div>
@@ -129,7 +129,7 @@
     <h2 style="margin-top:18px"><span class="icon">⚙</span>Kosten & Steuerung</h2>
     <div class="control-grid">
       <div class="control-tile"><label for="giftAmount">Schenkerbetrag pro Schenker</label><input id="giftAmount" type="number" min="0" step="0.01"></div>
-      <div class="control-tile"><label for="surplusReduces">Geschenk-Überschuss reduziert Vollzahler</label><select id="surplusReduces"><option>Ja</option><option>Nein</option></select></div>
+      <div class="control-tile"><label for="surplusReduces">Geschenk-Überschuss reduziert Mitreisende</label><select id="surplusReduces"><option>Ja</option><option>Nein</option></select></div>
       <div class="control-tile"><label for="depositPerBoat">Kaution pro Boot</label><input id="depositPerBoat" type="number" min="0" step="0.01"></div>
       <div class="control-tile"><label for="boats">Anzahl Boote</label><input id="boats" type="number" min="0" step="1"></div>
     </div>
@@ -181,14 +181,14 @@
 
         <section id="help-roles">
           <h3>Rollen erklärt</h3>
-          <h4>Vollzahler</h4>
+          <h4>Mitreisende</h4>
           <ul><li>Nimmt am Törn teil.</li><li>Zahlt Fixkosten, Mannschaftskasse und Sonstige.</li><li>Trägt außerdem einen offenen Giftmann-Rest, falls Geschenke nicht reichen.</li></ul>
           <h4>Nur Fixkosten</h4>
           <ul><li>Zahlt nur Kostenpositionen im Bereich Fixkosten.</li></ul>
           <h4>Nur Sonstige</h4>
           <ul><li>Zahlt nur Kostenpositionen im Bereich Sonstige.</li><li>Zahlt ausdrücklich keine Mannschaftskasse.</li></ul>
           <h4>Giftmann</h4>
-          <ul><li>Wird beschenkt.</li><li>Grundbeteiligung ist 0.</li><li>Optionale Häkchen legen fest, ob er rechnerisch an Fixkosten, Mannschaftskasse und/oder Sonstige beteiligt wird.</li></ul>
+          <ul><li>Wird beschenkt.</li><li>Grundbeteiligung ist 0.</li><li>Die Häkchen bedeuten: Dieser Bereich wird geschenkt. Nicht angekreuzte Bereiche zahlt der Giftmann selbst.</li></ul>
           <h4>Schenker</h4>
           <ul><li>Nimmt nicht am Törn teil.</li><li>Zahlt den Geschenkbeitrag.</li></ul>
         </section>
@@ -220,8 +220,8 @@
 
         <section id="help-faq">
           <h3>FAQ</h3>
-          <h4>Warum zahlt der Giftmann nichts?</h4>
-          <p>Der Giftmann ist die beschenkte Person. Seine rechnerische Beteiligung wird über die drei Häkchen gesteuert; Geschenke decken seinen Anteil, ein offener Rest geht nur auf Vollzahler.</p>
+          <h4>Wie funktioniert die Giftmann-Logik?</h4>
+          <p>Der Giftmann verursacht Kosten. Angekreuzte Bereiche werden geschenkt; nicht angekreuzte Bereiche zahlt der Giftmann selbst. Reichen Schenkerbeträge für geschenkte Bereiche nicht, geht der offene Rest nur auf Mitreisende.</p>
           <h4>Warum stimmt ein Betrag nicht?</h4>
           <ul><li>Rolle prüfen.</li><li>Anzahl Boote prüfen.</li><li>Zeitraum prüfen.</li><li>Kostenart und Anzahl prüfen.</li><li>Bereich der Kostenposition prüfen.</li></ul>
         </section>
@@ -246,7 +246,7 @@ v1.5 Hilfe & Handbuch
 v1.1 Cloud-Test: manuelles Supabase-Speichern/Laden
 v1.2 Save Guard: Speicherwarnung, alle Törns in Cloud, sicherer Cloud-Import
 v1.3 Törnnamen: direkt editierbar, Cloud-Kopie mit Wunschname
-v1.4 Endversion: Rollenlogik mit Fixkosten, Mannschaftskasse und Sonstige; Giftmann-Rest nur auf Vollzahler</div>
+v1.4.2 Giftmann-Logik: Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt der Giftmann selbst; Rest nur auf Mitreisende</div>
         </section>
       </div>
     </div>
@@ -271,6 +271,7 @@ function normalizeRole(role){
   if(r==='Sonstige'||r==='Nur-Sonstige'||r==='Nur sonstige Kosten')return 'Nur Sonstige';
   return r||'Vollzahler';
 }
+function roleDisplayName(role){const r=normalizeRole(role);return r==='Vollzahler'?'Mitreisende':r}
 function normalizeCostArea(area){
   const a=String(area||'').trim();
   if(a==='Fixkosten'||a==='Fixkosten Boot'||a==='Bootscharter'||a==='Charter'||a==='Charterkosten')return 'Fixkosten';
@@ -284,9 +285,9 @@ function ensureGiftmannParticipation(dataObj){
   if(!d.giftmannParticipation||typeof d.giftmannParticipation!=='object'||Array.isArray(d.giftmannParticipation)){
     d.giftmannParticipation={};
   }
-  // V1.4.1: fehlende Einzel-Häkchen dürfen nicht stillschweigend zu false werden.
-  // Alte oder teilweise gespeicherte Daten sollen den V1.0/V1.3-Standard behalten:
-  // Giftmann zählt rechnerisch zu Fixkosten und Mannschaftskasse, Sonstige bleibt zunächst aus.
+  // V1.4.2: Die Häkchen bedeuten künftig „Bereich wird geschenkt“.
+  // Für alte V1.4/V1.4.2-Daten bleiben fehlende Werte kompatibel vorbelegt:
+  // Fixkosten und Mannschaftskasse geschenkt, Sonstige zunächst nicht.
   if(d.giftmannParticipation.fixed===undefined)d.giftmannParticipation.fixed=true;
   if(d.giftmannParticipation.crewFund===undefined)d.giftmannParticipation.crewFund=legacyCrewFundDefault;
   if(d.giftmannParticipation.other===undefined)d.giftmannParticipation.other=false;
@@ -388,7 +389,7 @@ function readInputs(){const giftModeEl=document.getElementById('giftMode'),dirkE
 function save(silent=true){try{readInputs();const t=getActiveTrip();if(t){t.data=clone(data);t.updatedAt=nowIso()}persistState();saveGuardSetClean();if(!silent)toast('Gespeichert – '+(t?t.name:'Törn'))}catch(e){if(!silent)toast('Speichern im Browser nicht möglich')}}
 function updatePageNote(page,value){const t=getActiveTrip();if(!t)return;t.pageNotes=t.pageNotes||{};t.pageNotes[page]=value;t.updatedAt=nowIso();persistState();updateStatus()}
 function renderPageNotes(){const t=getActiveTrip();const notes=(t&&t.pageNotes)||{};['trips','overview','people','settings','admin','results'].forEach(k=>{const el=document.getElementById('note-'+k);if(el&&el.value!==(notes[k]||''))el.value=notes[k]||''})}
-function renderTripHome(){const box=document.getElementById('tripList');if(!box)return;box.innerHTML='';appState.trips.forEach(migrateTrip);appState.trips.slice().sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).forEach(t=>{const c=quickCalc(t.data);const days=tripDays(t);const div=document.createElement('div');div.className='trip-card';div.innerHTML=`<h3>${escapeHtml(t.name)}</h3><div class="trip-name-row"><label class="small">Törnname</label><input class="trip-name-edit" type="text" value="${escapeHtml(t.name||'')}" placeholder="Törnname vergeben" onchange="updateTripName('${t.id}',this.value)"></div><div class="trip-meta">Zeitraum: ${escapeHtml(tripPeriod(t))} · ${days} Tag${days===1?'':'e'}<br>Lokal gespeichert: ${niceDate(t.updatedAt)}<br>Cloud: ${t.cloudMeta?('gespeichert '+niceDate(t.cloudMeta.savedAt||t.cloudMeta.updatedAt)+' · Rev. '+(t.cloudMeta.revision||'–')):'noch nicht gespeichert'}<br>Vollzahler: ${c.payingTravelers} · 1. Überweisung: ${eur(c.transferPer)}</div><label class="small">Zeitraum von</label><input type="date" value="${escapeHtml(t.startDate||'')}" onchange="updateTripField('${t.id}','startDate',this.value)"><label class="small">Zeitraum bis</label><input type="date" value="${escapeHtml(t.endDate||'')}" onchange="updateTripField('${t.id}','endDate',this.value)"><label class="small">Bemerkung</label><textarea rows="3" placeholder="Bemerkungen zum Törn, Zeitraum, Treffpunkt ..." onchange="updateTripField('${t.id}','notes',this.value)">${escapeHtml(t.notes||'')}</textarea><div class="trip-actions"><button class="primary" onclick="openTrip('${t.id}')">${t.id===appState.activeTripId?'Geöffnet':'Öffnen'}</button><button class="secondary" onclick="renameTrip('${t.id}')">Name per Dialog</button><button class="secondary" onclick="duplicateTrip('${t.id}')">Duplizieren</button><button class="danger" onclick="deleteTrip('${t.id}')">Löschen</button></div>`;box.appendChild(div)})}
+function renderTripHome(){const box=document.getElementById('tripList');if(!box)return;box.innerHTML='';appState.trips.forEach(migrateTrip);appState.trips.slice().sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).forEach(t=>{const c=quickCalc(t.data);const days=tripDays(t);const div=document.createElement('div');div.className='trip-card';div.innerHTML=`<h3>${escapeHtml(t.name)}</h3><div class="trip-name-row"><label class="small">Törnname</label><input class="trip-name-edit" type="text" value="${escapeHtml(t.name||'')}" placeholder="Törnname vergeben" onchange="updateTripName('${t.id}',this.value)"></div><div class="trip-meta">Zeitraum: ${escapeHtml(tripPeriod(t))} · ${days} Tag${days===1?'':'e'}<br>Lokal gespeichert: ${niceDate(t.updatedAt)}<br>Cloud: ${t.cloudMeta?('gespeichert '+niceDate(t.cloudMeta.savedAt||t.cloudMeta.updatedAt)+' · Rev. '+(t.cloudMeta.revision||'–')):'noch nicht gespeichert'}<br>Mitreisende: ${c.payingTravelers} · 1. Überweisung: ${eur(c.transferPer)}</div><label class="small">Zeitraum von</label><input type="date" value="${escapeHtml(t.startDate||'')}" onchange="updateTripField('${t.id}','startDate',this.value)"><label class="small">Zeitraum bis</label><input type="date" value="${escapeHtml(t.endDate||'')}" onchange="updateTripField('${t.id}','endDate',this.value)"><label class="small">Bemerkung</label><textarea rows="3" placeholder="Bemerkungen zum Törn, Zeitraum, Treffpunkt ..." onchange="updateTripField('${t.id}','notes',this.value)">${escapeHtml(t.notes||'')}</textarea><div class="trip-actions"><button class="primary" onclick="openTrip('${t.id}')">${t.id===appState.activeTripId?'Geöffnet':'Öffnen'}</button><button class="secondary" onclick="renameTrip('${t.id}')">Name per Dialog</button><button class="secondary" onclick="duplicateTrip('${t.id}')">Duplizieren</button><button class="danger" onclick="deleteTrip('${t.id}')">Löschen</button></div>`;box.appendChild(div)})}
 function cleanTripName(name){return String(name||'').trim()}
 function uniqueTripName(base,currentId){let stem=cleanTripName(base)||'Neuer Törn';const names=new Set(appState.trips.filter(t=>t.id!==currentId).map(t=>String(t.name||'')));if(!names.has(stem))return stem;let i=2;while(names.has(stem+' ('+i+')'))i++;return stem+' ('+i+')'}
 function updateTripName(id,value){const t=appState.trips.find(x=>x.id===id);if(!t)return;const oldName=t.name||'Neuer Törn';const next=cleanTripName(value);if(!next){renderTripHome();toast('Törnname bleibt unverändert');return}const unique=uniqueTripName(next,id);t.name=unique;t.updatedAt=nowIso();persistState();renderTripHome();saveGuardSetClean();updateStatus();toast(unique===next?'Törnname gespeichert':'Törnname gespeichert: '+unique)}
@@ -419,9 +420,14 @@ function calc(doRead=true){
   const giftmannCount=people.filter(p=>p[1]==='Giftmann').length;
   const schenkerCount=people.filter(p=>p[1]==='Schenker').length;
   const legacyNone=people.filter(p=>p[1]&&!ROLE_OPTIONS.includes(p[1])).length;
-  const fixedPersons=fullCount+fixedOnly+(gp.fixed?giftmannCount:0);
-  const crewFundPersons=fullCount+(gp.crewFund?giftmannCount:0);
-  const otherPersons=fullCount+otherOnly+(gp.other?giftmannCount:0);
+  const anyGiftmannAreaGifted=giftmannCount>0&&(gp.fixed||gp.crewFund||gp.other);
+  const fall8NoGiftArea=giftmannCount>0&&!gp.fixed&&!gp.crewFund&&!gp.other;
+
+  // Giftmann verursacht als mitreisende Person grundsätzlich Kosten in allen drei Bereichen.
+  // Die Häkchen entscheiden nur, ob der Bereich geschenkt wird oder vom Giftmann selbst gezahlt wird.
+  const fixedPersons=fullCount+fixedOnly+giftmannCount;
+  const crewFundPersons=fullCount+giftmannCount;
+  const otherPersons=fullCount+otherOnly+giftmannCount;
   const aboard=fullCount+fixedOnly+otherOnly+giftmannCount;
   const context={fixedPersons,crewFundPersons,otherPersons,boardPersons:crewFundPersons};
   let fixedTotal=0,crewFundTotal=0,otherTotal=0;
@@ -437,37 +443,104 @@ function calc(doRead=true){
   const fixedPer=fixedPersons?fixedTotal/fixedPersons:0;
   const crewFundPer=crewFundPersons?crewFundTotal/crewFundPersons:0;
   const otherPer=otherPersons?otherTotal/otherPersons:0;
-  const giftmannFixedShare=giftmannCount&&gp.fixed?fixedPer*giftmannCount:0;
-  const giftmannCrewFundShare=giftmannCount&&gp.crewFund?crewFundPer*giftmannCount:0;
-  const giftmannOtherShare=giftmannCount&&gp.other?otherPer*giftmannCount:0;
+
+  const giftmannFixedShare=giftmannCount?fixedPer*giftmannCount:0;
+  const giftmannCrewFundShare=giftmannCount?crewFundPer*giftmannCount:0;
+  const giftmannOtherShare=giftmannCount?otherPer*giftmannCount:0;
   const giftmannTotalShare=giftmannFixedShare+giftmannCrewFundShare+giftmannOtherShare;
+  const giftmannGiftedFixed=giftmannCount&&gp.fixed?giftmannFixedShare:0;
+  const giftmannGiftedCrew=giftmannCount&&gp.crewFund?giftmannCrewFundShare:0;
+  const giftmannGiftedOther=giftmannCount&&gp.other?giftmannOtherShare:0;
+  const giftmannGiftedShare=giftmannGiftedFixed+giftmannGiftedCrew+giftmannGiftedOther;
+  const giftmannSelfFixed=giftmannCount&&!gp.fixed?giftmannFixedShare:0;
+  const giftmannSelfCrew=giftmannCount&&!gp.crewFund?giftmannCrewFundShare:0;
+  const giftmannSelfOther=giftmannCount&&!gp.other?giftmannOtherShare:0;
+  const giftmannSelfShare=giftmannSelfFixed+giftmannSelfCrew+giftmannSelfOther;
   const giftPayments=schenkerCount*(+data.giftAmount||0);
-  const restGiftmann=Math.max(0,giftmannTotalShare-giftPayments);
-  const rawSurplus=Math.max(0,giftPayments-giftmannTotalShare);
-  const surplus=data.surplusReduces==='Ja'?rawSurplus:0;
-  const retainedSurplus=data.surplusReduces==='Nein'?rawSurplus:0;
-  const ratioFixed=giftmannTotalShare?giftmannFixedShare/giftmannTotalShare:(totalNoDeposit?fixedTotal/totalNoDeposit:0);
-  const ratioCrew=giftmannTotalShare?giftmannCrewFundShare/giftmannTotalShare:(totalNoDeposit?crewFundTotal/totalNoDeposit:0);
-  const ratioOther=giftmannTotalShare?giftmannOtherShare/giftmannTotalShare:(totalNoDeposit?otherTotal/totalNoDeposit:0);
-  const restFixed=restGiftmann*ratioFixed, restCrew=restGiftmann*ratioCrew, restOther=restGiftmann*ratioOther;
-  const surplusFixed=surplus*ratioFixed, surplusCrew=surplus*ratioCrew, surplusOther=surplus*ratioOther;
-  const depositPer=fullCount?depositTotal/fullCount:0;
-  const fullFixedDue=fullCount?fixedPer+restFixed/fullCount-surplusFixed/fullCount:0;
-  const fullCrewDue=fullCount?crewFundPer+restCrew/fullCount-surplusCrew/fullCount:0;
-  const fullOtherDue=fullCount?otherPer+restOther/fullCount-surplusOther/fullCount:0;
-  const fullTravel=fullFixedDue+fullCrewDue+fullOtherDue;
-  const transferPer=fullTravel+depositPer;
+
+  let restGiftmann=0,rawSurplus=0,surplus=0,retainedSurplus=0;
+  let fullFixedDue=0,fullCrewDue=0,fullOtherDue=0,depositPer=0,fullTravel=0,transferPer=0;
+  let fall8Reduction=0;
+
+  if(fall8NoGiftArea){
+    // Fall 8: Kein Bereich ist geschenkt. Giftmann wird wie ein normaler Mitreisender berechnet.
+    // Der Schenkergesamtbetrag reduziert die Kosten aller Mitreisenden inklusive Giftmann.
+    const fullLikeCount=fullCount+giftmannCount;
+    const fullLikeBasePer=fixedPer+crewFundPer+otherPer;
+    const fullLikeBaseTotal=fullLikeCount*fullLikeBasePer;
+    fall8Reduction=Math.min(giftPayments,fullLikeBaseTotal);
+    rawSurplus=giftPayments;
+    surplus=fall8Reduction;
+    retainedSurplus=Math.max(0,giftPayments-fall8Reduction);
+    const ratioFixed=fullLikeBasePer?fixedPer/fullLikeBasePer:0;
+    const ratioCrew=fullLikeBasePer?crewFundPer/fullLikeBasePer:0;
+    const ratioOther=fullLikeBasePer?otherPer/fullLikeBasePer:0;
+    const redFixed=fullLikeCount?fall8Reduction*ratioFixed/fullLikeCount:0;
+    const redCrew=fullLikeCount?fall8Reduction*ratioCrew/fullLikeCount:0;
+    const redOther=fullLikeCount?fall8Reduction*ratioOther/fullLikeCount:0;
+    fullFixedDue=Math.max(0,fixedPer-redFixed);
+    fullCrewDue=Math.max(0,crewFundPer-redCrew);
+    fullOtherDue=Math.max(0,otherPer-redOther);
+    depositPer=fullLikeCount?depositTotal/fullLikeCount:0;
+    fullTravel=fullFixedDue+fullCrewDue+fullOtherDue;
+    transferPer=fullTravel+depositPer;
+  }else{
+    // Fälle 1–7: Angekreuzte Bereiche werden geschenkt. Nicht angekreuzte Bereiche zahlt Giftmann selbst.
+    restGiftmann=Math.max(0,giftmannGiftedShare-giftPayments);
+    rawSurplus=Math.max(0,giftPayments-giftmannGiftedShare);
+    surplus=data.surplusReduces==='Ja'?rawSurplus:0;
+    retainedSurplus=data.surplusReduces==='Nein'?rawSurplus:0;
+    const ratioFixed=giftmannGiftedShare?giftmannGiftedFixed/giftmannGiftedShare:(totalNoDeposit?fixedTotal/totalNoDeposit:0);
+    const ratioCrew=giftmannGiftedShare?giftmannGiftedCrew/giftmannGiftedShare:(totalNoDeposit?crewFundTotal/totalNoDeposit:0);
+    const ratioOther=giftmannGiftedShare?giftmannGiftedOther/giftmannGiftedShare:(totalNoDeposit?otherTotal/totalNoDeposit:0);
+    const restFixed=restGiftmann*ratioFixed, restCrew=restGiftmann*ratioCrew, restOther=restGiftmann*ratioOther;
+    const surplusFixed=surplus*ratioFixed, surplusCrew=surplus*ratioCrew, surplusOther=surplus*ratioOther;
+    depositPer=fullCount?depositTotal/fullCount:0;
+    fullFixedDue=fullCount?fixedPer+restFixed/fullCount-surplusFixed/fullCount:0;
+    fullCrewDue=fullCount?crewFundPer+restCrew/fullCount-surplusCrew/fullCount:0;
+    fullOtherDue=fullCount?otherPer+restOther/fullCount-surplusOther/fullCount:0;
+    fullTravel=fullFixedDue+fullCrewDue+fullOtherDue;
+    transferPer=fullTravel+depositPer;
+  }
+
+  const giftmannFixedDisplay=giftmannCount?giftmannFixedShare/giftmannCount:0;
+  const giftmannCrewFundDisplay=giftmannCount?giftmannCrewFundShare/giftmannCount:0;
+  const giftmannOtherDisplay=giftmannCount?giftmannOtherShare/giftmannCount:0;
+  const giftmannDisplayShare=giftmannFixedDisplay+giftmannCrewFundDisplay+giftmannOtherDisplay;
+  const giftmannSelfFixedDisplay=giftmannCount?giftmannSelfFixed/giftmannCount:0;
+  const giftmannSelfCrewDisplay=giftmannCount?giftmannSelfCrew/giftmannCount:0;
+  const giftmannSelfOtherDisplay=giftmannCount?giftmannSelfOther/giftmannCount:0;
+  const giftmannGiftedFixedDisplay=giftmannCount?giftmannGiftedFixed/giftmannCount:0;
+  const giftmannGiftedCrewDisplay=giftmannCount?giftmannGiftedCrew/giftmannCount:0;
+  const giftmannGiftedOtherDisplay=giftmannCount?giftmannGiftedOther/giftmannCount:0;
+
   const rows=people.map(p=>{
     const name=p[0], role=p[1];
-    let gift=0,travel=0,deposit=0,fixedDue=0,crewFundDue=0,otherDue=0,giftDue=0,type='',hint='';
+    let gift=0,travel=0,deposit=0,fixedDue=0,crewFundDue=0,otherDue=0,giftDue=0,type='',hint='',giftmannDisplayFixed=0,giftmannDisplayCrewFund=0,giftmannDisplayOther=0,giftmannDisplayTotal=0,giftmannSelfFixedDue=0,giftmannSelfCrewFundDue=0,giftmannSelfOtherDue=0,giftmannGiftedFixedDue=0,giftmannGiftedCrewFundDue=0,giftmannGiftedOtherDue=0;
     if(role==='Vollzahler'){
-      fixedDue=fullFixedDue; crewFundDue=fullCrewDue; otherDue=fullOtherDue; deposit=depositPer; travel=fullTravel; type='Vollzahler'; hint='Fixkosten + Mannschaftskasse + Sonstige; trägt offenen Giftmann-Rest';
+      fixedDue=fullFixedDue; crewFundDue=fullCrewDue; otherDue=fullOtherDue; deposit=depositPer; travel=fullTravel; type='Mitreisende'; hint=fall8NoGiftArea?'Fixkosten + Mannschaftskasse + Sonstige; Schenker reduzieren alle Mitreisenden':'Fixkosten + Mannschaftskasse + Sonstige; trägt offenen Giftmann-Rest';
     }else if(role==='Nur Fixkosten'){
       fixedDue=fixedPer; travel=fixedDue; type='Nur Fixkosten'; hint='zahlt nur Kostenbereich Fixkosten';
     }else if(role==='Nur Sonstige'){
       otherDue=otherPer; travel=otherDue; type='Nur Sonstige'; hint='zahlt nur Kostenbereich Sonstige; keine Mannschaftskasse';
     }else if(role==='Giftmann'){
-      type='Giftmann'; hint='zahlt 0 €; rechnerischer Anteil wird durch Geschenke und ggf. Vollzahler getragen';
+      giftmannDisplayFixed=giftmannFixedDisplay;
+      giftmannDisplayCrewFund=giftmannCrewFundDisplay;
+      giftmannDisplayOther=giftmannOtherDisplay;
+      giftmannDisplayTotal=giftmannDisplayShare;
+      giftmannSelfFixedDue=fall8NoGiftArea?fullFixedDue:giftmannSelfFixedDisplay;
+      giftmannSelfCrewFundDue=fall8NoGiftArea?fullCrewDue:giftmannSelfCrewDisplay;
+      giftmannSelfOtherDue=fall8NoGiftArea?fullOtherDue:giftmannSelfOtherDisplay;
+      giftmannGiftedFixedDue=fall8NoGiftArea?0:giftmannGiftedFixedDisplay;
+      giftmannGiftedCrewFundDue=fall8NoGiftArea?0:giftmannGiftedCrewDisplay;
+      giftmannGiftedOtherDue=fall8NoGiftArea?0:giftmannGiftedOtherDisplay;
+      fixedDue=giftmannSelfFixedDue;
+      crewFundDue=giftmannSelfCrewFundDue;
+      otherDue=giftmannSelfOtherDue;
+      deposit=fall8NoGiftArea?depositPer:0;
+      travel=fixedDue+crewFundDue+otherDue;
+      type=fall8NoGiftArea?'Giftmann / Mitreisende':'Giftmann';
+      hint=fall8NoGiftArea?'kein Bereich geschenkt; zahlt wie Mitreisende; Schenker reduzieren Mitreisende':'zahlt nicht geschenkte Bereiche selbst; geschenkte Bereiche über Schenker/Mitreisende';
     }else if(role==='Schenker'){
       gift=(+data.giftAmount||0); giftDue=gift; type='Schenker'; hint='zahlt Geschenkbeitrag; reist nicht mit';
     }else{
@@ -475,10 +548,13 @@ function calc(doRead=true){
     }
     const charterDue=fixedDue+deposit;
     const adminDue=charterDue+crewFundDue+otherDue+giftDue;
-    return{name,role,type,gift,travel,deposit,transfer:gift+travel+deposit,fixedDue,crewFundDue,otherDue,charterDue,boardDue:crewFundDue+otherDue,giftDue,adminDue,hint}
+    return{name,role,type,gift,travel,deposit,transfer:gift+travel+deposit,fixedDue,crewFundDue,otherDue,charterDue,boardDue:crewFundDue+otherDue,giftDue,adminDue,hint,giftmannDisplayFixed,giftmannDisplayCrewFund,giftmannDisplayOther,giftmannDisplayTotal,giftmannSelfFixedDue,giftmannSelfCrewFundDue,giftmannSelfOtherDue,giftmannSelfTotal:giftmannSelfFixedDue+giftmannSelfCrewFundDue+giftmannSelfOtherDue,giftmannGiftedFixedDue,giftmannGiftedCrewFundDue,giftmannGiftedOtherDue,giftmannGiftedTotal:giftmannGiftedFixedDue+giftmannGiftedCrewFundDue+giftmannGiftedOtherDue}
   });
   const sumNoDeposit=rows.reduce((s,r)=>s+r.gift+r.travel,0),sumDeposit=rows.reduce((s,r)=>s+r.deposit,0);
-  return{payingTravelers:fullCount,fullCount,fixedOnly,otherOnly,partialTravelers:fixedOnly+otherOnly,onlyGift:schenkerCount,none:legacyNone,aboard,boardPersons:crewFundPersons,fixedPersons,crewFundPersons,otherPersons,totalNoDeposit,depositTotal,fixedTotal,crewFundTotal,otherTotal,boardTotal:crewFundTotal+otherTotal,fixedPer,crewFundPer,otherPer,boardPer:crewFundPer+otherPer,dirkShare:giftmannTotalShare,giftmannTotalShare,giftPayments,restGiftman:restGiftmann,restGiftmann,rawSurplus,surplus,retainedSurplus,tripPer:fullTravel,depositPer,transferPer,sumNoDeposit,sumDeposit,diffNoDeposit:sumNoDeposit-totalNoDeposit-retainedSurplus,diffDeposit:sumDeposit-depositTotal,rows}
+  const giftmannRows=rows.filter(r=>r.role==='Giftmann');
+  const giftmannPaysSelf=giftmannRows.reduce((s,r)=>s+r.travel,0);
+  const giftmannTransfer=giftmannRows.reduce((s,r)=>s+r.transfer,0);
+  return{payingTravelers:fullCount,fullCount,fixedOnly,otherOnly,partialTravelers:fixedOnly+otherOnly,onlyGift:schenkerCount,none:legacyNone,aboard,boardPersons:crewFundPersons,fixedPersons,crewFundPersons,otherPersons,totalNoDeposit,depositTotal,fixedTotal,crewFundTotal,otherTotal,boardTotal:crewFundTotal+otherTotal,fixedPer,crewFundPer,otherPer,boardPer:crewFundPer+otherPer,dirkShare:giftmannTotalShare,giftmannTotalShare,giftmannGiftedShare,giftmannSelfShare,giftmannPaysSelf,giftmannTransfer,giftPayments,restGiftman:restGiftmann,restGiftmann,rawSurplus,surplus,retainedSurplus,fall8NoGiftArea,fall8Reduction,tripPer:fullTravel,depositPer,transferPer,sumNoDeposit,sumDeposit,diffNoDeposit:sumNoDeposit-totalNoDeposit-retainedSurplus,diffDeposit:sumDeposit-depositTotal,rows}
 }
 
 function participantKey(name){return String(name||'').trim()||'__unbenannt__'}
@@ -527,13 +603,13 @@ function renderParticipantManagement(c){
     const open=Math.max(0,(+due||0)-received);
     const tr=document.createElement('tr');
     tr.className=roleClass(role)+' '+extraClass;
-    tr.innerHTML=`<td>${showName?`<b>${escapeHtml(name)}</b>`:''}</td><td>${escapeHtml(role)}</td><td><b>${escapeHtml(area)}</b></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="PayPal / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td class="money">${eur(due)}</td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||info.note||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
+    tr.innerHTML=`<td>${showName?`<b>${escapeHtml(name)}</b>`:''}</td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>${escapeHtml(area)}</b></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="PayPal / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td class="money">${eur(due)}</td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||info.note||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
     body.appendChild(tr);
   };
   const totalRow=(name,role,total,extraClass='')=>{
     const tr=document.createElement('tr');
     tr.className=roleClass(role)+' final-payment-row '+extraClass;
-    tr.innerHTML=`<td></td><td>${escapeHtml(role)}</td><td><b>Endgültig zahlbar gesamt</b></td><td colspan="2" class="small">nach Schenkerbeträgen / Giftmann-Entlastung</td><td class="money"><b>${eur(total)}</b></td><td colspan="7"></td>`;
+    tr.innerHTML=`<td></td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>Endgültig zahlbar gesamt</b></td><td colspan="2" class="small">nach Schenkerbeträgen / Giftmann-Entlastung</td><td class="money"><b>${eur(total)}</b></td><td colspan="7"></td>`;
     body.appendChild(tr);
   };
   let currentRole=null;
@@ -543,7 +619,7 @@ function renderParticipantManagement(c){
       currentRole=role;
       const sep=document.createElement('tr');
       sep.className='role-separator';
-      sep.innerHTML=`<td colspan="13">${escapeHtml(role)}</td>`;
+      sep.innerHTML=`<td colspan="13">${escapeHtml(roleDisplayName(role))}</td>`;
       body.appendChild(sep);
     }
     const calcRow=rowByName[name]||{charterDue:0,crewFundDue:0,otherDue:0,giftDue:0};
@@ -559,8 +635,12 @@ function renderParticipantManagement(c){
       paymentRow(name,role,'Sonstige','other',+calcRow.otherDue||0,'person-start',true);
       totalRow(name,role,+calcRow.adminDue||0,'person-end');
     }else if(role==='Giftmann'){
-      paymentRow(name,role,'Giftmann entlastet / keine Anforderung','gift',0,'person-start',true);
-      totalRow(name,role,0,'person-end');
+      let first=true;
+      if((+calcRow.charterDue||0)>0){paymentRow(name,role,(+calcRow.deposit||0)>0?'Fixkosten / Kaution':'Fixkosten selbst zu zahlen','charter',+calcRow.charterDue||0,'person-start',first);first=false;}
+      if((+calcRow.crewFundDue||0)>0){paymentRow(name,role,'Mannschaftskasse selbst zu zahlen','crew',+calcRow.crewFundDue||0,first?'person-start':'sub-payment-row crew-fund-row',first);first=false;}
+      if((+calcRow.otherDue||0)>0){paymentRow(name,role,'Sonstige selbst zu zahlen','other',+calcRow.otherDue||0,first?'person-start':'sub-payment-row',first);first=false;}
+      if(first)paymentRow(name,role,'Geschenkt / keine Anforderung','gift',0,'person-start',true);
+      totalRow(name,role,+calcRow.adminDue||0,'person-end');
     }else if(role==='Schenker'){
       paymentRow(name,role,'Geschenkbeitrag Giftmann','gift',+calcRow.giftDue||0,'person-start',true);
       totalRow(name,role,+calcRow.adminDue||0,'person-end');
@@ -573,15 +653,19 @@ function renderParticipantManagement(c){
 function escapeJs(s){return String(s??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n').replace(/\r/g,'')}
 
 function roleClass(role){role=normalizeRole(role);return 'role-'+(role==='Giftmann'?'dirk':role==='Vollzahler'?'mit':role==='Schenker'?'gift':role==='Nur Fixkosten'?'fixed':role==='Nur Sonstige'?'other':'none')}
-function renderPeople(){
+function renderPeople(c){
   const body=document.getElementById('peopleBody'),prev=document.getElementById('peoplePreview');body.innerHTML='';prev.innerHTML='';ensureGiftmannParticipation(data);
+  const calcRows=c&&Array.isArray(c.rows)?c.rows:[];
+  let previewRowIndex=0;
   data.people.forEach((p,i)=>{
     p[1]=normalizeRole(p[1]);
-    const opts=roleOptionsFor(p[1]).map(r=>`<option ${p[1]===r?'selected':''}>${r}</option>`).join('');
-    const giftOptions=p[1]==='Giftmann'?`<div class="giftmann-options"><label><input type="checkbox" ${data.giftmannParticipation.fixed?'checked':''} onchange="setGiftmannParticipation('fixed',this.checked)">Fixkosten</label><label><input type="checkbox" ${data.giftmannParticipation.crewFund?'checked':''} onchange="setGiftmannParticipation('crewFund',this.checked)">Mannschaftskasse</label><label><input type="checkbox" ${data.giftmannParticipation.other?'checked':''} onchange="setGiftmannParticipation('other',this.checked)">Sonstige</label></div>`:'';
+    const opts=roleOptionsFor(p[1]).map(r=>`<option value="${escapeHtml(r)}" ${p[1]===r?'selected':''}>${escapeHtml(roleDisplayName(r))}</option>`).join('');
+    const giftOptions=p[1]==='Giftmann'?`<div class="giftmann-options"><label><input type="checkbox" ${data.giftmannParticipation.fixed?'checked':''} onchange="setGiftmannParticipation('fixed',this.checked)">Fixkosten geschenkt</label><label><input type="checkbox" ${data.giftmannParticipation.crewFund?'checked':''} onchange="setGiftmannParticipation('crewFund',this.checked)">Mannschaftskasse geschenkt</label><label><input type="checkbox" ${data.giftmannParticipation.other?'checked':''} onchange="setGiftmannParticipation('other',this.checked)">Sonstige geschenkt</label></div>`:'';
     const legacyNote=!ROLE_OPTIONS.includes(p[1])?'<div class="legacy-role-note">Legacy-Rolle aus altem Backup</div>':'';
     const tr=document.createElement('tr');tr.className=roleClass(p[1]);tr.innerHTML=`<td><input type="text" value="${escapeHtml(p[0])}" onchange="data.people[${i}][0]=this.value; update()"></td><td><select onchange="data.people[${i}][1]=this.value; update()">${opts}</select>${giftOptions}${legacyNote}</td><td><button class="danger" onclick="data.people.splice(${i},1); update()">Entfernen</button></td>`;body.appendChild(tr);
-    const pr=document.createElement('tr');pr.className=roleClass(p[1]);pr.innerHTML=`<td>${escapeHtml(p[0])}</td><td>${escapeHtml(p[1])}${p[1]==='Giftmann'?` · rechnerisch: ${data.giftmannParticipation.fixed?'Fixkosten ':''}${data.giftmannParticipation.crewFund?'Mannschaftskasse ':''}${data.giftmannParticipation.other?'Sonstige ':''}`:''}</td>`;prev.appendChild(pr)
+    const resultRow=p[0]?calcRows[previewRowIndex++]:null;
+    const roleText=`${escapeHtml(roleDisplayName(p[1]))}${p[1]==='Giftmann'?`<br><span class="small">geschenkt: ${data.giftmannParticipation.fixed?'Fixkosten ':''}${data.giftmannParticipation.crewFund?'Mannschaftskasse ':''}${data.giftmannParticipation.other?'Sonstige ':''}${(!data.giftmannParticipation.fixed&&!data.giftmannParticipation.crewFund&&!data.giftmannParticipation.other)?'nichts · wie Mitreisende':''}</span>`:''}`;
+    const pr=document.createElement('tr');pr.className=roleClass(p[1]);pr.innerHTML=`<td>${escapeHtml(p[0])}</td><td>${roleText}</td><td><b>${resultRow?eur(resultRow.transfer):'–'}</b></td>`;prev.appendChild(pr)
   })
 }
 function costAreas(){return COST_AREAS.slice()}
@@ -599,19 +683,45 @@ function renderCostOverview(c){
   box.innerHTML=parts+`<div class="cost-sum"><span>Gesamtsumme</span><b>${eur(c.totalNoDeposit)}</b></div>`;
 }
 function renderCosts(c){const body=document.getElementById('costBody');body.innerHTML='';const activeTrip=getActiveTrip();const days=tripDays(activeTrip);const period=tripPeriod(activeTrip);const areas=costAreas();data.costs.forEach((x,i)=>{x.area=normalizeCostArea(x.area);if(!x.calcType)x.calcType=x.area==='Mannschaftskasse'?'period-person':'pauschal';if(x.factor===undefined||x.factor===null||x.factor==='')x.factor=1;const info=costFactorInfo(x,c,days);const periodCell=x.calcType==='period-person'?escapeHtml(period):'–';const typeOpts=[['period-person','Zeitraum × Personen'],['once-person','Einmalig × Personen'],['pauschal','Pauschal']].map(([v,l])=>`<option value="${v}" ${x.calcType===v?'selected':''}>${l}</option>`).join('');const areaOpts=areas.map(a=>`<option value="${escapeHtml(a)}" ${x.area===a?'selected':''}>${escapeHtml(a)}</option>`).join('');const tr=document.createElement('tr');tr.innerHTML=`<td><select onchange="data.costs[${i}].area=this.value;if(!data.costs[${i}].calcType)data.costs[${i}].calcType=this.value==='Mannschaftskasse'?'period-person':'pauschal'; update()">${areaOpts}</select></td><td class="small">${periodCell}</td><td><div class="amount-stepper"><button type="button" class="secondary" onclick="changeAmount(${i},-5)">−</button><input type="number" value="${x.amount}" step="0.01" onchange="data.costs[${i}].amount=+this.value||0; update()"><button type="button" class="secondary" onclick="changeAmount(${i},5)">+</button></div></td><td><input type="number" value="${x.factor}" min="0" step="1" onchange="data.costs[${i}].factor=+this.value||0; update()"></td><td><input type="text" value="${escapeHtml(x.name)}" onchange="data.costs[${i}].name=this.value; update()"></td><td><select onchange="data.costs[${i}].calcType=this.value; update()">${typeOpts}</select></td><td><input type="text" value="${escapeHtml(info.label)}" disabled title="${escapeHtml(info.title)}"></td><td class="money">${eur(info.total)}</td><td><button class="danger" onclick="data.costs.splice(${i},1); update()">Entfernen</button></td>`;body.appendChild(tr)})}
-function renderResults(c){document.getElementById('kpiTrip').textContent=eur(c.tripPer);document.getElementById('kpiTransfer').textContent=eur(c.transferPer);document.getElementById('kpiGift').textContent=eur(data.giftAmount);document.getElementById('kpiGiftman').textContent=eur(c.dirkShare);document.getElementById('countMit').textContent=c.payingTravelers;document.getElementById('countAboard').textContent=c.aboard;document.getElementById('countGift').textContent=c.onlyGift;document.getElementById('countNone').textContent=c.partialTravelers;const pc=document.getElementById('peopleControlCounts');if(pc)pc.innerHTML=`<div class="pill"><b>${c.payingTravelers}</b>Vollzahler</div><div class="pill"><b>${c.onlyGift}</b>Schenker</div><div class="pill"><b>${c.aboard}</b>An Bord inkl. Giftmann</div><div class="pill"><b>${c.partialTravelers}</b>Teilzahler</div>`;document.getElementById('checks').innerHTML=`<div class="check"><span>Gesamtkosten ohne Kaution</span><b>${eur(c.totalNoDeposit)}</b></div><div class="check"><span>Giftmanns rechnerischer Anteil</span><b>${eur(c.dirkShare)}</b></div><div class="check"><span>Offener Giftmann-Rest auf Vollzahler</span><b>${eur(c.restGiftmann)}</b></div><div class="check"><span>Einbehaltener Überschuss/Puffer</span><b>${eur(c.retainedSurplus)}</b></div><div class="check"><span>Kontrollabweichung ohne Kaution</span><b class="${Math.abs(c.diffNoDeposit)<0.01?'ok':'bad'}">${eur(c.diffNoDeposit)}</b></div><div class="check"><span>Differenz Kaution</span><b class="${Math.abs(c.diffDeposit)<0.01?'ok':'bad'}">${eur(c.diffDeposit)}</b></div>`;const body=document.getElementById('resultBody');body.innerHTML='';c.rows.forEach(r=>{const tr=document.createElement('tr');tr.className=roleClass(r.role);tr.innerHTML=`<td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.role)}</td><td>${escapeHtml(r.type)}</td><td>${eur(r.gift)}</td><td>${eur(r.travel)}</td><td>${eur(r.deposit)}</td><td><b>${eur(r.transfer)}</b></td><td>${escapeHtml(r.hint)}</td>`;body.appendChild(tr)})}
+function renderResults(c){
+  document.getElementById('kpiTrip').textContent=eur(c.tripPer);
+  document.getElementById('kpiTransfer').textContent=eur(c.transferPer);
+  document.getElementById('kpiGift').textContent=eur(data.giftAmount);
+  document.getElementById('kpiGiftman').textContent=eur(c.giftmannPaysSelf);
+  document.getElementById('countMit').textContent=c.payingTravelers;
+  document.getElementById('countAboard').textContent=c.aboard;
+  document.getElementById('countGift').textContent=c.onlyGift;
+  document.getElementById('countNone').textContent=c.partialTravelers;
+  const pc=document.getElementById('peopleControlCounts');
+  if(pc)pc.innerHTML=`<div class="pill"><b>${c.payingTravelers}</b>Mitreisende</div><div class="pill"><b>${c.onlyGift}</b>Schenker</div><div class="pill"><b>${c.aboard}</b>An Bord inkl. Giftmann</div><div class="pill"><b>${c.partialTravelers}</b>Teilzahler</div>`;
+  document.getElementById('checks').innerHTML=`<div class="check"><span>Gesamtkosten ohne Kaution</span><b>${eur(c.totalNoDeposit)}</b></div><div class="check"><span>Giftmann zahlt selbst</span><b>${eur(c.giftmannPaysSelf)}</b></div><div class="check"><span>Giftmann rechnerischer Anteil</span><b>${eur(c.dirkShare)}</b></div><div class="check"><span>Davon geschenkte Bereiche</span><b>${eur(c.giftmannGiftedShare)}</b></div><div class="check"><span>Offener Giftmann-Rest auf Mitreisende</span><b>${eur(c.restGiftmann)}</b></div><div class="check"><span>Einbehaltener Überschuss/Puffer</span><b>${eur(c.retainedSurplus)}</b></div><div class="check"><span>Kontrollabweichung ohne Kaution</span><b class="${Math.abs(c.diffNoDeposit)<0.01?'ok':'bad'}">${eur(c.diffNoDeposit)}</b></div><div class="check"><span>Differenz Kaution</span><b class="${Math.abs(c.diffDeposit)<0.01?'ok':'bad'}">${eur(c.diffDeposit)}</b></div>`;
+  const body=document.getElementById('resultBody');
+  body.innerHTML='';
+  c.rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.className=roleClass(r.role);
+    const giftmannBreakdown=(r.role==='Giftmann'&&(+r.giftmannDisplayTotal||0)>0)
+      ? `<div class="small">rechnerisch: <b>${eur(r.giftmannDisplayTotal)}</b><br>selbst: ${eur(r.giftmannSelfTotal||0)} · geschenkt: ${eur(r.giftmannGiftedTotal||0)}<br>Fix selbst: ${eur(r.giftmannSelfFixedDue||0)} · MK selbst: ${eur(r.giftmannSelfCrewFundDue||0)} · Sonstige selbst: ${eur(r.giftmannSelfOtherDue||0)}</div>`
+      : '';
+    const travelCell=(r.role==='Giftmann')
+      ? `${eur(r.travel)}${giftmannBreakdown}`
+      : eur(r.travel);
+    tr.innerHTML=`<td>${escapeHtml(r.name)}</td><td>${escapeHtml(roleDisplayName(r.role))}</td><td>${escapeHtml(r.type)}</td><td>${eur(r.gift)}</td><td>${travelCell}</td><td>${eur(r.deposit)}</td><td><b>${eur(r.transfer)}</b></td><td>${escapeHtml(r.hint)}</td>`;
+    body.appendChild(tr);
+  })
+}
 
-function update(){readInputs();const t=getActiveTrip();if(t)t.data=clone(data);renderPeople();const c=calc();renderCostOverview(c);renderCosts(c);renderResults(c);renderParticipantManagement(c);renderTripHome();renderPageNotes();updateStatus()}
+function update(){readInputs();const t=getActiveTrip();if(t)t.data=clone(data);const c=calc(false);renderPeople(c);renderCostOverview(c);renderCosts(c);renderResults(c);renderParticipantManagement(c);renderTripHome();renderPageNotes();updateStatus()}
 function updateStatus(){const t=getActiveTrip();const saved=t?niceDate(t.updatedAt):'nicht gespeichert';const name=t?escapeHtml(t.name):'Kein Törn';const dirty=hasUnsavedChanges();const guard=dirty?'<span class="save-dirty">Ungespeichert</span>':'<span class="save-clean">Gespeichert</span>';document.getElementById('activeTripBadge').innerHTML=`Aktiver Törn: <b>${name}</b> · Zeitraum: ${escapeHtml(tripPeriod(t))} · letzter gespeicherter Stand: ${saved} · ${guard}`;updateSaveGuardStatus();const sd=document.getElementById('standDate');if(sd)sd.textContent='Stand: '+saved+(dirty?' · Ungespeichert':'');document.querySelectorAll('.status').forEach(el=>{if(el.id!=='standDate'&&el.id!=='cloudStatus')el.textContent='Letzte Speicherung: '+saved+(dirty?' · Ungespeichert':'')})}
 
 
 // -----------------------------------------------------------------------------
 // V1.2 Cloud-Test: optionale manuelle Supabase-Speicherung mit Save Guard
-// V1.4 Endversion: Supabase bleibt manuell; Rollen-/Kostenlogik wurde bewusst erweitert.
+// V1.4.2 Giftmann-Logik-Fix: Supabase bleibt manuell; Cloud speichert den korrigierten lokalen Zustand.
 // -----------------------------------------------------------------------------
 const CLOUD_CONFIG_KEY='chillout-pirates-supabase-config-v1';
 const CLOUD_CLIENT_ID_KEY='chillout-pirates-client-id-v1';
-const CLOUD_APP_VERSION='v1.4-final';
+const CLOUD_APP_VERSION='v1.4.2-giftmann-logic-fix';
 let cloudClient=null;
 let cloudTripsCache=[];
 function cloudSetStatus(msg,isError=false){const el=document.getElementById('cloudStatus');if(el){el.textContent=msg;el.style.color=isError?'#ffd3cc':''}}
@@ -702,15 +812,16 @@ Zeitraum: ${tripPeriod(t)}
 Tage Mannschaftskasse: ${tripDays(t)}${t&&t.notes?`
 Bemerkung: ${t.notes}`:''}
 
-Vollzahler: ${c.payingTravelers}
+Mitreisende: ${c.payingTravelers}
 Teilzahler: ${c.partialTravelers}
 An Bord inkl. Giftmann: ${c.aboard}
 Schenker: ${c.onlyGift}
-Giftmann zahlt: 0,00 €
+Giftmann zahlt selbst: ${eur(c.giftmannPaysSelf)}
 Giftmanns rechnerischer Anteil: ${eur(c.dirkShare)}
-Offener Giftmann-Rest auf Vollzahler: ${eur(c.restGiftmann)}
-Vollzahler ohne Kaution: ${eur(c.tripPer)}
-1. Überweisung Vollzahler inkl. Kaution: ${eur(c.transferPer)}
+Geschenkte Giftmann-Bereiche: ${eur(c.giftmannGiftedShare)}
+Offener Giftmann-Rest auf Mitreisende: ${eur(c.restGiftmann)}
+Mitreisende ohne Kaution: ${eur(c.tripPer)}
+1. Überweisung Mitreisende inkl. Kaution: ${eur(c.transferPer)}
 Schenker: ${eur(data.giftAmount)}
 
 Einbehaltener Überschuss/Puffer: ${eur(c.retainedSurplus)}
@@ -718,7 +829,7 @@ Kontrollabweichung ohne Kaution: ${eur(c.diffNoDeposit)}
 Kontrolle Kaution: ${eur(c.diffDeposit)}`}
 function makeShareUrl(){readInputs();const u=new URL(location.href);u.searchParams.set('stand',encodeState(data));return u.toString()}
 async function shareSummary(){const url=makeShareUrl();const text=summaryText()+`\n\nAktueller Stand als Link:\n${url}`;try{if(navigator.share){await navigator.share({title:'Chillout Pirates Kostenaufteilung',text,url});toast('Teilen geöffnet')}else{await navigator.clipboard.writeText(text);toast('Link + Übersicht kopiert')}}catch(e){try{await navigator.clipboard.writeText(text);toast('Link + Übersicht kopiert')}catch(_){prompt('Diesen Link kopieren:',url)}}}
-function downloadCsv(){const c=calc();const t=getActiveTrip();const safe=(t?t.name:'kosten').replace(/[^\wäöüÄÖÜß-]+/gi,'-');const lines=[['Name','Rolle','Typ','Geschenk','Reise ohne Kaution','Kaution','1. Überweisung','Hinweis']];c.rows.forEach(r=>lines.push([r.name,r.role,r.type,r.gift.toFixed(2),r.travel.toFixed(2),r.deposit.toFixed(2),r.transfer.toFixed(2),r.hint]));const csv=lines.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\n');downloadBlob(csv,`${safe}-kostenaufteilung.csv`,'text/csv;charset=utf-8')}
+function downloadCsv(){const c=calc();const t=getActiveTrip();const safe=(t?t.name:'kosten').replace(/[^\wäöüÄÖÜß-]+/gi,'-');const lines=[['Name','Rolle','Typ','Geschenk','Reise ohne Kaution zahlbar','Giftmann rechnerisch gesamt','Giftmann selbst Fixkosten','Giftmann selbst Mannschaftskasse','Giftmann selbst Sonstige','Giftmann geschenkt gesamt','Kaution','1. Überweisung','Hinweis']];c.rows.forEach(r=>lines.push([r.name,roleDisplayName(r.role),r.type,r.gift.toFixed(2),r.travel.toFixed(2),(r.giftmannDisplayTotal||0).toFixed(2),(r.giftmannSelfFixedDue||0).toFixed(2),(r.giftmannSelfCrewFundDue||0).toFixed(2),(r.giftmannSelfOtherDue||0).toFixed(2),(r.giftmannGiftedTotal||0).toFixed(2),r.deposit.toFixed(2),r.transfer.toFixed(2),r.hint]));const csv=lines.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\n');downloadBlob(csv,`${safe}-kostenaufteilung.csv`,'text/csv;charset=utf-8')}
 function exportBackup(){manualSave();downloadBlob(JSON.stringify(appState,null,2),'chillout-pirates-toerns-backup.json','application/json');toast('Backup exportiert')}
 function importBackup(){if(!saveGuardConfirm('Ein Backup importieren'))return;const input=document.createElement('input');input.type='file';input.accept='application/json';input.onchange=()=>{const file=input.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj&&Array.isArray(obj.trips)){appState=obj;appState.trips.forEach(migrateTrip)}else if(obj&&obj.people&&obj.costs){const trip=newTrip('Importierter Törn',obj);appState.trips.push(migrateTrip(trip));appState.activeTripId=trip.id}else throw new Error('Ungültiges Backup');setActiveData();persistState();syncInputs();update();saveGuardSetClean();toast('Backup importiert')}catch(e){toast('Backup konnte nicht gelesen werden')}};reader.readAsText(file)};input.click()}
 function downloadBlob(content,name,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}

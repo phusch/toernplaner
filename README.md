@@ -1,78 +1,65 @@
-# Törnplaner / Chillout Pirates Kalkulation – V1.4 Endversion Rollenlogik
+# Törnplaner / Chillout Pirates Kalkulation – V1.4.2 Giftmann-Logik-Fix
 
-Diese Version basiert auf **V1.3 Trip Names** und der geprüften **V1.4.1-Korrektur**. Sie ist die freigegebene **Endversion V1.4** für die neue Rollen- und Kostenlogik.
+Diese Version basiert auf **Toernplaner_V1.4.1_giftmann_display_fix** und korrigiert gezielt die Giftmann-Logik und die Anzeigen. Sie ist eine kleine, nachvollziehbare Korrektur auf Basis der freigegebenen V1.4-Logik.
 
-Die Änderungen betreffen gezielt:
-
-- Teilnehmerrollen
-- Kostenbereiche
-- Giftmann-Beteiligung
-- Giftmann-Restverteilung
-- Anzeige in Einzelbeträge und Teilnehmerverwaltung
-
-Nicht Ziel dieser Version ist ein optischer Umbau. Supabase, Törnnamen, Save Guard und lokale Speicherung bleiben aus V1.3 erhalten.
-
-**Freigabehinweis:** Diese V1.4-Endversion übernimmt die korrigierte Rollenlogik aus V1.4.1. Der von dir geprüfte Fall, bei dem die Rechnung wieder V1.3 entspricht und Giftmann bei der Mannschaftskasse als Kostenverursacher berücksichtigt wird, ist Grundlage dieser finalen Fassung.
-
----
-
-## Wichtig
-
-V1.4 ist die freigegebene Endversion der neuen Rollen- und Kostenlogik. Sie sollte trotzdem wie jede neue Version mit einem Backup betrieben werden, weil sie die bisherige Berechnungslogik erweitert.
-
----
-
-## Neue Grundregel für Kostenpositionen
-
-Bei Kostenpositionen gibt es nur noch drei auswählbare Bereiche:
+Nicht geändert wurden:
 
 ```text
-Fixkosten
-Mannschaftskasse
-Sonstige
+Supabase-Grundlogik
+Cloud-Speichern / Cloud-Laden
+Törnnamen
+Save Guard / Ungespeichert-Warnung
+Kostenbereiche Fixkosten / Mannschaftskasse / Sonstige
+Rollen Nur Fixkosten / Nur Sonstige / Schenker
+Kautions-Sonderlogik
 ```
-
-Es gibt keine automatische Namenserkennung.
-
-Das bedeutet:
-
-```text
-Charter, Schiff, Diesel, Hafengebühr, Essen, Taxi, Versicherung usw.
-```
-
-werden nicht automatisch zugeordnet. Du wählst den Bereich selbst pro Kostenposition.
 
 ---
 
-## Migration alter Kostenpositionen
+## Zentrale Änderung in V1.4.2
 
-Beim Laden alter Daten werden Kostenbereiche so übernommen:
+Die Giftmann-Häkchen bedeuten jetzt eindeutig:
 
 ```text
-alte Fixkosten Boot / Charterlogik → Fixkosten
-alte Mannschaftskasse              → Mannschaftskasse
-alles andere                       → Sonstige
+angekreuzt     = dieser Bereich wird geschenkt / Giftmann zahlt ihn nicht selbst
+nicht angekreuzt = diesen Bereich zahlt Giftmann selbst
 ```
 
-Danach bietet die App nur noch die drei neuen Bereiche an.
+Die sichtbaren Häkchen heißen deshalb:
+
+```text
+[ ] Fixkosten geschenkt
+[ ] Mannschaftskasse geschenkt
+[ ] Sonstige geschenkt
+```
+
+Der Giftmann verursacht weiterhin als mitreisende Person Kosten in allen Bereichen. Die Häkchen entscheiden nur, **wer diese Kosten zahlt**.
 
 ---
 
-## Neue Teilnehmerrollen
+## Rollen
+
+Sichtbar in der App heißen die normalen zahlenden Mitfahrer jetzt:
+
+```text
+Mitreisende
+```
+
+Intern kann die Rolle aus Kompatibilitätsgründen weiterhin als `Vollzahler` gespeichert sein. In der Bedienung und in den Ausgaben erscheint aber „Mitreisende“.
 
 Direkt bei jedem Teilnehmer auswählbar:
 
 ```text
-Vollzahler
+Mitreisende
 Nur Fixkosten
 Nur Sonstige
 Giftmann
 Schenker
 ```
 
-### Vollzahler
+### Mitreisende
 
-Zahlt:
+Zahlen:
 
 ```text
 Fixkosten
@@ -84,13 +71,13 @@ offenen Giftmann-Rest, falls Geschenke nicht reichen
 
 ### Nur Fixkosten
 
-Zahlt nur:
+Zahlen nur:
 
 ```text
 Fixkosten
 ```
 
-Zahlt nicht:
+Zahlen nicht:
 
 ```text
 Mannschaftskasse
@@ -100,13 +87,13 @@ Giftmann-Rest
 
 ### Nur Sonstige
 
-Zahlt nur:
+Zahlen nur:
 
 ```text
 Sonstige
 ```
 
-Zahlt ausdrücklich nicht:
+Zahlen ausdrücklich nicht:
 
 ```text
 Fixkosten
@@ -116,23 +103,15 @@ Giftmann-Rest
 
 ### Giftmann
 
-Giftmann ist eine Sonderrolle.
-
-Grundregel:
+Der Giftmann reist mit und verursacht grundsätzlich Kosten in allen drei Bereichen:
 
 ```text
-Giftmann zahlt 0,00 €
+Fixkosten
+Mannschaftskasse
+Sonstige
 ```
 
-Bei Giftmann gibt es drei Häkchen:
-
-```text
-[ ] beteiligt sich rechnerisch an Fixkosten
-[ ] beteiligt sich rechnerisch an Mannschaftskasse
-[ ] beteiligt sich rechnerisch an Sonstige
-```
-
-Nur aktivierte Bereiche erzeugen einen rechnerischen Giftmann-Anteil.
+Nicht geschenkte Bereiche zahlt er selbst. Geschenkte Bereiche werden durch Schenkerbeträge und gegebenenfalls durch die Mitreisenden getragen.
 
 ### Schenker
 
@@ -146,241 +125,269 @@ Reist nicht mit und nimmt nicht an Fixkosten, Mannschaftskasse oder Sonstige tei
 
 ---
 
-## Geschenklogik Giftmann
+## Kostenbereiche
 
-Geschenke decken den rechnerischen Gesamtbetrag des Giftmanns unabhängig vom Bereich.
-
-Beispiel:
+Bei Kostenpositionen gibt es nur noch drei auswählbare Bereiche:
 
 ```text
-Giftmann Fixkosten-Anteil:       400 €
-Giftmann Mannschaftskasse:       200 €
-Giftmann Sonstige:               100 €
-Giftmann rechnerisch gesamt:     700 €
-Geschenke gesamt:                500 €
-Offener Giftmann-Rest:           200 €
+Fixkosten
+Mannschaftskasse
+Sonstige
 ```
 
-Der offene Rest wird nur auf diese Rolle verteilt:
+Es gibt keine automatische Namenserkennung. Die App ordnet also Begriffe wie Charter, Schiff, Diesel, Hafen, Essen oder Taxi nicht automatisch zu. Der Bereich wird pro Kostenposition bewusst ausgewählt.
+
+---
+
+## Giftmann-Fälle
+
+### Fall 1: Nur Fixkosten geschenkt
 
 ```text
-Vollzahler
+[x] Fixkosten geschenkt
+[ ] Mannschaftskasse geschenkt
+[ ] Sonstige geschenkt
 ```
 
-Nicht auf:
+Giftmann zahlt selbst:
 
 ```text
-Nur Fixkosten
-Nur Sonstige
-Giftmann
-Schenker
+Mannschaftskasse
+Sonstige
+```
+
+Geschenkt wird:
+
+```text
+Fixkosten
+```
+
+Reichen die Schenkerbeträge nicht, geht der offene Rest nur auf die Mitreisenden.
+
+### Fall 2: Nur Mannschaftskasse geschenkt
+
+```text
+[ ] Fixkosten geschenkt
+[x] Mannschaftskasse geschenkt
+[ ] Sonstige geschenkt
+```
+
+Giftmann zahlt selbst:
+
+```text
+Fixkosten
+Sonstige
+```
+
+Geschenkt wird:
+
+```text
+Mannschaftskasse
+```
+
+### Fall 3: Nur Sonstige geschenkt
+
+```text
+[ ] Fixkosten geschenkt
+[ ] Mannschaftskasse geschenkt
+[x] Sonstige geschenkt
+```
+
+Giftmann zahlt selbst:
+
+```text
+Fixkosten
+Mannschaftskasse
+```
+
+Geschenkt wird:
+
+```text
+Sonstige
+```
+
+### Fall 4: Fixkosten + Mannschaftskasse geschenkt
+
+```text
+[x] Fixkosten geschenkt
+[x] Mannschaftskasse geschenkt
+[ ] Sonstige geschenkt
+```
+
+Giftmann zahlt selbst:
+
+```text
+Sonstige
+```
+
+### Fall 5: Fixkosten + Sonstige geschenkt
+
+```text
+[x] Fixkosten geschenkt
+[ ] Mannschaftskasse geschenkt
+[x] Sonstige geschenkt
+```
+
+Giftmann zahlt selbst:
+
+```text
+Mannschaftskasse
+```
+
+### Fall 6: Mannschaftskasse + Sonstige geschenkt
+
+```text
+[ ] Fixkosten geschenkt
+[x] Mannschaftskasse geschenkt
+[x] Sonstige geschenkt
+```
+
+Giftmann zahlt selbst:
+
+```text
+Fixkosten
+```
+
+### Fall 7: Alles geschenkt
+
+```text
+[x] Fixkosten geschenkt
+[x] Mannschaftskasse geschenkt
+[x] Sonstige geschenkt
+```
+
+Giftmann zahlt selbst:
+
+```text
+0,00 €
+```
+
+Wenn die Schenkerbeträge nicht reichen, wird der offene Rest nur auf die Mitreisenden verteilt.
+
+### Fall 8: Nichts geschenkt
+
+```text
+[ ] Fixkosten geschenkt
+[ ] Mannschaftskasse geschenkt
+[ ] Sonstige geschenkt
+```
+
+Giftmann wird wie ein normaler Mitreisender berechnet.
+
+Er zahlt dann selbst:
+
+```text
+Fixkosten
+Mannschaftskasse
+Sonstige
+```
+
+Der Schenkergesamtbetrag reduziert in diesem Fall die Kosten aller Mitreisenden inklusive Giftmann.
+
+---
+
+## Mehrere Giftmänner
+
+Diese Version ist bewusst für genau **einen Giftmann** ausgelegt.
+
+```text
+Mehrere Giftmänner sind nicht vorgesehen.
+```
+
+Falls versehentlich mehrere Personen als Giftmann markiert werden, ist das kein unterstützter Anwendungsfall. Für die praktische Nutzung bitte nur eine Person als Giftmann auswählen.
+
+---
+
+## Übersicht / Ergebnisse
+
+Die Übersichtsseite zeigt bei den Ergebnissen jetzt:
+
+```text
+Giftmann zahlt selbst
+```
+
+Das ist der tatsächlich vom Giftmann zu zahlende Betrag ohne Kaution. Es ist nicht mehr nur der rechnerische Gesamtanteil.
+
+Zusätzlich zeigt die Kontrolle:
+
+```text
+Giftmann rechnerischer Anteil
+Davon geschenkte Bereiche
+Offener Giftmann-Rest auf Mitreisende
+Kontrollabweichung ohne Kaution
+Differenz Kaution
+```
+
+---
+
+## Einzelbeträge
+
+Im Reiter Einzelbeträge wird bei Giftmann sichtbar:
+
+```text
+rechnerischer Anteil
+selbst zu zahlen
+geschenkt
+Fixkosten selbst
+Mannschaftskasse selbst
+Sonstige selbst
+```
+
+Die Hauptzahlungsspalten zeigen den tatsächlich zu zahlenden Betrag.
+
+---
+
+## Teilnehmerverwaltung
+
+Die Teilnehmerverwaltung zeigt weiterhin die endgültig zahlbaren Beträge.
+
+Bei Giftmann werden jetzt nur die tatsächlich selbst zu zahlenden Bereiche als Zahlungsanforderung aufgeführt:
+
+```text
+Fixkosten selbst zu zahlen
+Mannschaftskasse selbst zu zahlen
+Sonstige selbst zu zahlen
+```
+
+Wenn alles geschenkt ist, erscheint:
+
+```text
+Geschenkt / keine Anforderung = 0,00 €
 ```
 
 ---
 
 ## Kaution
 
-Kaution bleibt als Sonderlogik erhalten.
+Kaution bleibt wie bisher Sonderlogik. Sie ist keine normale Kostenposition und gehört nicht zu Fixkosten, Mannschaftskasse oder Sonstige.
 
-In dieser V1.4-Endversion bleibt sie wie bisher bei den Vollzahlern in der ersten Überweisung. Sie wird nicht als normale Kostenposition behandelt und gehört nicht zu Fixkosten, Mannschaftskasse oder Sonstige.
-
----
-
-## Teilnehmerverwaltung
-
-Die Teilnehmerverwaltung zeigt jetzt je nach Rolle getrennte Zahlungsbereiche:
-
-```text
-Vollzahler:
-- Fixkosten / Kaution
-- Mannschaftskasse
-- Sonstige
-
-Nur Fixkosten:
-- Fixkosten
-
-Nur Sonstige:
-- Sonstige
-
-Giftmann:
-- Giftmann entlastet / keine Anforderung = 0,00 €
-
-Schenker:
-- Geschenkbeitrag Giftmann
-```
-
-Damit bleibt sichtbar, warum eine Person welchen Betrag zahlen soll.
+In Fall 8, wenn beim Giftmann nichts geschenkt ist und er wie ein normaler Mitreisender berechnet wird, wird er auch wie ein Mitreisender behandelt.
 
 ---
 
-## Einzelbeträge
+## Empfohlenes Testprocedere
 
-Der Reiter Einzelbeträge bleibt bewusst kompakt.
-
-Die Rollen werden aber neu ausgewertet:
+Vor produktiver Nutzung bitte testen:
 
 ```text
-Vollzahler       → Gesamtbetrag aus Fixkosten + Mannschaftskasse + Sonstige + ggf. Giftmann-Rest
-Nur Fixkosten    → nur Fixkosten
-Nur Sonstige     → nur Sonstige
-Giftmann         → 0,00 €
-Schenker         → Geschenkbeitrag
-```
-
-Die CSV enthält zusätzlich Spalten für:
-
-```text
-Fixkosten/Kaution
-Mannschaftskasse
-Sonstige
-Geschenk
+1. Standardfall öffnen
+2. Giftmann-Häkchen alle sieben Geschenkfälle testen
+3. Fall 8 testen: kein Häkchen aktiv
+4. Prüfen: Übersicht zeigt „Giftmann zahlt selbst“
+5. Prüfen: Einzelbeträge zeigen Giftmann selbst / geschenkt
+6. Prüfen: Teilnehmerverwaltung zeigt nur zahlbare Giftmann-Bereiche
+7. Prüfen: Nur Fixkosten zahlt keine Mannschaftskasse und keine Sonstige
+8. Prüfen: Nur Sonstige zahlt keine Fixkosten und keine Mannschaftskasse
+9. Prüfen: Kontrollabweichung ohne Kaution bleibt 0,00 € oder Rundungsdifferenz
+10. Erst danach speichern oder in die Cloud übertragen
 ```
 
 ---
 
-## Supabase / Cloud
-
-Supabase bleibt wie in V1.3:
+## Version
 
 ```text
-manuell speichern
-manuell laden
-alle lokalen Törns in Cloud speichern
-Cloud-Import als Kopie möglich
+V1.4.2 Giftmann-Logik-Fix
+Basis: V1.4.1 Giftmann Display Fix
+Änderung: Giftmann-Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt Giftmann selbst.
 ```
-
-Wichtig: Nach einer Rollen- oder Kostenbereichsänderung bitte zuerst lokal speichern und danach Cloud speichern.
-
----
-
-## Speicher-Procedere
-
-Empfohlene Reihenfolge:
-
-```text
-1. Törn öffnen
-2. Rollen und Kostenbereiche prüfen
-3. Änderungen durchführen
-4. Anzeige oben prüfen: Ungespeichert
-5. Speichern klicken
-6. Einzelbeträge kontrollieren
-7. Teilnehmerverwaltung kontrollieren
-8. optional: Aktiven Törn in Cloud speichern
-9. optional: Backup exportieren
-```
-
----
-
-## Pflicht-Testfälle für V1.4
-
-Bitte vor Freigabe als stabil testen:
-
-### Test 1: Standardfall
-
-```text
-Vollzahler + Schenker + Giftmann
-Giftmann-Häkchen Fixkosten und Mannschaftskasse aktiv
-Geschenke reichen aus
-```
-
-Erwartung:
-
-```text
-Giftmann zahlt 0,00 €
-Kontrollabweichung ohne Kaution ~ 0,00 €
-Kautionsdifferenz ~ 0,00 €
-```
-
-### Test 2: Nur Fixkosten
-
-Eine Person auf Rolle stellen:
-
-```text
-Nur Fixkosten
-```
-
-Erwartung:
-
-```text
-Person zahlt nur Fixkosten
-keine Mannschaftskasse
-keine Sonstige
-kein Giftmann-Rest
-```
-
-### Test 3: Nur Sonstige
-
-Eine Person auf Rolle stellen:
-
-```text
-Nur Sonstige
-```
-
-Erwartung:
-
-```text
-Person zahlt nur Sonstige
-keine Fixkosten
-keine Mannschaftskasse
-kein Giftmann-Rest
-```
-
-### Test 4: Giftmann ohne Häkchen
-
-Alle Giftmann-Häkchen ausschalten.
-
-Erwartung:
-
-```text
-Giftmann rechnerischer Anteil = 0,00 €
-Geschenke werden als Überschuss behandelt
-Giftmann zahlt 0,00 €
-```
-
-### Test 5: Geschenke reichen nicht
-
-Schenkerbetrag reduzieren.
-
-Erwartung:
-
-```text
-offener Giftmann-Rest wird nur auf Vollzahler verteilt
-Nur Fixkosten bleibt nur Fixkosten
-Nur Sonstige bleibt nur Sonstige
-Giftmann bleibt 0,00 €
-```
-
----
-
-## Geänderte Dateien
-
-```text
-index.html
-README.md
-sw.js
-```
-
-## Nicht geändert
-
-```text
-app.js
-assets/
-manifest.webmanifest
-supabase_migration_001_initial_sync_schema.sql
-```
-
-Hinweis: Die laufende App steckt weiterhin in `index.html`. Die Datei `app.js` liegt im Paket, wird aber von der aktuellen HTML nicht als Hauptlogik geladen.
-
-
-
-## V1.4 Endversion – Korrekturen aus der Arbeitsphase
-
-Diese Endversion enthält die geprüften Korrekturen aus der V1.4.1-Arbeitsphase:
-
-1. **Giftmann-Beteiligung bei alten oder teilweise gespeicherten Daten**  
-   Fehlende Häkchen werden nicht mehr stillschweigend als `false` behandelt. Der V1.0/V1.3-Standard bleibt erhalten: Giftmann zählt rechnerisch zu Fixkosten und Mannschaftskasse, Sonstige bleibt zunächst aus, sofern nichts anderes gesetzt wurde. Dadurch wird Giftmann bei Mannschaftskasse-Kosten wieder als Person berücksichtigt, wenn das Mannschaftskasse-Häkchen aktiv ist.
-
-2. **Teilnehmerverwaltung zeigt endgültigen Gesamtbetrag**  
-   Je Teilnehmer wird zusätzlich eine Zeile „Endgültig zahlbar gesamt“ angezeigt. Dieser Betrag ist der zahlbare Betrag nach Giftmann-Entlastung, Schenkerbeträgen, Restverteilung auf Vollzahler und Kaution.
-
-Nicht geändert wurden die drei Grundregeln: nur Kostenbereiche Fixkosten, Mannschaftskasse, Sonstige; Giftmann zahlt selbst 0 €; offener Giftmann-Rest wird nur auf Vollzahler verteilt.
