@@ -52,6 +52,107 @@
 .admin-table tr.final-payment-row td{background:rgba(88,169,157,.10);font-weight:900}
 
 
+
+/* V1.4.3 – rein visuelle Törn-Farbführung, ohne Änderung der Daten-/Rechenlogik */
+:root{
+  --trip-accent:#58a99d;
+  --trip-accent-rgb:88,169,157;
+  --trip-accent-dark:#103b37;
+  --trip-accent-soft:#d8efe9;
+  --cloud-accent:#6bbbe7;
+  --cloud-accent-rgb:107,187,231;
+  --cloud-accent-dark:#153e59;
+}
+body{background:radial-gradient(circle at 10% 0%,rgba(var(--trip-accent-rgb),.20),transparent 30%),radial-gradient(circle at 90% 5%,rgba(185,105,28,.12),transparent 30%),linear-gradient(180deg,#050505 0%,#0b0b0a 65%,#050505 100%)}
+.brand .sub,.divider,.icon{color:var(--trip-accent)}
+.divider:before,.divider:after{background:linear-gradient(90deg,transparent,var(--trip-accent),transparent)}
+.tab.active,button.primary{border-color:rgba(var(--trip-accent-rgb),.86);background:linear-gradient(180deg,var(--trip-accent),var(--trip-accent-dark));color:var(--cream)}
+button.secondary{color:var(--trip-accent)}
+.card{border-color:rgba(var(--trip-accent-rgb),.30)}
+.card:after{box-shadow:inset 0 0 0 1px rgba(var(--trip-accent-rgb),.16)}
+.card:not(.parchment):before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--trip-accent),rgba(var(--trip-accent-rgb),.18),transparent);pointer-events:none;z-index:1}
+.active-trip{position:relative;border-color:rgba(var(--trip-accent-rgb),.52);background:linear-gradient(90deg,rgba(var(--trip-accent-rgb),.20),rgba(var(--trip-accent-rgb),.06));color:var(--trip-accent-soft);box-shadow:inset 5px 0 0 var(--trip-accent),0 10px 28px rgba(0,0,0,.25)}
+.active-trip b{color:var(--cream)}
+.active-trip-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--trip-accent);box-shadow:0 0 12px rgba(var(--trip-accent-rgb),.85)}
+.pill{border-color:rgba(var(--trip-accent-rgb),.38);background:rgba(var(--trip-accent-rgb),.10)}
+.note{border-color:rgba(var(--trip-accent-rgb),.30);background:rgba(var(--trip-accent-rgb),.10)}
+.kpi:not(.gift){border-color:rgba(var(--trip-accent-rgb),.38);background:radial-gradient(circle at 50% 0%,rgba(var(--trip-accent-rgb),.22),transparent 58%),linear-gradient(180deg,rgba(var(--trip-accent-rgb),.16),rgba(6,15,14,.88))}
+
+/* Variante 1: farblich klar getrennte Törn-Karten */
+.trip-grid{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
+.trip-card{
+  --trip-accent:#58a99d;
+  --trip-accent-rgb:88,169,157;
+  --trip-accent-dark:#103b37;
+  --trip-accent-soft:#d8efe9;
+  padding:0;
+  overflow:hidden;
+  position:relative;
+  border:1px solid rgba(var(--trip-accent-rgb),.72);
+  background:radial-gradient(circle at 15% 0%,rgba(var(--trip-accent-rgb),.20),transparent 48%),linear-gradient(180deg,rgba(16,19,18,.98),rgba(6,7,7,.98));
+  box-shadow:0 16px 38px rgba(0,0,0,.46),0 0 0 1px rgba(var(--trip-accent-rgb),.08) inset;
+}
+.trip-card-active{border-width:2px;box-shadow:0 18px 42px rgba(0,0,0,.52),0 0 28px rgba(var(--trip-accent-rgb),.24),0 0 0 1px rgba(var(--trip-accent-rgb),.14) inset}
+.trip-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 16px;background:linear-gradient(135deg,rgba(var(--trip-accent-rgb),.72),rgba(var(--trip-accent-rgb),.23));border-bottom:1px solid rgba(var(--trip-accent-rgb),.65)}
+.trip-card-title{display:flex;align-items:center;min-width:0;gap:10px}
+.trip-card-icon{font-size:22px;line-height:1;color:var(--trip-accent-soft);filter:drop-shadow(0 0 8px rgba(var(--trip-accent-rgb),.55))}
+.trip-card h3{margin:0;color:var(--cream);font-size:18px;line-height:1.2;overflow-wrap:anywhere}
+.trip-state{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;border:1px solid rgba(var(--trip-accent-rgb),.72);background:rgba(5,10,9,.42);color:var(--trip-accent-soft);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.trip-state:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--trip-accent);box-shadow:0 0 10px rgba(var(--trip-accent-rgb),.8)}
+.trip-state.inactive{opacity:.88}
+.trip-card-body{padding:16px}
+.trip-card .trip-name-edit,.trip-card input,.trip-card textarea{border-color:rgba(var(--trip-accent-rgb),.40)}
+.trip-card .trip-name-edit:focus,.trip-card input:focus,.trip-card textarea:focus{outline:2px solid rgba(var(--trip-accent-rgb),.36);outline-offset:1px}
+.trip-meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:8px 0 14px;border-top:1px solid rgba(231,215,184,.14);border-bottom:1px solid rgba(231,215,184,.14)}
+.trip-meta-item{padding:10px 10px 10px 0;color:var(--muted);font-size:13px;min-width:0}
+.trip-meta-item:nth-child(even){padding-left:12px;border-left:1px solid rgba(231,215,184,.14)}
+.trip-meta-item b{display:block;color:var(--cream);font-size:13px;margin-top:2px;font-weight:800;overflow-wrap:anywhere}
+.trip-meta-symbol{display:inline-block;width:20px;color:var(--trip-accent);font-size:15px}
+.trip-card label.small{display:block;margin-top:8px;color:var(--muted);font-weight:800}
+.trip-card .trip-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}
+.trip-card .trip-actions button{width:100%;min-width:0;white-space:normal}
+.trip-card .trip-actions button.secondary{border-color:rgba(var(--trip-accent-rgb),.42);color:var(--trip-accent-soft)}
+.trip-card .trip-actions button.danger{border-color:rgba(217,107,95,.55);color:#ffd3cc}
+
+/* Supabase bewusst als eigener, blauer Funktionsbereich */
+#cloudSyncBlock{
+  --trip-accent:var(--cloud-accent);
+  --trip-accent-rgb:var(--cloud-accent-rgb);
+  --trip-accent-dark:var(--cloud-accent-dark);
+  --trip-accent-soft:#d8effd;
+  position:relative;
+  padding:18px;
+  border:1px solid rgba(var(--cloud-accent-rgb),.68);
+  border-radius:18px;
+  background:radial-gradient(circle at 10% 0%,rgba(var(--cloud-accent-rgb),.22),transparent 44%),linear-gradient(180deg,rgba(14,32,47,.92),rgba(7,13,19,.96));
+  box-shadow:0 18px 42px rgba(0,0,0,.44),0 0 24px rgba(var(--cloud-accent-rgb),.12),inset 0 0 0 1px rgba(var(--cloud-accent-rgb),.10);
+}
+#cloudSyncBlock:before{content:"CLOUD / SUPABASE";display:inline-block;margin:0 0 12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(var(--cloud-accent-rgb),.55);background:rgba(var(--cloud-accent-rgb),.10);color:#bfe6fb;font-size:11px;font-weight:900;letter-spacing:.10em}
+#cloudSyncBlock h2{color:#d8effd;margin-bottom:8px}
+#cloudSyncBlock .icon,#cloudSyncBlock button.secondary{color:var(--cloud-accent)}
+#cloudSyncBlock .control-tile{border-color:rgba(var(--cloud-accent-rgb),.28);background:rgba(var(--cloud-accent-rgb),.055)}
+#cloudSyncBlock input,#cloudSyncBlock select{border-color:rgba(var(--cloud-accent-rgb),.36)}
+#cloudSyncBlock .status{padding:10px 12px;border-radius:12px;border:1px solid rgba(var(--cloud-accent-rgb),.28);background:rgba(var(--cloud-accent-rgb),.07);color:#d8effd}
+#cloudSyncBlock .cloud-hint{color:#a8c7d8}
+
+@media(max-width:620px){
+  .trip-grid{grid-template-columns:1fr;gap:18px}
+  .trip-card-head{align-items:flex-start;padding:14px}
+  .trip-card h3{font-size:17px}
+  .trip-state{padding:6px 8px;font-size:10px}
+  .trip-card-body{padding:14px}
+  .trip-meta-grid{grid-template-columns:1fr 1fr}
+  .trip-card .trip-actions{grid-template-columns:1fr 1fr}
+  #cloudSyncBlock{padding:15px}
+}
+@media(max-width:390px){
+  .trip-card-head{display:grid;grid-template-columns:1fr}
+  .trip-state{justify-self:start}
+  .trip-meta-grid{grid-template-columns:1fr}
+  .trip-meta-item:nth-child(even){padding-left:0;border-left:0}
+  .trip-meta-item+ .trip-meta-item{border-top:1px solid rgba(231,215,184,.10)}
+}
+
 /* Hilfe & Handbuch */
 .help-fab{position:fixed;right:calc(14px + env(safe-area-inset-right));top:calc(14px + env(safe-area-inset-top));z-index:80;border-color:rgba(88,169,157,.75)!important;background:linear-gradient(180deg,#1d6159,#103b37)!important;color:var(--cream)!important;padding:10px 13px!important;border-radius:999px!important;box-shadow:0 16px 36px rgba(0,0,0,.55),0 0 0 1px rgba(231,215,184,.12) inset!important}
 .help-modal{position:fixed;inset:0;z-index:120;display:none;background:rgba(0,0,0,.76);backdrop-filter:blur(8px);padding:calc(18px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left))}
@@ -78,7 +179,7 @@
 </head>
 <body>
 <button id="helpButton" class="help-fab" onclick="openHelpModal()">ℹ️ Hilfe & Handbuch</button>
-<header class="wrap hero"><img class="logo" src="assets/logo.png" alt="Chillout Pirates Logo"><div class="brand"><h1>Chillout Pirates</h1><div class="divider">★</div><p class="sub">Kostenaufteilung · Love me Fender</p></div></header>
+<header class="wrap hero"><img class="logo" src="assets/logo.png" alt="Chillout Pirates Logo"><div class="brand"><h1 id="activeTripHeadline">Chillout Pirates</h1><div class="divider">★</div><p class="sub">Kostenaufteilung · Love me Fender</p></div></header>
 <main class="wrap">
   <div class="tabs"><button class="tab active" onclick="showTab('trips', this)">🗺 Törns</button><button class="tab" onclick="showTab('overview', this)">☠ Übersicht</button><button class="tab" onclick="showTab('people', this)">👥 Teilnehmer</button><button class="tab" onclick="showTab('settings', this)">⚙ Kosten</button><button class="tab" onclick="showTab('admin', this)">📬 Teilnehmerverwaltung</button><button class="tab" onclick="showTab('results', this)">🧾 Einzelbeträge</button></div><div class="active-trip" id="activeTripBadge"></div>
   <section id="tab-trips" class="card"><div class="trip-head"><div><h2><span class="icon">🗺</span>Törn-Verwaltung</h2><p class="small">Mehrere Kalkulationen lokal im Browser speichern. Cloud-Speichern ist weiterhin manuell. Neu in V1.4.2: Giftmann-Häkchen bedeuten „Bereich geschenkt“; Giftmann zahlt nicht geschenkte Bereiche selbst.</p></div><div class="toolbar" style="margin-top:0"><button class="primary" onclick="createTrip()">Neuen Törn anlegen</button><button class="secondary" onclick="importBackup()">Backup importieren</button></div></div><div class="trip-grid" id="tripList"></div><p class="note">Hinweis: Die Törns bleiben weiterhin dauerhaft auf diesem Gerät und in diesem Browser gespeichert. Supabase ist optional: erst einloggen, dann bewusst „Cloud speichern“ oder „Cloud-Liste laden“ klicken.</p><div class="note-block" id="cloudSyncBlock"><h2><span class="icon">☁️</span>Supabase Cloud-Speicher</h2><p class="small">Project URL und öffentlichen publishable/anon Key eintragen. Niemals den service_role oder secret key verwenden.</p><div class="control-grid cloud-grid"><div class="control-tile wide"><label for="cloudUrl">Project URL</label><input id="cloudUrl" type="url" placeholder="https://dein-projekt.supabase.co" autocomplete="off"></div><div class="control-tile wide"><label for="cloudKey">Publishable / anon Key</label><input id="cloudKey" type="password" placeholder="sb_publishable... oder eyJ..." autocomplete="off"></div><div class="control-tile"><label for="cloudEmail">E-Mail</label><input id="cloudEmail" type="email" placeholder="name@example.de" autocomplete="username"></div><div class="control-tile"><label for="cloudPassword">Passwort</label><input id="cloudPassword" type="password" placeholder="Passwort" autocomplete="current-password"></div></div><div class="toolbar cloud-actions"><button class="secondary" onclick="cloudSaveConfig()">Verbindung speichern</button><button class="secondary" onclick="cloudRegister()">Registrieren</button><button class="secondary" onclick="cloudLogin()">Einloggen</button><button class="secondary" onclick="cloudLogout()">Logout</button><button class="primary" onclick="cloudSaveActiveTrip()">Aktiven Törn in Cloud speichern</button><button class="primary" onclick="cloudSaveAllTrips()">Alle lokalen Törns in Cloud speichern</button><button class="secondary" onclick="cloudLoadTripList()">Cloud-Liste laden</button><button class="secondary" onclick="cloudImportSelectedTrip(false)">Ausgewählten Cloud-Törn übernehmen</button><button class="secondary" onclick="cloudImportSelectedTrip(true)">Als Kopie importieren</button></div><select id="cloudTripSelect" aria-label="Cloud-Törn auswählen"><option value="">Noch keine Cloud-Liste geladen</option></select><div class="status" id="cloudStatus">Cloud nicht verbunden.</div><p class="cloud-hint">Sicherheitsprinzip: Cloud-Laden warnt vor ungespeicherten Eingaben. Überschreiben ist nur nach Bestätigung möglich, alternativ als Kopie importieren. Die Rollen-/Kostenlogik ist in V1.4.2 korrigiert: Giftmann-Häkchen bedeuten „geschenkt“.</p></div><div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Allgemeine Bemerkungen zur Törn-Verwaltung ..." onchange="updatePageNote('trips',this.value)" id="note-trips"></textarea></div></section>
@@ -389,7 +490,42 @@ function readInputs(){const giftModeEl=document.getElementById('giftMode'),dirkE
 function save(silent=true){try{readInputs();const t=getActiveTrip();if(t){t.data=clone(data);t.updatedAt=nowIso()}persistState();saveGuardSetClean();if(!silent)toast('Lokal gespeichert: '+niceDate(t?t.updatedAt:nowIso()))}catch(e){if(!silent)toast('Speichern im Browser nicht möglich')}}
 function updatePageNote(page,value){const t=getActiveTrip();if(!t)return;t.pageNotes=t.pageNotes||{};t.pageNotes[page]=value;t.updatedAt=nowIso();persistState();updateStatus()}
 function renderPageNotes(){const t=getActiveTrip();const notes=(t&&t.pageNotes)||{};['trips','overview','people','settings','admin','results'].forEach(k=>{const el=document.getElementById('note-'+k);if(el&&el.value!==(notes[k]||''))el.value=notes[k]||''})}
-function renderTripHome(){const box=document.getElementById('tripList');if(!box)return;box.innerHTML='';appState.trips.forEach(migrateTrip);appState.trips.slice().sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).forEach(t=>{const c=quickCalc(t.data);const days=tripDays(t);const div=document.createElement('div');div.className='trip-card';div.innerHTML=`<h3>${escapeHtml(t.name)}</h3><div class="trip-name-row"><label class="small">Törnname</label><input class="trip-name-edit" type="text" value="${escapeHtml(t.name||'')}" placeholder="Törnname vergeben" onchange="updateTripName('${t.id}',this.value)"></div><div class="trip-meta">Zeitraum: ${escapeHtml(tripPeriod(t))} · ${days} Tag${days===1?'':'e'}<br>Lokal gespeichert: ${niceDate(t.updatedAt)}<br>Cloud: ${t.cloudMeta?('gespeichert '+niceDate(t.cloudMeta.savedAt||t.cloudMeta.updatedAt)+' · Rev. '+(t.cloudMeta.revision||'–')):'noch nicht gespeichert'}<br>Mitreisende: ${c.payingTravelers} · 1. Überweisung: ${eur(c.transferPer)}</div><label class="small">Zeitraum von</label><input type="date" value="${escapeHtml(t.startDate||'')}" onchange="updateTripField('${t.id}','startDate',this.value)"><label class="small">Zeitraum bis</label><input type="date" value="${escapeHtml(t.endDate||'')}" onchange="updateTripField('${t.id}','endDate',this.value)"><label class="small">Bemerkung</label><textarea rows="3" placeholder="Bemerkungen zum Törn, Zeitraum, Treffpunkt ..." onchange="updateTripField('${t.id}','notes',this.value)">${escapeHtml(t.notes||'')}</textarea><div class="trip-actions"><button class="primary" onclick="openTrip('${t.id}')">${t.id===appState.activeTripId?'Geöffnet':'Öffnen'}</button><button class="secondary" onclick="renameTrip('${t.id}')">Name per Dialog</button><button class="secondary" onclick="duplicateTrip('${t.id}')">Duplizieren</button><button class="danger" onclick="deleteTrip('${t.id}')">Löschen</button></div>`;box.appendChild(div)})}
+const TRIP_COLOR_THEMES=[
+  {name:'türkis',accent:'#58a99d',rgb:'88,169,157',dark:'#103b37',soft:'#d8efe9',icon:'⛵'},
+  {name:'blau',accent:'#5f9ed7',rgb:'95,158,215',dark:'#173d62',soft:'#d7e9fb',icon:'⛵'},
+  {name:'gold',accent:'#d39a32',rgb:'211,154,50',dark:'#5b3708',soft:'#f4dfb0',icon:'✥'},
+  {name:'violett',accent:'#a878d4',rgb:'168,120,212',dark:'#4b2b66',soft:'#eadcf8',icon:'⚓'},
+  {name:'koralle',accent:'#c77986',rgb:'199,121,134',dark:'#5e2c35',soft:'#f3d8dc',icon:'⛵'},
+  {name:'oliv',accent:'#91a86c',rgb:'145,168,108',dark:'#394826',soft:'#e2ead3',icon:'🧭'},
+  {name:'eisblau',accent:'#73b9c9',rgb:'115,185,201',dark:'#24515c',soft:'#dcf2f6',icon:'⚓'},
+  {name:'kupfer',accent:'#c9824a',rgb:'201,130,74',dark:'#5c3219',soft:'#f1d9c5',icon:'🧭'}
+];
+function tripTheme(t){
+  const key=String(t&&t.id||'trip');let hash=2166136261;
+  for(let i=0;i<key.length;i++){hash^=key.charCodeAt(i);hash=Math.imul(hash,16777619)}
+  return TRIP_COLOR_THEMES[(hash>>>0)%TRIP_COLOR_THEMES.length];
+}
+function tripThemeStyle(theme){return `--trip-accent:${theme.accent};--trip-accent-rgb:${theme.rgb};--trip-accent-dark:${theme.dark};--trip-accent-soft:${theme.soft}`}
+function applyActiveTripTheme(){
+  const t=getActiveTrip();const theme=tripTheme(t);const root=document.documentElement;
+  root.style.setProperty('--trip-accent',theme.accent);
+  root.style.setProperty('--trip-accent-rgb',theme.rgb);
+  root.style.setProperty('--trip-accent-dark',theme.dark);
+  root.style.setProperty('--trip-accent-soft',theme.soft);
+  document.body.dataset.tripTheme=theme.name;
+}
+function renderTripHome(){
+  const box=document.getElementById('tripList');if(!box)return;
+  applyActiveTripTheme();
+  box.innerHTML='';appState.trips.forEach(migrateTrip);
+  appState.trips.slice().sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))).forEach(t=>{
+    const c=quickCalc(t.data);const days=tripDays(t);const active=t.id===appState.activeTripId;const theme=tripTheme(t);
+    const cloudText=t.cloudMeta?`${niceDate(t.cloudMeta.savedAt||t.cloudMeta.updatedAt)} · Rev. ${t.cloudMeta.revision||'–'}`:'Noch nicht gespeichert';
+    const div=document.createElement('div');div.className='trip-card'+(active?' trip-card-active':'');div.setAttribute('style',tripThemeStyle(theme));
+    div.innerHTML=`<div class="trip-card-head"><div class="trip-card-title"><span class="trip-card-icon">${theme.icon}</span><h3>${escapeHtml(t.name)}</h3></div><span class="trip-state ${active?'active':'inactive'}">${active?'Aktiver Törn':'Nicht aktiv'}</span></div><div class="trip-card-body"><div class="trip-name-row"><label class="small">Törnname</label><input class="trip-name-edit" type="text" value="${escapeHtml(t.name||'')}" placeholder="Törnname vergeben" onchange="updateTripName('${t.id}',this.value)"></div><div class="trip-meta-grid"><div class="trip-meta-item"><span class="trip-meta-symbol">📅</span>Zeitraum<b>${escapeHtml(tripPeriod(t))} · ${days} Tag${days===1?'':'e'}</b></div><div class="trip-meta-item"><span class="trip-meta-symbol">☁</span>Cloud gespeichert<b>${cloudText}</b></div><div class="trip-meta-item"><span class="trip-meta-symbol">📱</span>Lokal gespeichert<b>${niceDate(t.updatedAt)}</b></div><div class="trip-meta-item"><span class="trip-meta-symbol">👥</span>Mitreisende<b>${c.payingTravelers} · 1. Überweisung: ${eur(c.transferPer)}</b></div></div><label class="small">Zeitraum von</label><input type="date" value="${escapeHtml(t.startDate||'')}" onchange="updateTripField('${t.id}','startDate',this.value)"><label class="small">Zeitraum bis</label><input type="date" value="${escapeHtml(t.endDate||'')}" onchange="updateTripField('${t.id}','endDate',this.value)"><label class="small">Bemerkung</label><textarea rows="3" placeholder="Bemerkungen zum Törn, Zeitraum, Treffpunkt ..." onchange="updateTripField('${t.id}','notes',this.value)">${escapeHtml(t.notes||'')}</textarea><div class="trip-actions"><button class="primary" onclick="openTrip('${t.id}')">${active?'Geöffnet':'Öffnen'}</button><button class="secondary" onclick="renameTrip('${t.id}')">Name per Dialog</button><button class="secondary" onclick="duplicateTrip('${t.id}')">Duplizieren</button><button class="danger" onclick="deleteTrip('${t.id}')">Löschen</button></div></div>`;
+    box.appendChild(div)
+  })
+}
 function cleanTripName(name){return String(name||'').trim()}
 function uniqueTripName(base,currentId){let stem=cleanTripName(base)||'Neuer Törn';const names=new Set(appState.trips.filter(t=>t.id!==currentId).map(t=>String(t.name||'')));if(!names.has(stem))return stem;let i=2;while(names.has(stem+' ('+i+')'))i++;return stem+' ('+i+')'}
 function updateTripName(id,value){const t=appState.trips.find(x=>x.id===id);if(!t)return;const oldName=t.name||'Neuer Törn';const next=cleanTripName(value);if(!next){renderTripHome();toast('Törnname bleibt unverändert');return}const unique=uniqueTripName(next,id);t.name=unique;t.updatedAt=nowIso();persistState();renderTripHome();saveGuardSetClean();updateStatus();toast(unique===next?'Törnname gespeichert':'Törnname gespeichert: '+unique)}
@@ -712,7 +848,8 @@ function renderResults(c){
 }
 
 function update(){readInputs();const t=getActiveTrip();if(t)t.data=clone(data);const c=calc(false);renderPeople(c);renderCostOverview(c);renderCosts(c);renderResults(c);renderParticipantManagement(c);renderTripHome();renderPageNotes();updateStatus()}
-function updateStatus(){const t=getActiveTrip();const saved=t?niceDate(t.updatedAt):'nicht gespeichert';const name=t?escapeHtml(t.name):'Kein Törn';const dirty=hasUnsavedChanges();const guard=dirty?'<span class="save-dirty">Ungespeichert</span>':'<span class="save-clean">Gespeichert</span>';document.getElementById('activeTripBadge').innerHTML=`Aktiver Törn: <b>${name}</b> · Zeitraum: ${escapeHtml(tripPeriod(t))} · lokal gespeichert: ${saved} · ${guard}`;updateSaveGuardStatus();const sd=document.getElementById('standDate');if(sd)sd.textContent='Stand lokal gespeichert: '+saved+(dirty?' · Ungespeichert':'');document.querySelectorAll('.status').forEach(el=>{if(el.id!=='standDate'&&el.id!=='cloudStatus')el.textContent='Lokal gespeichert: '+saved+(dirty?' · Ungespeichert':'')})}
+function updateActiveTripHeadline(){const t=getActiveTrip();const title=(t&&cleanTripName(t.name))||'Chillout Pirates';const headline=document.getElementById('activeTripHeadline');if(headline)headline.textContent=title;document.title=title+' – Kostenaufteilung'}
+function updateStatus(){applyActiveTripTheme();updateActiveTripHeadline();const t=getActiveTrip();const saved=t?niceDate(t.updatedAt):'nicht gespeichert';const name=t?escapeHtml(t.name):'Kein Törn';const dirty=hasUnsavedChanges();const guard=dirty?'<span class="save-dirty">Ungespeichert</span>':'<span class="save-clean">Gespeichert</span>';document.getElementById('activeTripBadge').innerHTML=`<span class="active-trip-dot"></span>Aktiver Törn: <b>${name}</b> · Zeitraum: ${escapeHtml(tripPeriod(t))} · lokal gespeichert: ${saved} · ${guard}`;updateSaveGuardStatus();const sd=document.getElementById('standDate');if(sd)sd.textContent='Stand lokal gespeichert: '+saved+(dirty?' · Ungespeichert':'');document.querySelectorAll('.status').forEach(el=>{if(el.id!=='standDate'&&el.id!=='cloudStatus')el.textContent='Lokal gespeichert: '+saved+(dirty?' · Ungespeichert':'')})}
 
 
 // -----------------------------------------------------------------------------

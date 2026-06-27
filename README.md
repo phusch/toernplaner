@@ -1,116 +1,73 @@
-# 🏴‍☠️ Törnplaner / Chillout Pirates Kalkulation
+# Törnplaner / Chillout Pirates Kalkulation – V1.4.4 Dynamischer Törntitel
 
-**Aktuelle Arbeitsversion:** `V1.4.2_storage_status`  
-**Basis:** `Toernplaner_V1.4.2_giftmann_logic_fix.zip`  
-**Stand:** 08.06.2026
+## Visuelle Weiterentwicklung V1.4.4 – aktiver Törn in der Kopfzeile
 
-Der Törnplaner ist eine mobile, offlinefähige Kosten- und Teilnehmerverwaltung für Segeltörns der **Chillout Pirates**. Die App berechnet Kostenanteile für Mitreisende, Sonderrollen, Schenkungen, Mannschaftskasse und Kaution. Zusätzlich können mehrere Törns lokal verwaltet und optional manuell mit Supabase in der Cloud gesichert werden.
+- Die große bisher statische Überschrift „Chillout Pirates“ zeigt jetzt den selbst vergebenen Namen des aktiven Törns.
+- Beim Öffnen, Wechseln oder Umbenennen eines Törns aktualisiert sich die Überschrift automatisch.
+- Auch der Browser-/PWA-Seitentitel verwendet den Namen des aktiven Törns.
+- Die in V1.4.3 eingeführte Törn-Farbführung bleibt vollständig erhalten.
+- Berechnungen, Rollen, lokales Speichern, Supabase, Revisionen, Save Guard und Datenmodell wurden nicht verändert.
 
-Diese Version basiert auf der getesteten und freigegebenen **V1.4.2 Giftmann-Logik**. Die Rechenlogik wurde in den letzten Anzeigeänderungen **nicht verändert**.
-
----
-
-## ✅ Was diese Version kann
-
-- mehrere Törns lokal im Browser verwalten
-- Teilnehmer mit Rollen pflegen
-- Kostenpositionen den Bereichen **Fixkosten**, **Mannschaftskasse** und **Sonstige** zuordnen
-- Kaution getrennt als Sonderlogik berechnen
-- Giftmann-/Schenker-Logik nach V1.4.2 berechnen
-- Übersichtsseite mit Rollen und Gesamtbetrag je Teilnehmer anzeigen
-- Einzelbeträge detailliert ausgeben
-- Teilnehmerverwaltung mit offenen Beträgen, Zahlungsstatus und Notizen führen
-- CSV exportieren
-- Backup als JSON exportieren und importieren
-- aktuellen Stand als Link teilen
-- optional manuell in Supabase speichern und aus Supabase laden
-- klar unterscheiden zwischen **lokal gespeichert** und **Cloud gespeichert**
+Diese Version basiert ausschließlich auf **Toernplaner_V1.4.3_trip_colors.zip** und ergänzt nur die sichtbare Titelanzeige.
 
 ---
 
-## 🆕 Aktueller Stand dieser Version
+## Visuelle Weiterentwicklung V1.4.3 – Törn-Farbführung
 
-Gegenüber der ursprünglichen V1.4.2 wurden nur Anzeige- und Bedienklarheitsänderungen ergänzt:
+- Jeder Törn erhält automatisch eine stabile Akzentfarbe, die aus seiner vorhandenen Törn-ID abgeleitet wird.
+- Der aktive Törn wird in der Törn-Verwaltung deutlich hervorgehoben.
+- Die Akzentfarbe des aktiven Törns zieht sich als Orientierungsfaden durch die übrigen Reiter.
+- Der Supabase-Bereich ist als eigener blauer Cloud-Bereich sichtbar getrennt.
+- Es wurden keine Berechnungen, Rollen, Speicherfunktionen, Supabase-Datenfelder oder Cloud-Abläufe verändert.
 
-### 1. Übersicht: Teilnehmer & Rollen & Gesamtbetrag
+Diese Version basiert ausschließlich auf der stabilen **Toernplaner_V1.4.2_storage_status.zip**. Sie ergänzt die visuelle Törn-Farbführung und die deutliche Abgrenzung des Supabase-Bereichs; die getestete V1.4.2-Rechen-, Rollen- und Speicherlogik bleibt unverändert.
 
-Auf der Übersichtsseite zeigt der Bereich Ergebnisse jetzt:
-
-```text
-Teilnehmer | Rolle | Gesamtbetrag
-```
-
-Die dritte Spalte zeigt den endgültigen Gesamtbetrag je Teilnehmer, also den Betrag, der tatsächlich zu zahlen ist:
+Nicht geändert wurden:
 
 ```text
-Gesamtbetrag = Geschenkbeitrag + Reisebetrag ohne Kaution + Kaution
+Supabase-Grundlogik
+Cloud-Speichern / Cloud-Laden
+Törnnamen
+Save Guard / Ungespeichert-Warnung
+Kostenbereiche Fixkosten / Mannschaftskasse / Sonstige
+Rollen Nur Fixkosten / Nur Sonstige / Schenker
+Kautions-Sonderlogik
 ```
-
-Bei längeren Rollenhinweisen, besonders beim Giftmann, darf die Rollen-Spalte mehrzeilig umbrechen.
-
-### 2. Eindeutige lokale Speicheranzeige
-
-Beim normalen Speichern steht jetzt ausdrücklich:
-
-```text
-Lokal gespeichert: 08.06.2026, 16:42
-```
-
-Damit ist klar: Der Button **Speichern** sichert den Stand nur auf dem aktuellen Gerät und im aktuellen Browser.
-
-### 3. Eindeutige Cloud-Speicheranzeige
-
-Beim Cloud-Speichern steht jetzt ausdrücklich:
-
-```text
-Cloud gespeichert: 08.06.2026, 16:42 · Revision 5
-```
-
-Die Revision kommt aus Supabase und zeigt, dass der Cloud-Datensatz wirklich aktualisiert wurde.
-
-### 4. Cloud-Liste mit Datum vor dem Törnnamen
-
-Die Cloud-Liste zeigt das Datum jetzt zuerst:
-
-```text
-08.06.2026, 16:42 · Friesland 2027
-```
-
-Das ist auf iPhone/Safari besser lesbar, weil lange Törnnamen sonst das rechts stehende Datum abschneiden können.
 
 ---
 
-## 🧭 Bedienung
+## Zentrale Änderung in V1.4.2
 
-### Reiter Törns
-
-Hier werden mehrere Kalkulationen verwaltet.
-
-Wichtige Funktionen:
-
-- **Neuen Törn anlegen** erstellt eine neue lokale Kalkulation.
-- **Backup importieren** lädt eine JSON-Sicherung.
-- **Aktiven Törn in Cloud speichern** speichert den aktuell ausgewählten Törn in Supabase.
-- **Alle lokalen Törns in Cloud speichern** speichert alle lokalen Törns in Supabase.
-- **Cloud-Liste laden** lädt die vorhandenen Supabase-Törns in die Auswahlliste.
-- **Ausgewählten Cloud-Törn übernehmen** überschreibt nach Bestätigung den lokalen Törn mit dem Cloud-Stand.
-- **Als Kopie importieren** lädt den Cloud-Törn als neue lokale Kopie.
-
-Wichtig:
+Die Giftmann-Häkchen bedeuten jetzt eindeutig:
 
 ```text
-Speichern = lokal
-Aktiven Törn in Cloud speichern = Supabase
-Alle lokalen Törns in Cloud speichern = Supabase
+angekreuzt     = dieser Bereich wird geschenkt / Giftmann zahlt ihn nicht selbst
+nicht angekreuzt = diesen Bereich zahlt Giftmann selbst
 ```
 
-Es gibt bewusst keinen automatischen Cloud-Sync. Dadurch werden lokale Daten nicht unbemerkt überschrieben.
+Die sichtbaren Häkchen heißen deshalb:
+
+```text
+[ ] Fixkosten geschenkt
+[ ] Mannschaftskasse geschenkt
+[ ] Sonstige geschenkt
+```
+
+Der Giftmann verursacht weiterhin als mitreisende Person Kosten in allen Bereichen. Die Häkchen entscheiden nur, **wer diese Kosten zahlt**.
 
 ---
 
-## 👥 Rollenlogik
+## Rollen
 
-Folgende Rollen sind direkt bei jedem Teilnehmer auswählbar:
+Sichtbar in der App heißen die normalen zahlenden Mitfahrer jetzt:
+
+```text
+Mitreisende
+```
+
+Intern kann die Rolle aus Kompatibilitätsgründen weiterhin als `Vollzahler` gespeichert sein. In der Bedienung und in den Ausgaben erscheint aber „Mitreisende“.
+
+Direkt bei jedem Teilnehmer auswählbar:
 
 ```text
 Mitreisende
@@ -122,71 +79,87 @@ Schenker
 
 ### Mitreisende
 
-Mitreisende zahlen grundsätzlich:
+Zahlen:
 
-- Fixkosten
-- Mannschaftskasse
-- Sonstige
-- Kaution wie bisher
-- offenen Giftmann-Rest, falls Schenkerbeträge nicht reichen
+```text
+Fixkosten
+Mannschaftskasse
+Sonstige
+Kaution wie bisher
+offenen Giftmann-Rest, falls Geschenke nicht reichen
+```
 
 ### Nur Fixkosten
 
-Diese Rolle zahlt nur:
+Zahlen nur:
 
-- Fixkosten
+```text
+Fixkosten
+```
 
-Sie zahlt nicht:
+Zahlen nicht:
 
-- Mannschaftskasse
-- Sonstige
-- Giftmann-Rest
+```text
+Mannschaftskasse
+Sonstige
+Giftmann-Rest
+```
 
 ### Nur Sonstige
 
-Diese Rolle zahlt nur:
+Zahlen nur:
 
-- Sonstige
+```text
+Sonstige
+```
 
-Sie zahlt nicht:
+Zahlen ausdrücklich nicht:
 
-- Fixkosten
-- Mannschaftskasse
-- Giftmann-Rest
+```text
+Fixkosten
+Mannschaftskasse
+Giftmann-Rest
+```
+
+### Giftmann
+
+Der Giftmann reist mit und verursacht grundsätzlich Kosten in allen drei Bereichen:
+
+```text
+Fixkosten
+Mannschaftskasse
+Sonstige
+```
+
+Nicht geschenkte Bereiche zahlt er selbst. Geschenkte Bereiche werden durch Schenkerbeträge und gegebenenfalls durch die Mitreisenden getragen.
 
 ### Schenker
 
-Schenker reisen nicht mit und zahlen nur den Geschenkbeitrag.
+Zahlt nur:
 
-Sie nehmen nicht teil an:
+```text
+Geschenkbeitrag
+```
 
-- Fixkosten
-- Mannschaftskasse
-- Sonstige
-- Kaution
+Reist nicht mit und nimmt nicht an Fixkosten, Mannschaftskasse oder Sonstige teil.
 
 ---
 
-## 🎁 Giftmann-Logik V1.4.2
+## Kostenbereiche
 
-Die Giftmann-Logik ist der zentrale getestete Stand dieser Version.
-
-Die Giftmann-Häkchen bedeuten:
+Bei Kostenpositionen gibt es nur noch drei auswählbare Bereiche:
 
 ```text
-angekreuzt       = dieser Bereich wird geschenkt
-nicht angekreuzt = diesen Bereich zahlt Giftmann selbst
+Fixkosten
+Mannschaftskasse
+Sonstige
 ```
 
-Sichtbare Häkchen:
+Es gibt keine automatische Namenserkennung. Die App ordnet also Begriffe wie Charter, Schiff, Diesel, Hafen, Essen oder Taxi nicht automatisch zu. Der Bereich wird pro Kostenposition bewusst ausgewählt.
 
-```text
-[ ] Fixkosten geschenkt
-[ ] Mannschaftskasse geschenkt
-[ ] Sonstige geschenkt
-```
+---
 
-Der Giftmann reist mit und verursacht rechnerisch Kosten. Die Häkchen entscheiden nur, ob er diese Kosten selbst zahlt oder ob sie geschenkt werden.
+## Giftmann-Fälle
 
 ### Fall 1: Nur Fixkosten geschenkt
 
@@ -209,6 +182,8 @@ Geschenkt wird:
 Fixkosten
 ```
 
+Reichen die Schenkerbeträge nicht, geht der offene Rest nur auf die Mitreisenden.
+
 ### Fall 2: Nur Mannschaftskasse geschenkt
 
 ```text
@@ -224,6 +199,12 @@ Fixkosten
 Sonstige
 ```
 
+Geschenkt wird:
+
+```text
+Mannschaftskasse
+```
+
 ### Fall 3: Nur Sonstige geschenkt
 
 ```text
@@ -237,6 +218,12 @@ Giftmann zahlt selbst:
 ```text
 Fixkosten
 Mannschaftskasse
+```
+
+Geschenkt wird:
+
+```text
+Sonstige
 ```
 
 ### Fall 4: Fixkosten + Mannschaftskasse geschenkt
@@ -292,10 +279,10 @@ Fixkosten
 Giftmann zahlt selbst:
 
 ```text
-0,00 € ohne Kaution
+0,00 €
 ```
 
-Falls Schenkerbeträge nicht reichen, wird der offene Rest nur auf Mitreisende verteilt.
+Wenn die Schenkerbeträge nicht reichen, wird der offene Rest nur auf die Mitreisenden verteilt.
 
 ### Fall 8: Nichts geschenkt
 
@@ -307,13 +294,7 @@ Falls Schenkerbeträge nicht reichen, wird der offene Rest nur auf Mitreisende v
 
 Giftmann wird wie ein normaler Mitreisender berechnet.
 
-Der Schenkergesamtbetrag reduziert in diesem Fall die Kosten aller Mitreisenden inklusive Giftmann.
-
----
-
-## ⚙ Kostenbereiche
-
-Kostenpositionen werden bewusst einem von drei Bereichen zugeordnet:
+Er zahlt dann selbst:
 
 ```text
 Fixkosten
@@ -321,264 +302,112 @@ Mannschaftskasse
 Sonstige
 ```
 
-Es gibt keine automatische Namenserkennung. Begriffe wie Charter, Schiff, Diesel, Hafen, Essen oder Taxi werden nicht automatisch interpretiert. Die Zuordnung erfolgt bewusst über das Feld **Bereich**.
-
-Berechnungsarten:
-
-- **Pauschal**
-- **Einmalig × Personen**
-- **Zeitraum × Personen**
-
-Die Mannschaftskasse bleibt als eigene Sonderlogik erhalten.
+Der Schenkergesamtbetrag reduziert in diesem Fall die Kosten aller Mitreisenden inklusive Giftmann.
 
 ---
 
-## 💰 Kaution
+## Mehrere Giftmänner
 
-Die Kaution bleibt unverändert als Sonderlogik erhalten.
-
-Sie wird getrennt von der Reiseberechnung behandelt und in den Teilnehmerbeträgen zusätzlich berücksichtigt.
-
----
-
-## ☁️ Supabase Cloud-Speicher
-
-Supabase ist optional und manuell.
-
-### Was wird gespeichert?
-
-Beim Cloud-Speichern werden zwei Ebenen gespeichert:
-
-1. Kopfdaten in der Tabelle:
+Diese Version ist bewusst für genau **einen Giftmann** ausgelegt.
 
 ```text
-trips
+Mehrere Giftmänner sind nicht vorgesehen.
 ```
 
-2. vollständiger Törnzustand als JSON in:
-
-```text
-trip_states.state_json
-```
-
-Darin steckt der komplette lokale Törnzustand:
-
-- Törnname
-- Zeitraum
-- Teilnehmer
-- Rollen
-- Giftmann-Häkchen
-- Kostenpositionen
-- Bemerkungen
-- Zahlungsdaten der Teilnehmerverwaltung
-
-### Cloud-Speichern prüfen
-
-Nach dem Klick auf **Aktiven Törn in Cloud speichern** sollte in der App stehen:
-
-```text
-Cloud gespeichert: 08.06.2026, 16:42 · Revision 5
-```
-
-Die Revision muss bei erneutem Speichern steigen.
-
-### Prüfung direkt in Supabase
-
-Im Supabase SQL Editor kann diese Abfrage verwendet werden:
-
-```sql
-select
-  t.name,
-  t.client_updated_at as app_zeit,
-  t.updated_at as trip_updated,
-  s.revision,
-  s.updated_at as state_updated,
-  s.client_updated_at as state_app_zeit,
-  s.state_json ->> 'name' as json_toernname
-from public.trips t
-join public.trip_states s on s.trip_id = t.id
-where t.deleted_at is null
-order by s.updated_at desc;
-```
-
-Wenn nach dem Cloud-Speichern oben ein aktueller Eintrag erscheint und `revision` steigt, wurde der Törn wirklich in Supabase gespeichert.
-
-Hinweis: Supabase zeigt Zeiten häufig in UTC. Deutschland liegt im Sommer bei UTC+2.
+Falls versehentlich mehrere Personen als Giftmann markiert werden, ist das kein unterstützter Anwendungsfall. Für die praktische Nutzung bitte nur eine Person als Giftmann auswählen.
 
 ---
 
-## 💾 Lokal speichern, Backup und Teilen
+## Übersicht / Ergebnisse
 
-### Lokal speichern
-
-Der Button **Speichern** sichert den aktuellen Stand im Browser auf dem Gerät.
-
-Die App zeigt danach:
+Die Übersichtsseite zeigt bei den Ergebnissen jetzt:
 
 ```text
-Lokal gespeichert: Datum, Uhrzeit
+Giftmann zahlt selbst
 ```
 
-### Backup
+Das ist der tatsächlich vom Giftmann zu zahlende Betrag ohne Kaution. Es ist nicht mehr nur der rechnerische Gesamtanteil.
 
-Der Button **Backup** exportiert alle lokalen Törns als JSON-Datei.
-
-Diese Datei ist die sicherste geräteunabhängige Sicherung, unabhängig von Browsercache oder Supabase.
-
-### Backup importieren
-
-Ein zuvor exportiertes Backup kann wieder importiert werden.
-
-Vor dem Import greift der Save Guard, wenn lokale Änderungen ungespeichert sind.
-
-### Teilen
-
-Der Button **Teilen** erzeugt einen Link mit dem aktuellen Stand.
-
-Wichtig: Ein geteiltes Projekt ist nicht automatisch dauerhaft gespeichert. Nach dem Öffnen eines geteilten Stands sollte auf dem Zielgerät **Speichern** gedrückt werden.
-
----
-
-## 🛡 Save Guard
-
-Die App warnt vor Aktionen, die ungespeicherte lokale Änderungen überschreiben könnten.
-
-Das betrifft insbesondere:
-
-- Cloud-Törn übernehmen
-- Backup importieren
-- Ursprungsdaten laden
-- Törn wechseln oder überschreiben
-
-Dadurch sollen versehentliche Datenverluste vermieden werden.
-
----
-
-## 📱 Installation / Nutzung
-
-Die App ist eine reine HTML-/JavaScript-App.
-
-### Lokal testen
-
-Datei öffnen:
+Zusätzlich zeigt die Kontrolle:
 
 ```text
-index.html
-```
-
-### Über GitHub Pages nutzen
-
-Empfohlen für iPhone/iPad:
-
-1. Repository auf GitHub anlegen.
-2. Dateien aus dem ZIP hochladen.
-3. GitHub Pages aktivieren.
-4. Die veröffentlichte URL im Safari öffnen.
-5. Bei Bedarf zum Home-Bildschirm hinzufügen.
-
-Nach dem ersten Laden ist die App durch Service Worker und Manifest grundsätzlich offline nutzbar.
-
----
-
-## 📦 Dateistruktur
-
-```text
-index.html                                      Haupt-App mit UI und aktiver Logik
-sw.js                                           Service Worker / Cache
-manifest.webmanifest                            PWA-Manifest
-assets/logo.png                                 Logo
-assets/icon-180.png                             iOS-Icon
-assets/icon-192.png                             PWA-Icon
-assets/icon-512.png                             PWA-Icon groß
-supabase_migration_001_initial_sync_schema.sql  Supabase-Datenbankschema
-SUPABASE_EINFACH_EINRICHTUNG_V1.1.md            Supabase-Einrichtungshilfe
-README.md                                       Diese Dokumentation
-app.js                                          historische/mitgelieferte Datei; aktive App-Logik steckt in index.html
-*.diff                                          Änderungs-Patches / Entwicklungsnachweis
+Giftmann rechnerischer Anteil
+Davon geschenkte Bereiche
+Offener Giftmann-Rest auf Mitreisende
+Kontrollabweichung ohne Kaution
+Differenz Kaution
 ```
 
 ---
 
-## 🧪 Empfohlener Funktionstest nach Upload
+## Einzelbeträge
 
-Nach dem Hochladen auf GitHub Pages oder nach dem Entpacken lokal:
-
-1. App öffnen.
-2. Einen Törn auswählen oder neu anlegen.
-3. Teilnehmerrollen prüfen.
-4. Giftmann-Häkchen setzen und Ergebnis prüfen.
-5. In der Übersicht prüfen, ob die Spalte **Gesamtbetrag** sichtbar ist.
-6. **Speichern** drücken und prüfen:
+Im Reiter Einzelbeträge wird bei Giftmann sichtbar:
 
 ```text
-Lokal gespeichert: Datum, Uhrzeit
+rechnerischer Anteil
+selbst zu zahlen
+geschenkt
+Fixkosten selbst
+Mannschaftskasse selbst
+Sonstige selbst
 ```
 
-7. Bei Supabase-Nutzung einloggen.
-8. **Aktiven Törn in Cloud speichern** drücken und prüfen:
-
-```text
-Cloud gespeichert: Datum, Uhrzeit · Revision X
-```
-
-9. **Cloud-Liste laden** drücken und prüfen, ob Einträge so angezeigt werden:
-
-```text
-Datum, Uhrzeit · Törnname
-```
-
-10. Optional in Supabase prüfen, ob `trip_states.revision` gestiegen ist.
+Die Hauptzahlungsspalten zeigen den tatsächlich zu zahlenden Betrag.
 
 ---
 
-## 🔒 Sicherheits- und Datenschutzhinweise
+## Teilnehmerverwaltung
 
-- Niemals einen `service_role`-Key oder Secret-Key in der App eintragen.
-- Nur den öffentlichen `publishable` oder `anon` Key verwenden.
-- Supabase-Zugriff ist über Row Level Security auf den angemeldeten Nutzer beschränkt.
-- Lokale Daten liegen im Browser-Speicher des Geräts.
-- Browserdaten löschen kann lokale Törns entfernen. Deshalb regelmäßig Backup exportieren.
+Die Teilnehmerverwaltung zeigt weiterhin die endgültig zahlbaren Beträge.
 
----
-
-## 🚫 Bewusst nicht geändert
-
-In dieser Version wurden nicht verändert:
-
-- `calc()`-Berechnungslogik
-- Rollenlogik
-- Giftmann-Logik
-- Kautionslogik
-- Supabase-Datenmodell
-- Cloud-Speichermechanik
-- optische Grundgestaltung
-
-Die letzten Änderungen betreffen nur:
-
-- bessere Statusmeldungen für lokales Speichern
-- bessere Statusmeldungen für Cloud-Speichern
-- bessere Cloud-Listenanzeige
-- Anzeige des Gesamtbetrags auf der Übersichtsseite
-- Service-Worker-Cache-Name zur sauberen Aktualisierung
-
----
-
-## 🧾 Kurzfassung
+Bei Giftmann werden jetzt nur die tatsächlich selbst zu zahlenden Bereiche als Zahlungsanforderung aufgeführt:
 
 ```text
-Speichern                         = lokal auf diesem Gerät
-Aktiven Törn in Cloud speichern   = Supabase
-Cloud-Liste laden                 = Supabase-Törns anzeigen
-Datum vor Törnname                = bessere Sichtbarkeit auf iPhone/Safari
-Revision                          = Nachweis für echte Cloud-Aktualisierung
-Giftmann-Häkchen                  = angekreuzter Bereich ist geschenkt
-Nicht angekreuzter Bereich        = Giftmann zahlt selbst
+Fixkosten selbst zu zahlen
+Mannschaftskasse selbst zu zahlen
+Sonstige selbst zu zahlen
+```
+
+Wenn alles geschenkt ist, erscheint:
+
+```text
+Geschenkt / keine Anforderung = 0,00 €
 ```
 
 ---
 
-## 🏁 Status
+## Kaution
 
-Diese Version ist eine kleine, nachvollziehbare Weiterentwicklung der getesteten V1.4.2.
+Kaution bleibt wie bisher Sonderlogik. Sie ist keine normale Kostenposition und gehört nicht zu Fixkosten, Mannschaftskasse oder Sonstige.
 
-Die Rechenlogik bleibt unverändert. Die App ist damit weiterhin die freigegebene V1.4.2-Basis mit verbesserter Übersicht und klarerer Speicheranzeige.
+In Fall 8, wenn beim Giftmann nichts geschenkt ist und er wie ein normaler Mitreisender berechnet wird, wird er auch wie ein Mitreisender behandelt.
+
+---
+
+## Empfohlenes Testprocedere
+
+Vor produktiver Nutzung bitte testen:
+
+```text
+1. Standardfall öffnen
+2. Giftmann-Häkchen alle sieben Geschenkfälle testen
+3. Fall 8 testen: kein Häkchen aktiv
+4. Prüfen: Übersicht zeigt „Giftmann zahlt selbst“
+5. Prüfen: Einzelbeträge zeigen Giftmann selbst / geschenkt
+6. Prüfen: Teilnehmerverwaltung zeigt nur zahlbare Giftmann-Bereiche
+7. Prüfen: Nur Fixkosten zahlt keine Mannschaftskasse und keine Sonstige
+8. Prüfen: Nur Sonstige zahlt keine Fixkosten und keine Mannschaftskasse
+9. Prüfen: Kontrollabweichung ohne Kaution bleibt 0,00 € oder Rundungsdifferenz
+10. Erst danach speichern oder in die Cloud übertragen
+```
+
+---
+
+## Version
+
+```text
+V1.4.2 Giftmann-Logik-Fix
+Basis: V1.4.1 Giftmann Display Fix
+Änderung: Giftmann-Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt Giftmann selbst.
+```
