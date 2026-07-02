@@ -1,3 +1,18 @@
+# Törnplaner – V1.5.5 Vierte Restzahlung
+
+## Änderung gegenüber V1.5.4
+
+- In der Teilnehmerverwaltung erhält jeder Teilnehmer mit der Rolle **Mitreisende** eine **4. Restzahlung**. Die bisherige Standardbezeichnung der dritten Rate lautet zur klaren Abgrenzung jetzt „3. Anzahlung / frei“.
+- Der Vorschlag wird aus dem aktuell berechneten Gesamtbetrag abzüglich der frei festgelegten 1., 2. und 3. Anzahlung ermittelt.
+- Ein positiver Rest wird als **Nachzahlung vom Teilnehmer** angezeigt.
+- Ein negativer Rest wird als **Rückzahlung an den Teilnehmer** angezeigt.
+- Die Richtung kann bei Bedarf manuell zwischen Nachzahlung und Rückzahlung umgestellt werden.
+- Angeforderter bzw. zurückzuzahlender Betrag und tatsächlich erledigter Betrag bleiben frei eingebbar.
+- Die 4. Restzahlung verändert nicht die Kosten-, Rollen- oder Giftmann-Berechnung. Sie dient nur der Zahlungsabrechnung.
+- Supabase-Speichern und -Laden wurden nicht verändert; die neuen Felder werden wie bisher im vorhandenen Törnzustand mitgespeichert.
+
+---
+
 # Törnplaner – V1.5.4 Schenkerbetrag gesamt
 
 ## Änderung gegenüber V1.5.2
@@ -462,3 +477,12 @@ Die bisherige Supabase-Speicherlogik wurde nicht verändert. Die neuen Ratenfeld
 - Der Kasten zeigt die Summe aller Schenkerbeträge sowie die Anzahl der aktuell eingetragenen Schenker.
 - Der bestehende Kasten mit dem Schenkerbetrag pro Person bleibt erhalten.
 - Kostenberechnung, Rollen-/Giftmann-Logik, Anzahlungen und Supabase-Speicherung wurden nicht verändert.
+
+
+## V1.5.5 – Vierte Restzahlung
+
+- Jeder Mitreisende erhält nach den drei Anzahlungen eine vierte Restzahlungszeile.
+- Automatischer Vorschlag: endgültiger berechneter Teilnehmerbetrag minus angeforderte Raten 1 bis 3.
+- Ergebnis größer als 0: Nachzahlung. Ergebnis kleiner als 0: Rückzahlung.
+- Die tatsächliche Erledigung wird als positiver Betrag erfasst; die gewählte Richtung entscheidet, ob sie als Eingang oder Auszahlung in den Netto-Saldo eingeht.
+- Die bisherigen Kostenbeträge und Supabase-Funktionen bleiben unverändert.

@@ -1,0 +1,193 @@
+diff -ruN /mnt/data/tp155_work/Toernplaner_V1.5.4_gift_total/README.md /mnt/data/Toernplaner_V1.5.5_final_payment/README.md
+--- /mnt/data/tp155_work/Toernplaner_V1.5.4_gift_total/README.md	2026-07-02 08:44:20.000000000 +0000
++++ /mnt/data/Toernplaner_V1.5.5_final_payment/README.md	2026-07-02 09:16:09.373617142 +0000
+@@ -1,3 +1,18 @@
++# Törnplaner – V1.5.5 Vierte Restzahlung
++
++## Änderung gegenüber V1.5.4
++
++- In der Teilnehmerverwaltung erhält jeder Teilnehmer mit der Rolle **Mitreisende** eine **4. Restzahlung**. Die bisherige Standardbezeichnung der dritten Rate lautet zur klaren Abgrenzung jetzt „3. Anzahlung / frei“.
++- Der Vorschlag wird aus dem aktuell berechneten Gesamtbetrag abzüglich der frei festgelegten 1., 2. und 3. Anzahlung ermittelt.
++- Ein positiver Rest wird als **Nachzahlung vom Teilnehmer** angezeigt.
++- Ein negativer Rest wird als **Rückzahlung an den Teilnehmer** angezeigt.
++- Die Richtung kann bei Bedarf manuell zwischen Nachzahlung und Rückzahlung umgestellt werden.
++- Angeforderter bzw. zurückzuzahlender Betrag und tatsächlich erledigter Betrag bleiben frei eingebbar.
++- Die 4. Restzahlung verändert nicht die Kosten-, Rollen- oder Giftmann-Berechnung. Sie dient nur der Zahlungsabrechnung.
++- Supabase-Speichern und -Laden wurden nicht verändert; die neuen Felder werden wie bisher im vorhandenen Törnzustand mitgespeichert.
++
++---
++
+ # Törnplaner – V1.5.4 Schenkerbetrag gesamt
+ 
+ ## Änderung gegenüber V1.5.2
+@@ -462,3 +477,12 @@
+ - Der Kasten zeigt die Summe aller Schenkerbeträge sowie die Anzahl der aktuell eingetragenen Schenker.
+ - Der bestehende Kasten mit dem Schenkerbetrag pro Person bleibt erhalten.
+ - Kostenberechnung, Rollen-/Giftmann-Logik, Anzahlungen und Supabase-Speicherung wurden nicht verändert.
++
++
++## V1.5.5 – Vierte Restzahlung
++
++- Jeder Mitreisende erhält nach den drei Anzahlungen eine vierte Restzahlungszeile.
++- Automatischer Vorschlag: endgültiger berechneter Teilnehmerbetrag minus angeforderte Raten 1 bis 3.
++- Ergebnis größer als 0: Nachzahlung. Ergebnis kleiner als 0: Rückzahlung.
++- Die tatsächliche Erledigung wird als positiver Betrag erfasst; die gewählte Richtung entscheidet, ob sie als Eingang oder Auszahlung in den Netto-Saldo eingeht.
++- Die bisherigen Kostenbeträge und Supabase-Funktionen bleiben unverändert.
+diff -ruN /mnt/data/tp155_work/Toernplaner_V1.5.4_gift_total/index.html /mnt/data/Toernplaner_V1.5.5_final_payment/index.html
+--- /mnt/data/tp155_work/Toernplaner_V1.5.4_gift_total/index.html	2026-07-02 08:45:04.000000000 +0000
++++ /mnt/data/Toernplaner_V1.5.5_final_payment/index.html	2026-07-02 09:16:09.373140764 +0000
+@@ -59,9 +59,15 @@
+ .requested-input{border-color:rgba(var(--trip-accent-rgb),.58)!important;font-weight:900}
+ .admin-table tr.rate-two td{background:rgba(88,169,157,.075);color:#d8efe9!important}
+ .admin-table tr.rate-three td{background:rgba(141,91,179,.075);color:#eadcf5!important}
++.admin-table tr.rate-four td{background:rgba(222,160,60,.09);color:#ffe7b0!important}
+ .admin-table tr.rate-summary td{background:rgba(var(--trip-accent-rgb),.13);font-weight:900}
+ .admin-table .saldo-positive{color:#ffd36e}
+ .admin-table .saldo-negative{color:var(--green)}
++.settlement-direction{display:inline-block;margin-top:5px;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900;font-style:normal}
++.settlement-direction.incoming{background:rgba(255,211,110,.16);color:#ffd36e;border:1px solid rgba(255,211,110,.42)}
++.settlement-direction.refund{background:rgba(120,220,168,.14);color:var(--green);border:1px solid rgba(120,220,168,.38)}
++.settlement-direction.balanced{background:rgba(255,255,255,.08);color:var(--muted);border:1px solid rgba(255,255,255,.16)}
++.settlement-direction-select{margin-top:6px;min-width:190px!important;font-size:12px}
+ 
+ 
+ 
+@@ -259,9 +265,9 @@
+   </section>
+   <section class="card hide" id="tab-admin">
+     <h2><span class="icon">📬</span>Teilnehmerverwaltung</h2>
+-    <p class="small">Drei Anzahlungsraten mit frei überschreibbaren Beträgen: 1. Rate Fixkosten, 2. Rate Mannschaftskasse + Sonstige + Kaution, 3. Rate frei. Die Vorschläge stammen aus der unveränderten Kostenberechnung.</p>
++    <p class="small">Drei Anzahlungsraten plus 4. Restzahlung: 1. Rate Fixkosten, 2. Rate Mannschaftskasse + Sonstige + Kaution, 3. Rate frei. Bei Mitreisenden zeigt die 4. Restzahlung automatisch eine Nachzahlung oder Rückzahlung aus den frei gewählten Anforderungsbeträgen. Die Vorschläge stammen aus der unveränderten Kostenberechnung.</p>
+     <div class="note installment-note"><b>Wichtig:</b> Ein frei eingegebener Anzahlungsbetrag verändert nicht die Kostenverteilung. Er wird nur für Anforderung, Zahlungseingang, offenen Ratenbetrag und den späteren Abrechnungssaldo verwendet.</div>
+-    <div class="scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Rolle</th><th>Rate / Vorschlag</th><th>E-Mail</th><th>Wise / Bank</th><th>Angefordert</th><th>Anforderung</th><th>Datum</th><th>Eingang</th><th>Datum</th><th>Betrag</th><th>Offen</th><th>Notiz / Erinnerung</th></tr></thead><tbody id="adminBody"></tbody></table></div>
++    <div class="scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Rolle</th><th>Rate / Vorschlag</th><th>E-Mail</th><th>Wise / Bank</th><th>Angefordert</th><th>Mitgeteilt</th><th>Datum</th><th>Erledigt</th><th>Datum</th><th>Erledigter Betrag</th><th>Offen</th><th>Notiz / Erinnerung</th></tr></thead><tbody id="adminBody"></tbody></table></div>
+     <div class="toolbar"><button class="primary" onclick="manualSave()">Speichern</button><button class="secondary" onclick="downloadCsv()">CSV Einzelbeträge</button><button class="secondary" onclick="exportBackup()">Backup</button></div>
+     <div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Bemerkungen zur Teilnehmerverwaltung ..." onchange="updatePageNote('admin',this.value)" id="note-admin"></textarea></div>
+     <div class="status" id="saveStatusAdmin"></div>
+@@ -366,7 +372,7 @@
+ v1.3 Törnnamen: direkt editierbar, Cloud-Kopie mit Wunschname
+ v1.4.2 Giftmann-Logik: Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt der Giftmann selbst; Rest nur auf Mitreisende
+ v1.5 Anzahlungsraten: Fixkosten als 1. Rate, Mannschaftskasse + Sonstige + Kaution als 2. Rate, frei definierbare 3. Rate; alle Anforderungsbeträge frei überschreibbar
+-v1.5.2 Übersicht: Summen der drei Anzahlungen, Rundung auf zwei Nachkommastellen und Rollensortierung bei Einzelbeträgen<br>v1.5.3 Übersicht: Anzahlungen pro Mitreisendem statt Gesamtsummen<br>v1.5.4 Übersicht: Schenkerbetrag gesamt mit Anzahl der Schenker</div>
++v1.5.2 Übersicht: Summen der drei Anzahlungen, Rundung auf zwei Nachkommastellen und Rollensortierung bei Einzelbeträgen<br>v1.5.3 Übersicht: Anzahlungen pro Mitreisendem statt Gesamtsummen<br>v1.5.4 Übersicht: Schenkerbetrag gesamt mit Anzahl der Schenker<br>v1.5.5 Teilnehmerverwaltung: 4. Restzahlung für Mitreisende mit automatischer Nachzahlungs-/Rückzahlungsrichtung</div>
+         </section>
+       </div>
+     </div>
+@@ -732,7 +738,7 @@
+       if(info[prefix+'ReceivedAmount']===undefined||info[prefix+'ReceivedAmount']===null||info[prefix+'ReceivedAmount']==='')info[prefix+'ReceivedAmount']=prefix==='gift'?(+info.receivedAmount||0):0;
+       if(info[prefix+'Note']===undefined||info[prefix+'Note']===null)info[prefix+'Note']='';
+     });
+-    ['rate1','rate2','rate3'].forEach(prefix=>{
++    ['rate1','rate2','rate3','rate4'].forEach(prefix=>{
+       if(info[prefix+'RequestedAmount']===undefined)info[prefix+'RequestedAmount']=null; // null = aktuellen Vorschlag verwenden
+       if(info[prefix+'RequestSent']===undefined)info[prefix+'RequestSent']=false;
+       if(info[prefix+'RequestDate']===undefined||info[prefix+'RequestDate']===null)info[prefix+'RequestDate']='';
+@@ -741,14 +747,15 @@
+       if(info[prefix+'ReceivedAmount']===undefined||info[prefix+'ReceivedAmount']===null||info[prefix+'ReceivedAmount']==='')info[prefix+'ReceivedAmount']=0;
+       if(info[prefix+'Note']===undefined||info[prefix+'Note']===null)info[prefix+'Note']='';
+     });
+-    if(info.rate3Label===undefined||info.rate3Label===null)info.rate3Label='3. Anzahlung / Restzahlung';
++    if(info.rate3Label===undefined||info.rate3Label===null||info.rate3Label==='3. Anzahlung / Restzahlung')info.rate3Label='3. Anzahlung / frei';
++    if(info.rate4Direction===undefined||info.rate4Direction===null)info.rate4Direction=''; // leer = automatisch aus Restbetrag
+   });
+ }
+ function setParticipantInfo(name,field,value){
+   ensureParticipantInfo();
+   const key=participantKey(name);
+   if(!data.participantInfo[key])data.participantInfo[key]={email:'',paypal:'',requestSent:false,requestDate:'',moneyReceived:false,receivedDate:'',receivedAmount:0,reminderDate:'',note:''};
+-  if(/^rate[123]RequestedAmount$/.test(field)&&value!==null&&value!==undefined&&value!=='')value=money2(Math.max(0,+value||0));
++  if(/^rate[1234]RequestedAmount$/.test(field)&&value!==null&&value!==undefined&&value!=='')value=money2(Math.max(0,+value||0));
+   data.participantInfo[key][field]=value;
+   update();
+ }
+@@ -773,6 +780,18 @@
+   if(number===2)return '2. Anzahlung – Mannschaftskasse + Sonstige + Kaution';
+   return '3. Anzahlung – frei';
+ }
++function installmentSettlementPlan(calcRow,role,info){
++  const requestedBefore=[1,2,3].reduce((sum,n)=>sum+installmentRequested(info,'rate'+n,installmentSuggestion(calcRow,role,n)),0);
++  const signedDifference=money2((+calcRow.adminDue||0)-requestedBefore);
++  const automaticDirection=signedDifference>0.005?'incoming':signedDifference<-.005?'refund':'balanced';
++  const selectedDirection=['incoming','refund'].includes(info.rate4Direction)?info.rate4Direction:automaticDirection;
++  return{requestedBefore,signedDifference,automaticDirection,direction:selectedDirection,suggestedAmount:money2(Math.abs(signedDifference))};
++}
++function installmentDirectionLabel(direction){
++  if(direction==='incoming')return 'Nachzahlung vom Teilnehmer';
++  if(direction==='refund')return 'Rückzahlung an Teilnehmer';
++  return 'Aktuell ausgeglichen';
++}
+ function renderParticipantManagement(c){
+   const body=document.getElementById('adminBody');if(!body)return;
+   ensureParticipantInfo();
+@@ -794,26 +813,48 @@
+     const open=Math.max(0,requested-received);
+     const standardTitle=installmentDefaultTitle(role,number);
+     const titleHtml=number===3
+-      ? `<span class="installment-title">${escapeHtml(standardTitle)}</span><input class="installment-custom-label" type="text" value="${escapeHtml(info.rate3Label||'3. Anzahlung / Restzahlung')}" placeholder="Bezeichnung der 3. Rate" onchange="setParticipantInfo('${escapeJs(name)}','rate3Label',this.value)">`
++      ? `<span class="installment-title">${escapeHtml(standardTitle)}</span><input class="installment-custom-label" type="text" value="${escapeHtml(info.rate3Label||'3. Anzahlung / frei')}" placeholder="Bezeichnung der 3. Anzahlung" onchange="setParticipantInfo('${escapeJs(name)}','rate3Label',this.value)">`
+       : `<span class="installment-title">${escapeHtml(standardTitle)}</span>`;
+     const tr=document.createElement('tr');
+     tr.className=roleClass(role)+' '+extraClass;
+     tr.innerHTML=`<td>${showName?`<b>${escapeHtml(name)}</b>`:''}</td><td>${showName?escapeHtml(roleDisplayName(role)):''}</td><td>${titleHtml}<span class="installment-suggestion">Berechneter Vorschlag: ${eur(suggested)}</span></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Frei änderbar; leer lassen setzt wieder den berechneten Vorschlag ein" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
+     body.appendChild(tr);
+   };
++  const settlementRow=(name,role,calcRow)=>{
++    const info=data.participantInfo[participantKey(name)]||{};
++    const plan=installmentSettlementPlan(calcRow,role,info);
++    const prefix='rate4';
++    const requested=installmentRequested(info,prefix,plan.suggestedAmount);
++    const completed=Math.max(0,+info[prefix+'ReceivedAmount']||0);
++    const open=Math.max(0,requested-completed);
++    const directionLabel=installmentDirectionLabel(plan.direction);
++    const directionClass=plan.direction==='incoming'?'incoming':plan.direction==='refund'?'refund':'balanced';
++    const autoText=installmentDirectionLabel(plan.automaticDirection);
++    const tr=document.createElement('tr');
++    tr.className=roleClass(role)+' rate-four';
++    tr.innerHTML=`<td></td><td></td><td><span class="installment-title">4. Restzahlung</span><span class="settlement-direction ${directionClass}">${escapeHtml(directionLabel)}</span><span class="installment-suggestion">Berechneter Vorschlag aus Gesamtbetrag minus 1.–3. Anzahlung: ${plan.automaticDirection==='balanced'?'0,00 €':escapeHtml(autoText)+' '+eur(plan.suggestedAmount)}</span><select class="settlement-direction-select" onchange="setParticipantInfo('${escapeJs(name)}','rate4Direction',this.value)"><option value="" ${info.rate4Direction?'':'selected'}>Richtung automatisch</option><option value="incoming" ${info.rate4Direction==='incoming'?'selected':''}>Nachzahlung vom Teilnehmer</option><option value="refund" ${info.rate4Direction==='refund'?'selected':''}>Rückzahlung an Teilnehmer</option></select></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Betrag der Nachzahlung oder Rückzahlung; frei änderbar" onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" title="Restzahlung mitgeteilt" ${info.rate4RequestSent?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info.rate4RequestDate||'')}" onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestDate',this.value)"></td><td class="center"><input type="checkbox" title="Nachzahlung eingegangen bzw. Rückzahlung ausgeführt" ${info.rate4MoneyReceived?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','rate4MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info.rate4ReceivedDate||'')}" onchange="setParticipantInfo('${escapeJs(name)}','rate4ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${completed}" title="Tatsächlich eingegangener oder zurückgezahlter Betrag" onchange="setParticipantInfo('${escapeJs(name)}','rate4ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info.rate4Note||'')}" placeholder="Nachzahlung / Rückzahlung" onchange="setParticipantInfo('${escapeJs(name)}','rate4Note',this.value)"></td>`;
++    body.appendChild(tr);
++  };
+   const totalRow=(name,role,calcRow)=>{
+     const info=data.participantInfo[participantKey(name)]||{};
+     const suggestions=[1,2,3].map(n=>installmentSuggestion(calcRow,role,n));
+-    const requested=[1,2,3].reduce((sum,n)=>sum+installmentRequested(info,'rate'+n,suggestions[n-1]),0);
+-    const received=[1,2,3].reduce((sum,n)=>sum+(+info['rate'+n+'ReceivedAmount']||0),0);
+-    const rateOpen=Math.max(0,requested-received);
++    const requestedBefore=[1,2,3].reduce((sum,n)=>sum+installmentRequested(info,'rate'+n,suggestions[n-1]),0);
++    const receivedBefore=[1,2,3].reduce((sum,n)=>sum+(+info['rate'+n+'ReceivedAmount']||0),0);
++    const plan=installmentSettlementPlan(calcRow,role,info);
++    const hasSettlement=role==='Vollzahler';
++    const requested4=hasSettlement?installmentRequested(info,'rate4',plan.suggestedAmount):0;
++    const completed4=hasSettlement?Math.max(0,+info.rate4ReceivedAmount||0):0;
++    const settlementSign=hasSettlement?(plan.direction==='refund'?-1:plan.direction==='incoming'?1:0):0;
++    const requestedNet=requestedBefore+settlementSign*requested4;
++    const receivedNet=receivedBefore+settlementSign*completed4;
++    const rateOpen=[1,2,3].reduce((sum,n)=>sum+Math.max(0,installmentRequested(info,'rate'+n,suggestions[n-1])-(+info['rate'+n+'ReceivedAmount']||0)),0)+(hasSettlement?Math.max(0,requested4-completed4):0);
+     const finalDue=+calcRow.adminDue||0;
+-    const finalSaldo=finalDue-received;
++    const finalSaldo=finalDue-receivedNet;
+     const saldoText=Math.abs(finalSaldo)<0.005?'Aktuell ausgeglichen':finalSaldo>0?`Zum aktuell berechneten Gesamtbetrag fehlen ${eur(finalSaldo)}`:`Aktuelle Überzahlung ${eur(-finalSaldo)}`;
+     const saldoClass=finalSaldo>0.005?'saldo-positive':finalSaldo<-.005?'saldo-negative':'';
+     const tr=document.createElement('tr');
+     tr.className=roleClass(role)+' final-payment-row rate-summary person-end';
+-    tr.innerHTML=`<td></td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>Ratenübersicht</b><span class="installment-suggestion">Aktuell endgültig berechnet: ${eur(finalDue)}</span></td><td colspan="2" class="small ${saldoClass}">${escapeHtml(saldoText)}</td><td class="money"><b>${eur(requested)}</b></td><td colspan="4" class="small">Angefordert gesamt / eingegangen gesamt</td><td class="money"><b>${eur(received)}</b></td><td class="money"><b>${eur(rateOpen)}</b></td><td class="small">Ratenbeträge können von den Vorschlägen abweichen.</td>`;
++    tr.innerHTML=`<td></td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>Ratenübersicht</b><span class="installment-suggestion">Aktuell endgültig berechnet: ${eur(finalDue)}</span></td><td colspan="2" class="small ${saldoClass}">${escapeHtml(saldoText)}</td><td class="money"><b>${eur(requestedNet)}</b></td><td colspan="4" class="small">Zahlungsplan netto / tatsächlich netto</td><td class="money"><b>${eur(receivedNet)}</b></td><td class="money"><b>${eur(rateOpen)}</b></td><td class="small">Die 4. Restzahlung gleicht Rundungen der 1.–3. Anzahlung aus.</td>`;
+     body.appendChild(tr);
+   };
+   let currentRole=null;
+@@ -832,6 +873,7 @@
+       rateRow(name,role,calcRow,2,'rate-two',false);
+       rateRow(name,role,calcRow,3,'rate-three',false);
+     }
++    if(role==='Vollzahler')settlementRow(name,role,calcRow);
+     totalRow(name,role,calcRow);
+   });
+ }
+diff -ruN /mnt/data/tp155_work/Toernplaner_V1.5.4_gift_total/sw.js /mnt/data/Toernplaner_V1.5.5_final_payment/sw.js
+--- /mnt/data/tp155_work/Toernplaner_V1.5.4_gift_total/sw.js	2026-07-02 08:44:20.000000000 +0000
++++ /mnt/data/Toernplaner_V1.5.5_final_payment/sw.js	2026-07-02 09:14:34.201318936 +0000
+@@ -1,4 +1,4 @@
+-const CACHE_NAME = 'chillout-pirates-kosten-v154-gift-total-v1';
++const CACHE_NAME = 'chillout-pirates-kosten-v155-final-payment-v1';
+ const ASSETS = [
+   './',
+   './index.html',
