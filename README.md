@@ -1,3 +1,15 @@
+# Törnplaner – V1.5.4 Schenkerbetrag gesamt
+
+## Änderung gegenüber V1.5.2
+
+- Die drei Anzahlungs-Kästen auf der Übersichtsseite zeigen jetzt den angeforderten Betrag **pro Mitreisendem** statt der Gesamtsumme aller Teilnehmer.
+- Frei eingegebene Rundungsbeträge aus der Teilnehmerverwaltung werden berücksichtigt.
+- Sind bei mehreren Mitreisenden unterschiedliche Anforderungsbeträge eingetragen, zeigt der betreffende Kasten „individuell“; ein Hinweis nennt beim Berühren/Überfahren die Spanne.
+- Schenkerbeträge werden nicht mehr in den Anzahlungs-Kästen berücksichtigt.
+- Kostenberechnung, Rollenlogik, Giftmann-Logik und Supabase wurden nicht verändert.
+
+---
+
 # Törnplaner / Chillout Pirates Kalkulation – V1.4.4 Dynamischer Törntitel
 
 ## Visuelle Weiterentwicklung V1.4.4 – aktiver Törn in der Kopfzeile
@@ -411,3 +423,42 @@ V1.4.2 Giftmann-Logik-Fix
 Basis: V1.4.1 Giftmann Display Fix
 Änderung: Giftmann-Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt Giftmann selbst.
 ```
+## V1.5.0 – Anzahlungsraten in der Teilnehmerverwaltung
+
+Die Teilnehmerverwaltung enthält jetzt drei getrennte Anzahlungsraten:
+
+1. **1. Anzahlung – Fixkosten**: Der berechnete Fixkostenanteil wird vorgeschlagen.
+2. **2. Anzahlung – Mannschaftskasse + Sonstige + Kaution**: Die Summe dieser Bereiche wird vorgeschlagen.
+3. **3. Anzahlung – frei**: Bezeichnung und Betrag sind frei eingebbar.
+
+Bei Schenkern wird in der ersten Rate der berechnete Schenkerbetrag vorgeschlagen.
+
+Jeder vorgeschlagene Betrag kann frei überschrieben und beispielsweise auf einen glatten Betrag aufgerundet werden. Die frei eingetragenen Anzahlungsbeträge verändern nicht die bestehende Kosten-, Rollen- oder Giftmann-Berechnung. Sie werden ausschließlich für Zahlungsanforderungen, Zahlungseingänge, offene Ratenbeträge und den aktuellen Abrechnungssaldo verwendet.
+
+Die bisherige Supabase-Speicherlogik wurde nicht verändert. Die neuen Ratenfelder werden wie die übrigen Törndaten im bestehenden Projektzustand gespeichert.
+
+
+## V1.5.1 – Sortierte Übersichten
+
+- Übersicht: Teilnehmer werden nach Rollen angezeigt: Giftmann, Mitreisende, Teilrollen, Schenker.
+- Kosten: Positionen werden nur in der Anzeige nach Fixkosten, Mannschaftskasse und Sonstige sortiert.
+- Spaltenreihenfolge: Bereich, Zeitraum, Kostenposition, Berechnung, Anzahl, Einzelbetrag, Faktor, Gesamt.
+- Datenreihenfolge, Berechnungen und Supabase-Speicherung bleiben unverändert.
+
+## V1.5.2 – Anzahlungsübersicht und sortierte Einzelbeträge
+
+- Auf der Übersichtsseite heißt der bisherige Kasten „1. Überweisung inkl. Kaution“ jetzt **„Mitreisende inkl. Kaution“**.
+- Zusätzlich werden die Summen der **1., 2. und 3. Anzahlung** als eigene Ergebnis-Kästen angezeigt.
+- Die Summen verwenden je Teilnehmer den frei eingetragenen Anforderungsbetrag; ohne eigene Eingabe wird der berechnete Vorschlag auf zwei Nachkommastellen gerundet verwendet.
+- Die berechneten Anforderungsbeträge in der Teilnehmerverwaltung werden auf zwei Nachkommastellen dargestellt und verarbeitet.
+- Die Kästen „Schenker zahlen“ und „Giftmann zahlt selbst“ stehen am Ende des Ergebnisbereichs.
+- Der Reiter „Einzelbeträge“ ist wie die übrigen Ansichten nach Rollen sortiert: Giftmann, Mitreisende, Nur Fixkosten, Nur Sonstige, Schenker.
+- Kostenberechnung, Rollen-/Giftmann-Logik und Supabase-Speicherung wurden nicht verändert.
+
+
+## V1.5.4 – Schenkerbetrag gesamt
+
+- Auf der Übersichtsseite wurde ein zusätzlicher Ergebniskasten **„Schenkerbetrag gesamt“** ergänzt.
+- Der Kasten zeigt die Summe aller Schenkerbeträge sowie die Anzahl der aktuell eingetragenen Schenker.
+- Der bestehende Kasten mit dem Schenkerbetrag pro Person bleibt erhalten.
+- Kostenberechnung, Rollen-/Giftmann-Logik, Anzahlungen und Supabase-Speicherung wurden nicht verändert.

@@ -51,6 +51,18 @@
 .admin-table tr.person-end td:last-child{border-bottom-right-radius:12px}
 .admin-table tr.final-payment-row td{background:rgba(88,169,157,.10);font-weight:900}
 
+/* V1.5 – Anzahlungsraten in der Teilnehmerverwaltung; reine Zahlungsverwaltung */
+.installment-note{margin:0 0 14px}
+.installment-suggestion{display:block;margin-top:4px;color:var(--muted);font-size:12px;font-style:normal}
+.installment-title{display:block;font-weight:900;color:var(--cream)}
+.installment-custom-label{margin-top:6px;min-width:175px!important;font-size:12px}
+.requested-input{border-color:rgba(var(--trip-accent-rgb),.58)!important;font-weight:900}
+.admin-table tr.rate-two td{background:rgba(88,169,157,.075);color:#d8efe9!important}
+.admin-table tr.rate-three td{background:rgba(141,91,179,.075);color:#eadcf5!important}
+.admin-table tr.rate-summary td{background:rgba(var(--trip-accent-rgb),.13);font-weight:900}
+.admin-table .saldo-positive{color:#ffd36e}
+.admin-table .saldo-negative{color:var(--green)}
+
 
 
 /* V1.4.3 – rein visuelle Törn-Farbführung, ohne Änderung der Daten-/Rechenlogik */
@@ -197,9 +209,13 @@ button.secondary{color:var(--trip-accent)}
       <h2><span class="icon">🏴‍☠️</span>Ergebnisse</h2>
       <div class="kpis">
         <div class="kpi"><div class="emoji">👥</div><span>Mitreisende zahlen</span><b id="kpiTrip">–</b><span>pro Person ohne Kaution</span></div>
+        <div class="kpi"><div class="emoji">🪙</div><span>Mitreisende inkl. Kaution</span><b id="kpiTransfer">–</b><span>pro Mitreisendem</span></div>
+        <div class="kpi"><div class="emoji">1️⃣</div><span>1. Anzahlung</span><b id="kpiRate1">–</b><span>pro Mitreisendem</span></div>
+        <div class="kpi"><div class="emoji">2️⃣</div><span>2. Anzahlung</span><b id="kpiRate2">–</b><span>pro Mitreisendem</span></div>
+        <div class="kpi"><div class="emoji">3️⃣</div><span>3. Anzahlung</span><b id="kpiRate3">–</b><span>pro Mitreisendem</span></div>
         <div class="kpi gift"><div class="emoji">🎁</div><span>Schenker zahlen</span><b id="kpiGift">–</b><span>pro Person</span></div>
+        <div class="kpi gift"><div class="emoji">🎁</div><span>Schenkerbetrag gesamt</span><b id="kpiGiftTotal">–</b><span id="kpiGiftTotalCount">– Schenker</span></div>
         <div class="kpi"><div class="emoji">🧍</div><span>Giftmann zahlt selbst</span><b id="kpiGiftman">–</b><span>nach Geschenklogik ohne Kaution</span></div>
-        <div class="kpi"><div class="emoji">🪙</div><span>1. Überweisung inkl. Kaution</span><b id="kpiTransfer">–</b><span>pro Mitreisendem</span></div>
       </div>
     </section>
     <section class="card" style="margin-top:18px">
@@ -236,15 +252,16 @@ button.secondary{color:var(--trip-accent)}
     </div>
 
     <h2 style="margin-top:18px"><span class="icon">💰</span>Kostenpositionen</h2>
-    <div class="scroll"><table class="cost-table"><thead><tr><th>Bereich</th><th>Zeitraum</th><th>Einzelbetrag</th><th>Anzahl</th><th>Kostenposition</th><th>Berechnung</th><th>Faktor</th><th>Gesamt</th><th></th></tr></thead><tbody id="costBody"></tbody></table></div>
+    <div class="scroll"><table class="cost-table"><thead><tr><th>Bereich</th><th>Zeitraum</th><th>Kostenposition</th><th>Berechnung</th><th>Anzahl</th><th>Einzelbetrag</th><th>Faktor</th><th>Gesamt</th><th></th></tr></thead><tbody id="costBody"></tbody></table></div>
     <div class="toolbar"><button class="primary" onclick="addCost('Fixkosten')">Fixkosten hinzufügen</button><button class="secondary" onclick="addCost('Mannschaftskasse')">Mannschaftskasse hinzufügen</button><button class="secondary" onclick="addCost('Sonstige')">Sonstige hinzufügen</button><button class="secondary" onclick="manualSave()">Speichern</button><button class="danger" onclick="resetData()">Ursprungsdaten</button></div>
     <div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Bemerkungen zu Kosten und Steuerung ..." onchange="updatePageNote('settings',this.value)" id="note-settings"></textarea></div>
     <div class="status" id="saveStatusSettings"></div>
   </section>
   <section class="card hide" id="tab-admin">
     <h2><span class="icon">📬</span>Teilnehmerverwaltung</h2>
-    <p class="small">Sortiert nach Rolle. Fälligkeit kommt automatisch aus den Einzelbeträgen; V1.4 trennt Fixkosten/Kaution, Mannschaftskasse, Sonstige und Geschenkbeiträge.</p>
-    <div class="scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Rolle</th><th>Bereich</th><th>E-Mail</th><th>PayPal / Bank</th><th>Fällig</th><th>Anforderung</th><th>Datum</th><th>Eingang</th><th>Datum</th><th>Betrag</th><th>Offen</th><th>Notiz / Erinnerung</th></tr></thead><tbody id="adminBody"></tbody></table></div>
+    <p class="small">Drei Anzahlungsraten mit frei überschreibbaren Beträgen: 1. Rate Fixkosten, 2. Rate Mannschaftskasse + Sonstige + Kaution, 3. Rate frei. Die Vorschläge stammen aus der unveränderten Kostenberechnung.</p>
+    <div class="note installment-note"><b>Wichtig:</b> Ein frei eingegebener Anzahlungsbetrag verändert nicht die Kostenverteilung. Er wird nur für Anforderung, Zahlungseingang, offenen Ratenbetrag und den späteren Abrechnungssaldo verwendet.</div>
+    <div class="scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Rolle</th><th>Rate / Vorschlag</th><th>E-Mail</th><th>Wise / Bank</th><th>Angefordert</th><th>Anforderung</th><th>Datum</th><th>Eingang</th><th>Datum</th><th>Betrag</th><th>Offen</th><th>Notiz / Erinnerung</th></tr></thead><tbody id="adminBody"></tbody></table></div>
     <div class="toolbar"><button class="primary" onclick="manualSave()">Speichern</button><button class="secondary" onclick="downloadCsv()">CSV Einzelbeträge</button><button class="secondary" onclick="exportBackup()">Backup</button></div>
     <div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Bemerkungen zur Teilnehmerverwaltung ..." onchange="updatePageNote('admin',this.value)" id="note-admin"></textarea></div>
     <div class="status" id="saveStatusAdmin"></div>
@@ -347,7 +364,9 @@ v1.5 Hilfe & Handbuch
 v1.1 Cloud-Test: manuelles Supabase-Speichern/Laden
 v1.2 Save Guard: Speicherwarnung, alle Törns in Cloud, sicherer Cloud-Import
 v1.3 Törnnamen: direkt editierbar, Cloud-Kopie mit Wunschname
-v1.4.2 Giftmann-Logik: Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt der Giftmann selbst; Rest nur auf Mitreisende</div>
+v1.4.2 Giftmann-Logik: Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt der Giftmann selbst; Rest nur auf Mitreisende
+v1.5 Anzahlungsraten: Fixkosten als 1. Rate, Mannschaftskasse + Sonstige + Kaution als 2. Rate, frei definierbare 3. Rate; alle Anforderungsbeträge frei überschreibbar
+v1.5.2 Übersicht: Summen der drei Anzahlungen, Rundung auf zwei Nachkommastellen und Rollensortierung bei Einzelbeträgen<br>v1.5.3 Übersicht: Anzahlungen pro Mitreisendem statt Gesamtsummen<br>v1.5.4 Übersicht: Schenkerbetrag gesamt mit Anzahl der Schenker</div>
         </section>
       </div>
     </div>
@@ -704,6 +723,7 @@ function ensureParticipantInfo(){
     if(info.requestSent===undefined)info.requestSent=false;
     if(info.moneyReceived===undefined)info.moneyReceived=false;
     if(info.receivedAmount===undefined||info.receivedAmount===null||info.receivedAmount==='')info.receivedAmount=0;
+    // Alte Felder bleiben vollständig erhalten. Die neuen Ratenfelder werden nur ergänzt.
     ['charter','crew','other','board','gift'].forEach(prefix=>{
       if(info[prefix+'RequestSent']===undefined)info[prefix+'RequestSent']=prefix==='gift'?!!info.requestSent:false;
       if(info[prefix+'RequestDate']===undefined)info[prefix+'RequestDate']=prefix==='gift'?(info.requestDate||''):'';
@@ -712,14 +732,46 @@ function ensureParticipantInfo(){
       if(info[prefix+'ReceivedAmount']===undefined||info[prefix+'ReceivedAmount']===null||info[prefix+'ReceivedAmount']==='')info[prefix+'ReceivedAmount']=prefix==='gift'?(+info.receivedAmount||0):0;
       if(info[prefix+'Note']===undefined||info[prefix+'Note']===null)info[prefix+'Note']='';
     });
+    ['rate1','rate2','rate3'].forEach(prefix=>{
+      if(info[prefix+'RequestedAmount']===undefined)info[prefix+'RequestedAmount']=null; // null = aktuellen Vorschlag verwenden
+      if(info[prefix+'RequestSent']===undefined)info[prefix+'RequestSent']=false;
+      if(info[prefix+'RequestDate']===undefined||info[prefix+'RequestDate']===null)info[prefix+'RequestDate']='';
+      if(info[prefix+'MoneyReceived']===undefined)info[prefix+'MoneyReceived']=false;
+      if(info[prefix+'ReceivedDate']===undefined||info[prefix+'ReceivedDate']===null)info[prefix+'ReceivedDate']='';
+      if(info[prefix+'ReceivedAmount']===undefined||info[prefix+'ReceivedAmount']===null||info[prefix+'ReceivedAmount']==='')info[prefix+'ReceivedAmount']=0;
+      if(info[prefix+'Note']===undefined||info[prefix+'Note']===null)info[prefix+'Note']='';
+    });
+    if(info.rate3Label===undefined||info.rate3Label===null)info.rate3Label='3. Anzahlung / Restzahlung';
   });
 }
 function setParticipantInfo(name,field,value){
   ensureParticipantInfo();
   const key=participantKey(name);
   if(!data.participantInfo[key])data.participantInfo[key]={email:'',paypal:'',requestSent:false,requestDate:'',moneyReceived:false,receivedDate:'',receivedAmount:0,reminderDate:'',note:''};
+  if(/^rate[123]RequestedAmount$/.test(field)&&value!==null&&value!==undefined&&value!=='')value=money2(Math.max(0,+value||0));
   data.participantInfo[key][field]=value;
   update();
+}
+function money2(value){
+  const n=Number(value)||0;
+  return Math.round((n+Number.EPSILON)*100)/100;
+}
+function installmentRequested(info,prefix,suggested){
+  const stored=info[prefix+'RequestedAmount'];
+  return money2(stored===null||stored===undefined||stored==='' ? (+suggested||0) : Math.max(0,+stored||0));
+}
+function installmentSuggestion(calcRow,role,number){
+  let suggested=0;
+  if(role==='Schenker')suggested=number===1?(+calcRow.giftDue||0):0;
+  else if(number===1)suggested=+calcRow.fixedDue||0;
+  else if(number===2)suggested=(+calcRow.crewFundDue||0)+(+calcRow.otherDue||0)+(+calcRow.deposit||0);
+  return money2(suggested);
+}
+function installmentDefaultTitle(role,number){
+  if(role==='Schenker')return number===1?'Schenkerbetrag':'Nicht vorgesehen';
+  if(number===1)return '1. Anzahlung – Fixkosten';
+  if(number===2)return '2. Anzahlung – Mannschaftskasse + Sonstige + Kaution';
+  return '3. Anzahlung – frei';
 }
 function renderParticipantManagement(c){
   const body=document.getElementById('adminBody');if(!body)return;
@@ -733,19 +785,35 @@ function renderParticipantManagement(c){
     const ra=roleOrder.indexOf(ar), rb=roleOrder.indexOf(br);
     return (ra<0?99:ra)-(rb<0?99:rb) || String(a[0]).localeCompare(String(b[0]),'de');
   });
-  const paymentRow=(name,role,area,prefix,due,extraClass='',showName=true)=>{
+  const rateRow=(name,role,calcRow,number,extraClass='',showName=true)=>{
     const info=data.participantInfo[participantKey(name)]||{};
+    const prefix='rate'+number;
+    const suggested=installmentSuggestion(calcRow,role,number);
+    const requested=installmentRequested(info,prefix,suggested);
     const received=+info[prefix+'ReceivedAmount']||0;
-    const open=Math.max(0,(+due||0)-received);
+    const open=Math.max(0,requested-received);
+    const standardTitle=installmentDefaultTitle(role,number);
+    const titleHtml=number===3
+      ? `<span class="installment-title">${escapeHtml(standardTitle)}</span><input class="installment-custom-label" type="text" value="${escapeHtml(info.rate3Label||'3. Anzahlung / Restzahlung')}" placeholder="Bezeichnung der 3. Rate" onchange="setParticipantInfo('${escapeJs(name)}','rate3Label',this.value)">`
+      : `<span class="installment-title">${escapeHtml(standardTitle)}</span>`;
     const tr=document.createElement('tr');
     tr.className=roleClass(role)+' '+extraClass;
-    tr.innerHTML=`<td>${showName?`<b>${escapeHtml(name)}</b>`:''}</td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>${escapeHtml(area)}</b></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="PayPal / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td class="money">${eur(due)}</td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||info.note||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
+    tr.innerHTML=`<td>${showName?`<b>${escapeHtml(name)}</b>`:''}</td><td>${showName?escapeHtml(roleDisplayName(role)):''}</td><td>${titleHtml}<span class="installment-suggestion">Berechneter Vorschlag: ${eur(suggested)}</span></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Frei änderbar; leer lassen setzt wieder den berechneten Vorschlag ein" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
     body.appendChild(tr);
   };
-  const totalRow=(name,role,total,extraClass='')=>{
+  const totalRow=(name,role,calcRow)=>{
+    const info=data.participantInfo[participantKey(name)]||{};
+    const suggestions=[1,2,3].map(n=>installmentSuggestion(calcRow,role,n));
+    const requested=[1,2,3].reduce((sum,n)=>sum+installmentRequested(info,'rate'+n,suggestions[n-1]),0);
+    const received=[1,2,3].reduce((sum,n)=>sum+(+info['rate'+n+'ReceivedAmount']||0),0);
+    const rateOpen=Math.max(0,requested-received);
+    const finalDue=+calcRow.adminDue||0;
+    const finalSaldo=finalDue-received;
+    const saldoText=Math.abs(finalSaldo)<0.005?'Aktuell ausgeglichen':finalSaldo>0?`Zum aktuell berechneten Gesamtbetrag fehlen ${eur(finalSaldo)}`:`Aktuelle Überzahlung ${eur(-finalSaldo)}`;
+    const saldoClass=finalSaldo>0.005?'saldo-positive':finalSaldo<-.005?'saldo-negative':'';
     const tr=document.createElement('tr');
-    tr.className=roleClass(role)+' final-payment-row '+extraClass;
-    tr.innerHTML=`<td></td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>Endgültig zahlbar gesamt</b></td><td colspan="2" class="small">nach Schenkerbeträgen / Giftmann-Entlastung</td><td class="money"><b>${eur(total)}</b></td><td colspan="7"></td>`;
+    tr.className=roleClass(role)+' final-payment-row rate-summary person-end';
+    tr.innerHTML=`<td></td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>Ratenübersicht</b><span class="installment-suggestion">Aktuell endgültig berechnet: ${eur(finalDue)}</span></td><td colspan="2" class="small ${saldoClass}">${escapeHtml(saldoText)}</td><td class="money"><b>${eur(requested)}</b></td><td colspan="4" class="small">Angefordert gesamt / eingegangen gesamt</td><td class="money"><b>${eur(received)}</b></td><td class="money"><b>${eur(rateOpen)}</b></td><td class="small">Ratenbeträge können von den Vorschlägen abweichen.</td>`;
     body.appendChild(tr);
   };
   let currentRole=null;
@@ -758,32 +826,13 @@ function renderParticipantManagement(c){
       sep.innerHTML=`<td colspan="13">${escapeHtml(roleDisplayName(role))}</td>`;
       body.appendChild(sep);
     }
-    const calcRow=rowByName[name]||{charterDue:0,crewFundDue:0,otherDue:0,giftDue:0};
-    if(role==='Vollzahler'){
-      paymentRow(name,role,'Fixkosten / Kaution','charter',+calcRow.charterDue||0,'person-start',true);
-      paymentRow(name,role,'Mannschaftskasse','crew',+calcRow.crewFundDue||0,'sub-payment-row crew-fund-row',false);
-      paymentRow(name,role,'Sonstige','other',+calcRow.otherDue||0,'sub-payment-row',false);
-      totalRow(name,role,+calcRow.adminDue||0,'person-end');
-    }else if(role==='Nur Fixkosten'){
-      paymentRow(name,role,'Fixkosten','charter',+calcRow.fixedDue||0,'person-start',true);
-      totalRow(name,role,+calcRow.adminDue||0,'person-end');
-    }else if(role==='Nur Sonstige'){
-      paymentRow(name,role,'Sonstige','other',+calcRow.otherDue||0,'person-start',true);
-      totalRow(name,role,+calcRow.adminDue||0,'person-end');
-    }else if(role==='Giftmann'){
-      let first=true;
-      if((+calcRow.charterDue||0)>0){paymentRow(name,role,(+calcRow.deposit||0)>0?'Fixkosten / Kaution':'Fixkosten selbst zu zahlen','charter',+calcRow.charterDue||0,'person-start',first);first=false;}
-      if((+calcRow.crewFundDue||0)>0){paymentRow(name,role,'Mannschaftskasse selbst zu zahlen','crew',+calcRow.crewFundDue||0,first?'person-start':'sub-payment-row crew-fund-row',first);first=false;}
-      if((+calcRow.otherDue||0)>0){paymentRow(name,role,'Sonstige selbst zu zahlen','other',+calcRow.otherDue||0,first?'person-start':'sub-payment-row',first);first=false;}
-      if(first)paymentRow(name,role,'Geschenkt / keine Anforderung','gift',0,'person-start',true);
-      totalRow(name,role,+calcRow.adminDue||0,'person-end');
-    }else if(role==='Schenker'){
-      paymentRow(name,role,'Geschenkbeitrag Giftmann','gift',+calcRow.giftDue||0,'person-start',true);
-      totalRow(name,role,+calcRow.adminDue||0,'person-end');
-    }else{
-      paymentRow(name,role,'Legacy-Rolle / nicht verteilt','gift',0,'person-start',true);
-      totalRow(name,role,0,'person-end');
+    const calcRow=rowByName[name]||{fixedDue:0,crewFundDue:0,otherDue:0,deposit:0,giftDue:0,adminDue:0};
+    rateRow(name,role,calcRow,1,'person-start rate-one',true);
+    if(role!=='Schenker'){
+      rateRow(name,role,calcRow,2,'rate-two',false);
+      rateRow(name,role,calcRow,3,'rate-three',false);
     }
+    totalRow(name,role,calcRow);
   });
 }
 function escapeJs(s){return String(s??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n').replace(/\r/g,'')}
@@ -792,6 +841,7 @@ function roleClass(role){role=normalizeRole(role);return 'role-'+(role==='Giftma
 function renderPeople(c){
   const body=document.getElementById('peopleBody'),prev=document.getElementById('peoplePreview');body.innerHTML='';prev.innerHTML='';ensureGiftmannParticipation(data);
   const calcRows=c&&Array.isArray(c.rows)?c.rows:[];
+  const previewEntries=[];
   let previewRowIndex=0;
   data.people.forEach((p,i)=>{
     p[1]=normalizeRole(p[1]);
@@ -800,9 +850,17 @@ function renderPeople(c){
     const legacyNote=!ROLE_OPTIONS.includes(p[1])?'<div class="legacy-role-note">Legacy-Rolle aus altem Backup</div>':'';
     const tr=document.createElement('tr');tr.className=roleClass(p[1]);tr.innerHTML=`<td><input type="text" value="${escapeHtml(p[0])}" onchange="data.people[${i}][0]=this.value; update()"></td><td><select onchange="data.people[${i}][1]=this.value; update()">${opts}</select>${giftOptions}${legacyNote}</td><td><button class="danger" onclick="data.people.splice(${i},1); update()">Entfernen</button></td>`;body.appendChild(tr);
     const resultRow=p[0]?calcRows[previewRowIndex++]:null;
+    if(p[0])previewEntries.push({person:p,resultRow,originalIndex:i});
+  });
+  const roleOrder=['Giftmann','Vollzahler','Nur Fixkosten','Nur Sonstige','Schenker'];
+  previewEntries.sort((a,b)=>{
+    const ar=roleOrder.indexOf(a.person[1]),br=roleOrder.indexOf(b.person[1]);
+    return (ar<0?99:ar)-(br<0?99:br) || String(a.person[0]).localeCompare(String(b.person[0]),'de') || a.originalIndex-b.originalIndex;
+  });
+  previewEntries.forEach(({person:p,resultRow})=>{
     const roleText=`${escapeHtml(roleDisplayName(p[1]))}${p[1]==='Giftmann'?`<br><span class="small">geschenkt: ${data.giftmannParticipation.fixed?'Fixkosten ':''}${data.giftmannParticipation.crewFund?'Mannschaftskasse ':''}${data.giftmannParticipation.other?'Sonstige ':''}${(!data.giftmannParticipation.fixed&&!data.giftmannParticipation.crewFund&&!data.giftmannParticipation.other)?'nichts · wie Mitreisende':''}</span>`:''}`;
-    const pr=document.createElement('tr');pr.className=roleClass(p[1]);pr.innerHTML=`<td>${escapeHtml(p[0])}</td><td>${roleText}</td><td><b>${resultRow?eur(resultRow.transfer):'–'}</b></td>`;prev.appendChild(pr)
-  })
+    const pr=document.createElement('tr');pr.className=roleClass(p[1]);pr.innerHTML=`<td>${escapeHtml(p[0])}</td><td>${roleText}</td><td><b>${resultRow?eur(resultRow.transfer):'–'}</b></td>`;prev.appendChild(pr);
+  });
 }
 function costAreas(){return COST_AREAS.slice()}
 function changeAmount(i,delta){
@@ -818,12 +876,69 @@ function renderCostOverview(c){
   const parts=COST_AREAS.map(area=>`<div class="cost-sum"><span>${escapeHtml(area)}</span><b>${eur(sums[area]||0)}</b></div>`).join('');
   box.innerHTML=parts+`<div class="cost-sum"><span>Gesamtsumme</span><b>${eur(c.totalNoDeposit)}</b></div>`;
 }
-function renderCosts(c){const body=document.getElementById('costBody');body.innerHTML='';const activeTrip=getActiveTrip();const days=tripDays(activeTrip);const period=tripPeriod(activeTrip);const areas=costAreas();data.costs.forEach((x,i)=>{x.area=normalizeCostArea(x.area);if(!x.calcType)x.calcType=x.area==='Mannschaftskasse'?'period-person':'pauschal';if(x.factor===undefined||x.factor===null||x.factor==='')x.factor=1;const info=costFactorInfo(x,c,days);const periodCell=x.calcType==='period-person'?escapeHtml(period):'–';const typeOpts=[['period-person','Zeitraum × Personen'],['once-person','Einmalig × Personen'],['pauschal','Pauschal']].map(([v,l])=>`<option value="${v}" ${x.calcType===v?'selected':''}>${l}</option>`).join('');const areaOpts=areas.map(a=>`<option value="${escapeHtml(a)}" ${x.area===a?'selected':''}>${escapeHtml(a)}</option>`).join('');const tr=document.createElement('tr');tr.innerHTML=`<td><select onchange="data.costs[${i}].area=this.value;if(!data.costs[${i}].calcType)data.costs[${i}].calcType=this.value==='Mannschaftskasse'?'period-person':'pauschal'; update()">${areaOpts}</select></td><td class="small">${periodCell}</td><td><div class="amount-stepper"><button type="button" class="secondary" onclick="changeAmount(${i},-5)">−</button><input type="number" value="${x.amount}" step="0.01" onchange="data.costs[${i}].amount=+this.value||0; update()"><button type="button" class="secondary" onclick="changeAmount(${i},5)">+</button></div></td><td><input type="number" value="${x.factor}" min="0" step="1" onchange="data.costs[${i}].factor=+this.value||0; update()"></td><td><input type="text" value="${escapeHtml(x.name)}" onchange="data.costs[${i}].name=this.value; update()"></td><td><select onchange="data.costs[${i}].calcType=this.value; update()">${typeOpts}</select></td><td><input type="text" value="${escapeHtml(info.label)}" disabled title="${escapeHtml(info.title)}"></td><td class="money">${eur(info.total)}</td><td><button class="danger" onclick="data.costs.splice(${i},1); update()">Entfernen</button></td>`;body.appendChild(tr)})}
+function renderCosts(c){
+  const body=document.getElementById('costBody');body.innerHTML='';
+  const activeTrip=getActiveTrip();const days=tripDays(activeTrip);const period=tripPeriod(activeTrip);const areas=costAreas();
+  const areaOrder={Fixkosten:0,Mannschaftskasse:1,Sonstige:2};
+  const sortedCosts=(data.costs||[]).map((cost,index)=>({cost,index})).sort((a,b)=>{
+    const aa=normalizeCostArea(a.cost.area),ba=normalizeCostArea(b.cost.area);
+    return (areaOrder[aa]??99)-(areaOrder[ba]??99) || a.index-b.index;
+  });
+  sortedCosts.forEach(({cost:x,index:i})=>{
+    x.area=normalizeCostArea(x.area);
+    if(!x.calcType)x.calcType=x.area==='Mannschaftskasse'?'period-person':'pauschal';
+    if(x.factor===undefined||x.factor===null||x.factor==='')x.factor=1;
+    const info=costFactorInfo(x,c,days);
+    const periodCell=x.calcType==='period-person'?escapeHtml(period):'–';
+    const typeOpts=[['period-person','Zeitraum × Personen'],['once-person','Einmalig × Personen'],['pauschal','Pauschal']].map(([v,l])=>`<option value="${v}" ${x.calcType===v?'selected':''}>${l}</option>`).join('');
+    const areaOpts=areas.map(a=>`<option value="${escapeHtml(a)}" ${x.area===a?'selected':''}>${escapeHtml(a)}</option>`).join('');
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><select onchange="data.costs[${i}].area=this.value;if(!data.costs[${i}].calcType)data.costs[${i}].calcType=this.value==='Mannschaftskasse'?'period-person':'pauschal'; update()">${areaOpts}</select></td><td class="small">${periodCell}</td><td><input type="text" value="${escapeHtml(x.name)}" onchange="data.costs[${i}].name=this.value; update()"></td><td><select onchange="data.costs[${i}].calcType=this.value; update()">${typeOpts}</select></td><td><input type="number" value="${x.factor}" min="0" step="1" onchange="data.costs[${i}].factor=+this.value||0; update()"></td><td><div class="amount-stepper"><button type="button" class="secondary" onclick="changeAmount(${i},-5)">−</button><input type="number" value="${x.amount}" step="0.01" onchange="data.costs[${i}].amount=+this.value||0; update()"><button type="button" class="secondary" onclick="changeAmount(${i},5)">+</button></div></td><td><input type="text" value="${escapeHtml(info.label)}" disabled title="${escapeHtml(info.title)}"></td><td class="money">${eur(info.total)}</td><td><button class="danger" onclick="data.costs.splice(${i},1); update()">Entfernen</button></td>`;
+    body.appendChild(tr);
+  });
+}
+function calculateInstallmentsPerTraveler(c){
+  ensureParticipantInfo();
+  const rowByName={};
+  (c.rows||[]).forEach(r=>rowByName[r.name]=r);
+  const values=[[],[],[]];
+  (data.people||[]).filter(p=>p&&p[0]&&normalizeRole(p[1])==='Vollzahler').forEach(p=>{
+    const name=p[0],role=normalizeRole(p[1]);
+    const calcRow=rowByName[name]||{fixedDue:0,crewFundDue:0,otherDue:0,deposit:0,giftDue:0};
+    const info=data.participantInfo[participantKey(name)]||{};
+    [1,2,3].forEach(number=>{
+      const suggested=installmentSuggestion(calcRow,role,number);
+      values[number-1].push(installmentRequested(info,'rate'+number,suggested));
+    });
+  });
+  return values.map(list=>{
+    if(!list.length)return{value:0,different:false,min:0,max:0};
+    const rounded=list.map(money2);
+    const min=Math.min(...rounded),max=Math.max(...rounded);
+    return{value:rounded[0],different:Math.abs(max-min)>=0.005,min,max};
+  });
+}
+function showInstallmentPerTraveler(elementId,entry){
+  const el=document.getElementById(elementId);if(!el)return;
+  if(entry.different){
+    el.textContent='individuell';
+    el.title=`Unterschiedliche angeforderte Beträge: ${eur(entry.min)} bis ${eur(entry.max)}`;
+  }else{
+    el.textContent=eur(entry.value);
+    el.removeAttribute('title');
+  }
+}
 function renderResults(c){
   document.getElementById('kpiTrip').textContent=eur(c.tripPer);
   document.getElementById('kpiTransfer').textContent=eur(c.transferPer);
   document.getElementById('kpiGift').textContent=eur(data.giftAmount);
+  document.getElementById('kpiGiftTotal').textContent=eur(c.giftPayments);
+  document.getElementById('kpiGiftTotalCount').textContent=`${c.onlyGift} Schenker`;
   document.getElementById('kpiGiftman').textContent=eur(c.giftmannPaysSelf);
+  const installmentsPerTraveler=calculateInstallmentsPerTraveler(c);
+  showInstallmentPerTraveler('kpiRate1',installmentsPerTraveler[0]);
+  showInstallmentPerTraveler('kpiRate2',installmentsPerTraveler[1]);
+  showInstallmentPerTraveler('kpiRate3',installmentsPerTraveler[2]);
   document.getElementById('countMit').textContent=c.payingTravelers;
   document.getElementById('countAboard').textContent=c.aboard;
   document.getElementById('countGift').textContent=c.onlyGift;
@@ -833,7 +948,13 @@ function renderResults(c){
   document.getElementById('checks').innerHTML=`<div class="check"><span>Gesamtkosten ohne Kaution</span><b>${eur(c.totalNoDeposit)}</b></div><div class="check"><span>Giftmann zahlt selbst</span><b>${eur(c.giftmannPaysSelf)}</b></div><div class="check"><span>Giftmann rechnerischer Anteil</span><b>${eur(c.dirkShare)}</b></div><div class="check"><span>Davon geschenkte Bereiche</span><b>${eur(c.giftmannGiftedShare)}</b></div><div class="check"><span>Offener Giftmann-Rest auf Mitreisende</span><b>${eur(c.restGiftmann)}</b></div><div class="check"><span>Einbehaltener Überschuss/Puffer</span><b>${eur(c.retainedSurplus)}</b></div><div class="check"><span>Kontrollabweichung ohne Kaution</span><b class="${Math.abs(c.diffNoDeposit)<0.01?'ok':'bad'}">${eur(c.diffNoDeposit)}</b></div><div class="check"><span>Differenz Kaution</span><b class="${Math.abs(c.diffDeposit)<0.01?'ok':'bad'}">${eur(c.diffDeposit)}</b></div>`;
   const body=document.getElementById('resultBody');
   body.innerHTML='';
-  c.rows.forEach(r=>{
+  const roleOrder=['Giftmann','Vollzahler','Nur Fixkosten','Nur Sonstige','Schenker'];
+  const sortedRows=(c.rows||[]).slice().sort((a,b)=>{
+    const ar=normalizeRole(a.role),br=normalizeRole(b.role);
+    const ra=roleOrder.indexOf(ar),rb=roleOrder.indexOf(br);
+    return (ra<0?99:ra)-(rb<0?99:rb)||String(a.name).localeCompare(String(b.name),'de');
+  });
+  sortedRows.forEach(r=>{
     const tr=document.createElement('tr');
     tr.className=roleClass(r.role);
     const giftmannBreakdown=(r.role==='Giftmann'&&(+r.giftmannDisplayTotal||0)>0)

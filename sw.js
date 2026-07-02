@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chillout-pirates-kosten-v144-dynamic-trip-title-v1';
+const CACHE_NAME = 'chillout-pirates-kosten-v154-gift-total-v1';
 const ASSETS = [
   './',
   './index.html',
