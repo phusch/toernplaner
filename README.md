@@ -1,3 +1,18 @@
+# Törnplaner – V1.5.6 Wise-Spardosen-Kontrolle
+
+## Änderung gegenüber V1.5.5
+
+- Separater Kontrollbereich in der Teilnehmerverwaltung für die Wise-Spardose **„Dirk27 - Chillout Pirates“**.
+- Tatsächlich eingetragene Teilnehmer- und Schenkerzahlungen werden automatisch als Eingänge berücksichtigt.
+- Eine erledigte 4. Restzahlung wird je nach Richtung als Nachzahlung oder Rückzahlung verrechnet.
+- Weitere projektbezogene Wise-Eingänge und -Ausgänge können in einem unabhängigen Buchungsjournal erfasst werden.
+- Der erwartete Spardosenstand wird aus allen erfassten Ein- und Ausgängen berechnet.
+- Ein tatsächlicher Wise-Stand kann manuell eingetragen und mit dem erwarteten Stand abgeglichen werden.
+- Der erwartete Wise-Stand erscheint zusätzlich im Reiter **Übersicht**.
+- Kosten-, Rollen-, Giftmann-, Anzahlungs- und Supabase-Funktionen wurden nicht verändert. Die neuen Wise-Daten werden als Teil des bestehenden Törnzustands mitgespeichert.
+
+---
+
 # Törnplaner – V1.5.5 Vierte Restzahlung
 
 ## Änderung gegenüber V1.5.4

@@ -70,6 +70,27 @@
 .settlement-direction-select{margin-top:6px;min-width:190px!important;font-size:12px}
 
 
+/* V1.5.6 – additive Wise-Spardosen-Kontrolle; keine Änderung der Kostenberechnung */
+.kpi.wise{border-color:rgba(107,187,231,.55);background:radial-gradient(circle at 50% 0%,rgba(107,187,231,.26),transparent 60%),linear-gradient(180deg,rgba(19,54,76,.82),rgba(8,16,22,.92))}
+.wise-control{margin-top:18px;padding:18px;border:1px solid rgba(107,187,231,.55);border-radius:18px;background:radial-gradient(circle at 10% 0%,rgba(107,187,231,.20),transparent 42%),linear-gradient(180deg,rgba(13,31,44,.92),rgba(7,12,17,.96));box-shadow:0 16px 38px rgba(0,0,0,.36),inset 0 0 0 1px rgba(107,187,231,.08)}
+.wise-control h2,.wise-control h3{color:#d8effd}.wise-control .icon,.wise-control button.secondary{color:var(--cloud-accent)}
+.wise-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.wise-summary-item{border:1px solid rgba(107,187,231,.28);border-radius:14px;padding:12px;background:rgba(107,187,231,.07)}
+.wise-summary-item span{display:block;color:#aac9da;font-size:12px;margin-bottom:4px}.wise-summary-item b{font-size:20px;color:#eef8fd}
+.wise-summary-item.total{border-color:rgba(107,187,231,.65);background:rgba(107,187,231,.14)}
+.wise-balance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.wise-balance-box{border:1px solid rgba(231,215,184,.16);border-radius:14px;padding:12px;background:rgba(0,0,0,.16)}
+.wise-balance-box label{display:block;color:#aac9da;font-size:12px;font-weight:800;margin-bottom:6px}
+.wise-difference{margin-top:10px;padding:12px;border-radius:12px;border:1px solid rgba(231,215,184,.16);background:rgba(255,255,255,.035);font-weight:900}
+.wise-difference.ok{border-color:rgba(100,181,108,.50);background:rgba(100,181,108,.12);color:#bcecc1}
+.wise-difference.bad{border-color:rgba(217,107,95,.55);background:rgba(217,107,95,.12);color:#ffd3cc}
+.wise-difference.pending{border-color:rgba(231,215,184,.22);color:var(--muted)}
+.wise-ledger-table{min-width:900px}.wise-ledger-table th:nth-child(1){width:125px}.wise-ledger-table th:nth-child(2){width:130px}.wise-ledger-table th:nth-child(3){width:210px}.wise-ledger-table th:nth-child(5){width:140px}.wise-ledger-table th:last-child{width:100px}
+.wise-help{color:#aac9da;font-size:12px;margin:8px 0 0}
+@media(max-width:760px){.wise-summary{grid-template-columns:1fr 1fr}.wise-balance-grid{grid-template-columns:1fr}.wise-control{padding:14px}}
+@media(max-width:430px){.wise-summary{grid-template-columns:1fr}}
+
+
 
 /* V1.4.3 – rein visuelle Törn-Farbführung, ohne Änderung der Daten-/Rechenlogik */
 :root{
@@ -219,6 +240,7 @@ button.secondary{color:var(--trip-accent)}
         <div class="kpi"><div class="emoji">1️⃣</div><span>1. Anzahlung</span><b id="kpiRate1">–</b><span>pro Mitreisendem</span></div>
         <div class="kpi"><div class="emoji">2️⃣</div><span>2. Anzahlung</span><b id="kpiRate2">–</b><span>pro Mitreisendem</span></div>
         <div class="kpi"><div class="emoji">3️⃣</div><span>3. Anzahlung</span><b id="kpiRate3">–</b><span>pro Mitreisendem</span></div>
+        <div class="kpi wise"><div class="emoji">🏦</div><span>Erwarteter Wise-Stand</span><b id="kpiWiseExpected">–</b><span id="kpiWiseDetail">Dirk27 - Chillout Pirates</span></div>
         <div class="kpi gift"><div class="emoji">🎁</div><span>Schenker zahlen</span><b id="kpiGift">–</b><span>pro Person</span></div>
         <div class="kpi gift"><div class="emoji">🎁</div><span>Schenkerbetrag gesamt</span><b id="kpiGiftTotal">–</b><span id="kpiGiftTotalCount">– Schenker</span></div>
         <div class="kpi"><div class="emoji">🧍</div><span>Giftmann zahlt selbst</span><b id="kpiGiftman">–</b><span>nach Geschenklogik ohne Kaution</span></div>
@@ -265,10 +287,34 @@ button.secondary{color:var(--trip-accent)}
   </section>
   <section class="card hide" id="tab-admin">
     <h2><span class="icon">📬</span>Teilnehmerverwaltung</h2>
-    <p class="small">Drei Anzahlungsraten plus 4. Restzahlung: 1. Rate Fixkosten, 2. Rate Mannschaftskasse + Sonstige + Kaution, 3. Rate frei. Bei Mitreisenden zeigt die 4. Restzahlung automatisch eine Nachzahlung oder Rückzahlung aus den frei gewählten Anforderungsbeträgen. Die Vorschläge stammen aus der unveränderten Kostenberechnung.</p>
+    <p class="small">Drei Anzahlungsraten plus 4. Restzahlung: 1. Rate Fixkosten, 2. Rate Mannschaftskasse + Sonstige + Kaution, 3. Rate frei. Bei Mitreisenden zeigt die 4. Restzahlung automatisch eine Nachzahlung oder Rückzahlung aus den frei gewählten Anforderungsbeträgen. Die Vorschläge stammen aus der unveränderten Kostenberechnung. Darunter kontrolliert ein separater Wise-Bereich den erwarteten Stand der Spardose.</p>
     <div class="note installment-note"><b>Wichtig:</b> Ein frei eingegebener Anzahlungsbetrag verändert nicht die Kostenverteilung. Er wird nur für Anforderung, Zahlungseingang, offenen Ratenbetrag und den späteren Abrechnungssaldo verwendet.</div>
     <div class="scroll"><table class="admin-table"><thead><tr><th>Name</th><th>Rolle</th><th>Rate / Vorschlag</th><th>E-Mail</th><th>Wise / Bank</th><th>Angefordert</th><th>Mitgeteilt</th><th>Datum</th><th>Erledigt</th><th>Datum</th><th>Erledigter Betrag</th><th>Offen</th><th>Notiz / Erinnerung</th></tr></thead><tbody id="adminBody"></tbody></table></div>
     <div class="toolbar"><button class="primary" onclick="manualSave()">Speichern</button><button class="secondary" onclick="downloadCsv()">CSV Einzelbeträge</button><button class="secondary" onclick="exportBackup()">Backup</button></div>
+
+    <section class="wise-control" id="wiseControlBlock">
+      <h2><span class="icon">🏦</span>Wise-Spardosen-Kontrolle</h2>
+      <p class="small">Automatische Kontrolle des erwarteten Bestands der Spardose. Teilnehmer- und Schenkerzahlungen werden aus den tatsächlich eingetragenen erledigten Beträgen übernommen. Weitere Ein- und Ausgänge werden unten separat erfasst.</p>
+      <div class="wise-balance-grid">
+        <div class="wise-balance-box"><label for="wiseJarName">Name der Wise-Spardose</label><input id="wiseJarName" type="text" value="Dirk27 - Chillout Pirates" onchange="setWiseMeta('wiseJarName',this.value)"></div>
+        <div class="wise-balance-box"><label for="wiseActualBalance">Tatsächlicher Wise-Stand</label><input id="wiseActualBalance" type="number" step="0.01" placeholder="aktuellen Stand eintragen" onchange="setWiseMeta('wiseActualBalance',this.value===''?null:this.value)"></div>
+        <div class="wise-balance-box"><label for="wiseBalanceDate">Stand vom</label><input id="wiseBalanceDate" type="date" onchange="setWiseMeta('wiseBalanceDate',this.value)"></div>
+        <div class="wise-balance-box"><label for="wiseBalanceNote">Kontrollnotiz</label><input id="wiseBalanceNote" type="text" placeholder="z. B. mit Wise-App abgeglichen" onchange="setWiseMeta('wiseBalanceNote',this.value)"></div>
+      </div>
+      <div class="wise-summary">
+        <div class="wise-summary-item"><span>Teilnehmer- und Schenkereingänge</span><b id="wiseParticipantIn">–</b></div>
+        <div class="wise-summary-item"><span>Teilnehmer-Rückzahlungen</span><b id="wiseParticipantOut">–</b></div>
+        <div class="wise-summary-item"><span>Weitere Wise-Eingänge</span><b id="wiseLedgerIn">–</b></div>
+        <div class="wise-summary-item"><span>Projekt-Ausgaben / sonstige Ausgänge</span><b id="wiseLedgerOut">–</b></div>
+        <div class="wise-summary-item total"><span>Erwarteter Sparschweinstand</span><b id="wiseExpectedBalance">–</b></div>
+        <div class="wise-summary-item"><span>Tatsächlicher Wise-Stand</span><b id="wiseActualBalanceDisplay">–</b></div>
+      </div>
+      <div class="wise-difference pending" id="wiseDifference">Noch kein tatsächlicher Wise-Stand eingetragen.</div>
+      <p class="wise-help">Kontrollformel: Teilnehmer-/Schenkereingänge + weitere Eingänge − Teilnehmer-Rückzahlungen − weitere Ausgänge. Teilzahlungen werden sofort berücksichtigt; „Offen 0,00 €“ bedeutet, dass eine Anforderung vollständig erledigt ist.</p>
+      <h3 style="margin-top:18px"><span class="icon">🧾</span>Weitere Wise-Buchungen</h3>
+      <div class="scroll"><table class="wise-ledger-table"><thead><tr><th>Datum</th><th>Richtung</th><th>Buchungsart</th><th>Beschreibung</th><th>Betrag</th><th>Notiz / Referenz</th><th></th></tr></thead><tbody id="wiseLedgerBody"></tbody></table></div>
+      <div class="toolbar"><button class="secondary" onclick="addWiseLedgerEntry('out')">Ausgang hinzufügen</button><button class="secondary" onclick="addWiseLedgerEntry('in')">Eingang hinzufügen</button></div>
+    </section>
     <div class="note-block"><h2><span class="icon">✍️</span>Bemerkungen</h2><textarea class="page-note" placeholder="Bemerkungen zur Teilnehmerverwaltung ..." onchange="updatePageNote('admin',this.value)" id="note-admin"></textarea></div>
     <div class="status" id="saveStatusAdmin"></div>
   </section>
@@ -372,7 +418,7 @@ v1.2 Save Guard: Speicherwarnung, alle Törns in Cloud, sicherer Cloud-Import
 v1.3 Törnnamen: direkt editierbar, Cloud-Kopie mit Wunschname
 v1.4.2 Giftmann-Logik: Häkchen bedeuten geschenkte Bereiche; nicht geschenkte Bereiche zahlt der Giftmann selbst; Rest nur auf Mitreisende
 v1.5 Anzahlungsraten: Fixkosten als 1. Rate, Mannschaftskasse + Sonstige + Kaution als 2. Rate, frei definierbare 3. Rate; alle Anforderungsbeträge frei überschreibbar
-v1.5.2 Übersicht: Summen der drei Anzahlungen, Rundung auf zwei Nachkommastellen und Rollensortierung bei Einzelbeträgen<br>v1.5.3 Übersicht: Anzahlungen pro Mitreisendem statt Gesamtsummen<br>v1.5.4 Übersicht: Schenkerbetrag gesamt mit Anzahl der Schenker<br>v1.5.5 Teilnehmerverwaltung: 4. Restzahlung für Mitreisende mit automatischer Nachzahlungs-/Rückzahlungsrichtung</div>
+v1.5.2 Übersicht: Summen der drei Anzahlungen, Rundung auf zwei Nachkommastellen und Rollensortierung bei Einzelbeträgen<br>v1.5.3 Übersicht: Anzahlungen pro Mitreisendem statt Gesamtsummen<br>v1.5.4 Übersicht: Schenkerbetrag gesamt mit Anzahl der Schenker<br>v1.5.5 Teilnehmerverwaltung: 4. Restzahlung für Mitreisende mit automatischer Nachzahlungs-/Rückzahlungsrichtung<br>v1.5.6 Wise-Kontrolle: erwarteter Spardosenstand, weitere Ein-/Ausgänge, Ist-Abgleich und Anzeige in der Übersicht</div>
         </section>
       </div>
     </div>
@@ -384,7 +430,7 @@ v1.5.2 Übersicht: Summen der drei Anzahlungen, Rundung auf zwei Nachkommastelle
 
 const STORE_KEY='chillout-pirates-trips-v1';
 const OLD_KEY='dirk60pirates-pwa';
-const baseData={giftMode:'Nur-Schenker',giftAmount:100,surplusReduces:'Ja',dirkBoardCash:'Ja',giftmannParticipation:{fixed:true,crewFund:true,other:false},depositPerBoat:750,boats:2,people:[['Bender Giftmann','Giftmann'],['Ehrenberg Udo','Schenker'],['Götz Gordon','Vollzahler'],['Herrmann Grische','Vollzahler'],['Huschka Peter','Vollzahler'],['Jürgen','Schenker'],['Kiesel Armin','Schenker'],['Kilian Joachim','Vollzahler'],['Kühnle Markus','Vollzahler'],['Kux Ralf','Vollzahler'],['Raisch Marc','Vollzahler'],['Rocky','Schenker'],['Scheifele David','Vollzahler'],['Spachmann Kai','Schenker'],['Stockinger Schorsch','Vollzahler'],['Tropschuh Andreas','Vollzahler'],['Tropschuh Ralf','Schenker'],['Widmann Micha','Vollzahler'],['Widmann Heiko','Schenker']],costs:[{area:'Fixkosten',name:'Chartermiete',factor:2,amount:2000,calcType:'pauschal'},{area:'Fixkosten',name:'Charter-Nebenkosten / Bettwäsche',factor:2,amount:240,calcType:'pauschal'},{area:'Fixkosten',name:'Betriebskosten / Diesel',factor:2,amount:180,calcType:'pauschal'},{area:'Fixkosten',name:'Marrekritte Gebühr',factor:2,amount:20,calcType:'pauschal'},{area:'Fixkosten',name:'Endreinigung',factor:2,amount:100,calcType:'pauschal'},{area:'Fixkosten',name:'Hafen- und Liegegebühr',factor:2,amount:30,calcType:'pauschal'},{area:'Mannschaftskasse',name:'Essen',factor:1,amount:60,calcType:'period-person'},{area:'Mannschaftskasse',name:'Getränke',factor:1,amount:60,calcType:'period-person'},{area:'Mannschaftskasse',name:'1x Essen gehen',factor:1,amount:50,calcType:'period-person'},{area:'Mannschaftskasse',name:'Unvorhergesehenes',factor:1,amount:30,calcType:'period-person'}]}
+const baseData={giftMode:'Nur-Schenker',giftAmount:100,surplusReduces:'Ja',dirkBoardCash:'Ja',giftmannParticipation:{fixed:true,crewFund:true,other:false},depositPerBoat:750,boats:2,people:[['Bender Giftmann','Giftmann'],['Ehrenberg Udo','Schenker'],['Götz Gordon','Vollzahler'],['Herrmann Grische','Vollzahler'],['Huschka Peter','Vollzahler'],['Jürgen','Schenker'],['Kiesel Armin','Schenker'],['Kilian Joachim','Vollzahler'],['Kühnle Markus','Vollzahler'],['Kux Ralf','Vollzahler'],['Raisch Marc','Vollzahler'],['Rocky','Schenker'],['Scheifele David','Vollzahler'],['Spachmann Kai','Schenker'],['Stockinger Schorsch','Vollzahler'],['Tropschuh Andreas','Vollzahler'],['Tropschuh Ralf','Schenker'],['Widmann Micha','Vollzahler'],['Widmann Heiko','Schenker']],costs:[{area:'Fixkosten',name:'Chartermiete',factor:2,amount:2000,calcType:'pauschal'},{area:'Fixkosten',name:'Charter-Nebenkosten / Bettwäsche',factor:2,amount:240,calcType:'pauschal'},{area:'Fixkosten',name:'Betriebskosten / Diesel',factor:2,amount:180,calcType:'pauschal'},{area:'Fixkosten',name:'Marrekritte Gebühr',factor:2,amount:20,calcType:'pauschal'},{area:'Fixkosten',name:'Endreinigung',factor:2,amount:100,calcType:'pauschal'},{area:'Fixkosten',name:'Hafen- und Liegegebühr',factor:2,amount:30,calcType:'pauschal'},{area:'Mannschaftskasse',name:'Essen',factor:1,amount:60,calcType:'period-person'},{area:'Mannschaftskasse',name:'Getränke',factor:1,amount:60,calcType:'period-person'},{area:'Mannschaftskasse',name:'1x Essen gehen',factor:1,amount:50,calcType:'period-person'},{area:'Mannschaftskasse',name:'Unvorhergesehenes',factor:1,amount:30,calcType:'period-person'}],wiseJarName:'Dirk27 - Chillout Pirates',wiseLedger:[],wiseActualBalance:null,wiseBalanceDate:'',wiseBalanceNote:''}
 
 const COST_AREAS=['Fixkosten','Mannschaftskasse','Sonstige'];
 const ROLE_OPTIONS=['Vollzahler','Nur Fixkosten','Nur Sonstige','Giftmann','Schenker'];
@@ -438,6 +484,7 @@ function migrateTrip(t){
   t.endDate=t.endDate||'';
   if(t.data){
     if(!t.data.participantInfo)t.data.participantInfo={};
+    ensureWiseData(t.data);
     ensureGiftmannParticipation(t.data);
     if(Array.isArray(t.data.people)){
       t.data.people.forEach(p=>{
@@ -718,6 +765,103 @@ function calc(doRead=true){
   return{payingTravelers:fullCount,fullCount,fixedOnly,otherOnly,partialTravelers:fixedOnly+otherOnly,onlyGift:schenkerCount,none:legacyNone,aboard,boardPersons:crewFundPersons,fixedPersons,crewFundPersons,otherPersons,totalNoDeposit,depositTotal,fixedTotal,crewFundTotal,otherTotal,boardTotal:crewFundTotal+otherTotal,fixedPer,crewFundPer,otherPer,boardPer:crewFundPer+otherPer,dirkShare:giftmannTotalShare,giftmannTotalShare,giftmannGiftedShare,giftmannSelfShare,giftmannPaysSelf,giftmannTransfer,giftPayments,restGiftman:restGiftmann,restGiftmann,rawSurplus,surplus,retainedSurplus,fall8NoGiftArea,fall8Reduction,tripPer:fullTravel,depositPer,transferPer,sumNoDeposit,sumDeposit,diffNoDeposit:sumNoDeposit-totalNoDeposit-retainedSurplus,diffDeposit:sumDeposit-depositTotal,rows}
 }
 
+
+function ensureWiseData(dataObj){
+  const d=dataObj||data;
+  if(typeof d.wiseJarName!=='string'||!d.wiseJarName.trim())d.wiseJarName='Dirk27 - Chillout Pirates';
+  if(!Array.isArray(d.wiseLedger))d.wiseLedger=[];
+  d.wiseLedger=d.wiseLedger.map((entry,index)=>({
+    id:entry&&entry.id?String(entry.id):'wise-'+Date.now().toString(36)+'-'+index,
+    date:entry&&entry.date?String(entry.date):'',
+    direction:entry&&entry.direction==='in'?'in':'out',
+    type:entry&&entry.type?String(entry.type):'Sonstige Projektkosten',
+    description:entry&&entry.description?String(entry.description):'',
+    amount:money2(Math.max(0,entry&&entry.amount||0)),
+    note:entry&&entry.note?String(entry.note):''
+  }));
+  if(d.wiseActualBalance===undefined||d.wiseActualBalance==='')d.wiseActualBalance=null;
+  else if(d.wiseActualBalance!==null)d.wiseActualBalance=money2(+d.wiseActualBalance||0);
+  if(d.wiseBalanceDate===undefined||d.wiseBalanceDate===null)d.wiseBalanceDate='';
+  if(d.wiseBalanceNote===undefined||d.wiseBalanceNote===null)d.wiseBalanceNote='';
+  return d;
+}
+function setWiseMeta(field,value){
+  ensureWiseData(data);
+  if(field==='wiseActualBalance')data.wiseActualBalance=value===null||value===''?null:money2(+value||0);
+  else data[field]=value;
+  update();
+}
+function addWiseLedgerEntry(direction){
+  ensureWiseData(data);
+  data.wiseLedger.push({id:'wise-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7),date:'',direction:direction==='in'?'in':'out',type:direction==='in'?'Erstattung':'Boots-/Charterzahlung',description:'',amount:0,note:''});
+  update();
+}
+function setWiseLedgerField(index,field,value){
+  ensureWiseData(data);
+  const entry=data.wiseLedger[index];if(!entry)return;
+  entry[field]=field==='amount'?money2(Math.max(0,+value||0)):value;
+  update();
+}
+function removeWiseLedgerEntry(index){
+  ensureWiseData(data);
+  if(!data.wiseLedger[index])return;
+  if(confirm('Diese Wise-Buchung wirklich entfernen?')){data.wiseLedger.splice(index,1);update()}
+}
+function calculateWiseControl(c){
+  ensureWiseData(data);ensureParticipantInfo();
+  const rowByName={};(c&&c.rows||[]).forEach(r=>rowByName[r.name]=r);
+  let participantIn=0,participantOut=0;
+  (data.people||[]).filter(p=>p&&p[0]).forEach(p=>{
+    const name=p[0],role=normalizeRole(p[1]);
+    const info=data.participantInfo[participantKey(name)]||{};
+    const maxRate=role==='Schenker'?1:3;
+    for(let n=1;n<=maxRate;n++)participantIn+=Math.max(0,+info['rate'+n+'ReceivedAmount']||0);
+    if(role==='Vollzahler'){
+      const calcRow=rowByName[name]||{fixedDue:0,crewFundDue:0,otherDue:0,deposit:0,giftDue:0,adminDue:0};
+      const plan=installmentSettlementPlan(calcRow,role,info);
+      const completed=Math.max(0,+info.rate4ReceivedAmount||0);
+      if(plan.direction==='refund')participantOut+=completed;
+      else if(plan.direction==='incoming')participantIn+=completed;
+    }
+  });
+  let ledgerIn=0,ledgerOut=0;
+  data.wiseLedger.forEach(entry=>{const amount=Math.max(0,+entry.amount||0);if(entry.direction==='in')ledgerIn+=amount;else ledgerOut+=amount});
+  participantIn=money2(participantIn);participantOut=money2(participantOut);ledgerIn=money2(ledgerIn);ledgerOut=money2(ledgerOut);
+  const expected=money2(participantIn+ledgerIn-participantOut-ledgerOut);
+  const actual=data.wiseActualBalance===null?null:money2(data.wiseActualBalance);
+  const difference=actual===null?null:money2(actual-expected);
+  return{participantIn,participantOut,ledgerIn,ledgerOut,expected,actual,difference};
+}
+function wiseTypeOptions(current){
+  const options=['Boots-/Charterzahlung','Kaution an Vercharterer','Kaution zurückerhalten','Sonstige Projektkosten','Erstattung','Wise-Gebühr','Korrekturbuchung'];
+  if(current&&!options.includes(current))options.push(current);
+  return options.map(x=>`<option value="${escapeHtml(x)}" ${x===current?'selected':''}>${escapeHtml(x)}</option>`).join('');
+}
+function renderWiseControl(c){
+  ensureWiseData(data);
+  const summary=calculateWiseControl(c);
+  const jar=document.getElementById('wiseJarName');if(jar&&jar.value!==data.wiseJarName)jar.value=data.wiseJarName;
+  const actualInput=document.getElementById('wiseActualBalance');if(actualInput)actualInput.value=summary.actual===null?'':summary.actual.toFixed(2);
+  const dateInput=document.getElementById('wiseBalanceDate');if(dateInput)dateInput.value=data.wiseBalanceDate||'';
+  const noteInput=document.getElementById('wiseBalanceNote');if(noteInput)noteInput.value=data.wiseBalanceNote||'';
+  const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+  setText('wiseParticipantIn',eur(summary.participantIn));setText('wiseParticipantOut',eur(summary.participantOut));
+  setText('wiseLedgerIn',eur(summary.ledgerIn));setText('wiseLedgerOut',eur(summary.ledgerOut));
+  setText('wiseExpectedBalance',eur(summary.expected));setText('wiseActualBalanceDisplay',summary.actual===null?'–':eur(summary.actual));
+  const diff=document.getElementById('wiseDifference');
+  if(diff){
+    diff.className='wise-difference '+(summary.difference===null?'pending':Math.abs(summary.difference)<0.005?'ok':'bad');
+    diff.textContent=summary.difference===null?'Noch kein tatsächlicher Wise-Stand eingetragen.':Math.abs(summary.difference)<0.005?'Wise stimmt mit der App überein · Differenz 0,00 €':`Differenz tatsächlicher zu erwartetem Wise-Stand: ${eur(summary.difference)}`;
+  }
+  const body=document.getElementById('wiseLedgerBody');if(!body)return;body.innerHTML='';
+  data.wiseLedger.forEach((entry,index)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input type="date" value="${escapeHtml(entry.date||'')}" onchange="setWiseLedgerField(${index},'date',this.value)"></td><td><select onchange="setWiseLedgerField(${index},'direction',this.value)"><option value="out" ${entry.direction==='out'?'selected':''}>Ausgang</option><option value="in" ${entry.direction==='in'?'selected':''}>Eingang</option></select></td><td><select onchange="setWiseLedgerField(${index},'type',this.value)">${wiseTypeOptions(entry.type)}</select></td><td><input type="text" value="${escapeHtml(entry.description||'')}" placeholder="z. B. Bootsanzahlung" onchange="setWiseLedgerField(${index},'description',this.value)"></td><td><input type="number" min="0" step="0.01" value="${money2(entry.amount).toFixed(2)}" onchange="setWiseLedgerField(${index},'amount',this.value)"></td><td><input type="text" value="${escapeHtml(entry.note||'')}" placeholder="Wise-Referenz / Notiz" onchange="setWiseLedgerField(${index},'note',this.value)"></td><td><button class="danger" onclick="removeWiseLedgerEntry(${index})">Entfernen</button></td>`;
+    body.appendChild(tr);
+  });
+  if(!data.wiseLedger.length){const tr=document.createElement('tr');tr.innerHTML='<td colspan="7" class="small">Noch keine weiteren Wise-Buchungen erfasst. Teilnehmerzahlungen werden automatisch aus der Tabelle oben übernommen.</td>';body.appendChild(tr)}
+}
+
 function participantKey(name){return String(name||'').trim()||'__unbenannt__'}
 function ensureParticipantInfo(){
   if(!data.participantInfo||typeof data.participantInfo!=='object'||Array.isArray(data.participantInfo))data.participantInfo={};
@@ -971,6 +1115,7 @@ function showInstallmentPerTraveler(elementId,entry){
   }
 }
 function renderResults(c){
+  const wiseSummary=calculateWiseControl(c);
   document.getElementById('kpiTrip').textContent=eur(c.tripPer);
   document.getElementById('kpiTransfer').textContent=eur(c.transferPer);
   document.getElementById('kpiGift').textContent=eur(data.giftAmount);
@@ -981,6 +1126,8 @@ function renderResults(c){
   showInstallmentPerTraveler('kpiRate1',installmentsPerTraveler[0]);
   showInstallmentPerTraveler('kpiRate2',installmentsPerTraveler[1]);
   showInstallmentPerTraveler('kpiRate3',installmentsPerTraveler[2]);
+  document.getElementById('kpiWiseExpected').textContent=eur(wiseSummary.expected);
+  const wiseDetail=document.getElementById('kpiWiseDetail');if(wiseDetail)wiseDetail.textContent=wiseSummary.actual===null?(data.wiseJarName||'Dirk27 - Chillout Pirates'):`Ist ${eur(wiseSummary.actual)} · Differenz ${eur(wiseSummary.difference)}`;
   document.getElementById('countMit').textContent=c.payingTravelers;
   document.getElementById('countAboard').textContent=c.aboard;
   document.getElementById('countGift').textContent=c.onlyGift;
@@ -1010,7 +1157,7 @@ function renderResults(c){
   })
 }
 
-function update(){readInputs();const t=getActiveTrip();if(t)t.data=clone(data);const c=calc(false);renderPeople(c);renderCostOverview(c);renderCosts(c);renderResults(c);renderParticipantManagement(c);renderTripHome();renderPageNotes();updateStatus()}
+function update(){readInputs();const t=getActiveTrip();if(t)t.data=clone(data);const c=calc(false);renderPeople(c);renderCostOverview(c);renderCosts(c);renderResults(c);renderParticipantManagement(c);renderWiseControl(c);renderTripHome();renderPageNotes();updateStatus()}
 function updateActiveTripHeadline(){const t=getActiveTrip();const title=(t&&cleanTripName(t.name))||'Chillout Pirates';const headline=document.getElementById('activeTripHeadline');if(headline)headline.textContent=title;document.title=title+' – Kostenaufteilung'}
 function updateStatus(){applyActiveTripTheme();updateActiveTripHeadline();const t=getActiveTrip();const saved=t?niceDate(t.updatedAt):'nicht gespeichert';const name=t?escapeHtml(t.name):'Kein Törn';const dirty=hasUnsavedChanges();const guard=dirty?'<span class="save-dirty">Ungespeichert</span>':'<span class="save-clean">Gespeichert</span>';document.getElementById('activeTripBadge').innerHTML=`<span class="active-trip-dot"></span>Aktiver Törn: <b>${name}</b> · Zeitraum: ${escapeHtml(tripPeriod(t))} · lokal gespeichert: ${saved} · ${guard}`;updateSaveGuardStatus();const sd=document.getElementById('standDate');if(sd)sd.textContent='Stand lokal gespeichert: '+saved+(dirty?' · Ungespeichert':'');document.querySelectorAll('.status').forEach(el=>{if(el.id!=='standDate'&&el.id!=='cloudStatus')el.textContent='Lokal gespeichert: '+saved+(dirty?' · Ungespeichert':'')})}
 

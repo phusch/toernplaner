@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chillout-pirates-kosten-v155-final-payment-v1';
+const CACHE_NAME = 'chillout-pirates-kosten-v156-wise-control-v1';
 const ASSETS = [
   './',
   './index.html',
