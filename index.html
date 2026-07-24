@@ -63,6 +63,24 @@
 .admin-table tr.rate-summary td{background:rgba(var(--trip-accent-rgb),.13);font-weight:900}
 .admin-table .saldo-positive{color:#ffd36e}
 .admin-table .saldo-negative{color:var(--green)}
+/* V1.5.6: Zahlungsstatus und fixierte Identitätsspalten – nur Teilnehmerverwaltung */
+.admin-table{min-width:1510px}
+.admin-table th:nth-child(1),.admin-table td.sticky-name{position:sticky;left:0;width:190px;min-width:190px;max-width:190px;z-index:3;background:#11100f}
+.admin-table th:nth-child(2),.admin-table td.sticky-role{position:sticky;left:190px;width:150px;min-width:150px;max-width:150px;z-index:3;background:#11100f;box-shadow:8px 0 14px rgba(0,0,0,.38)}
+.admin-table thead th:nth-child(1),.admin-table thead th:nth-child(2){z-index:5;background:#171512}
+.admin-table td.sticky-name,.admin-table td.sticky-role{overflow:hidden;text-overflow:ellipsis}
+.admin-table tr.payment-paid{--payment-status-bg:linear-gradient(180deg,rgba(100,181,108,.25),rgba(100,181,108,.13)),#11100f;--payment-status-color:var(--green)}
+.admin-table tr.payment-partial{--payment-status-bg:linear-gradient(180deg,rgba(222,160,60,.27),rgba(185,105,28,.14)),#11100f;--payment-status-color:#f0b94f}
+.admin-table tr.payment-open{--payment-status-bg:linear-gradient(180deg,rgba(217,107,95,.15),rgba(217,107,95,.07)),#11100f;--payment-status-color:var(--red)}
+.admin-table tr.payment-neutral{--payment-status-bg:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015)),#11100f;--payment-status-color:var(--muted)}
+.admin-table tr.payment-paid td,.admin-table tr.payment-partial td,.admin-table tr.payment-open td,.admin-table tr.payment-neutral td{background:var(--payment-status-bg)!important}
+.admin-table tr.payment-paid td:nth-child(3),.admin-table tr.payment-partial td:nth-child(3),.admin-table tr.payment-open td:nth-child(3){box-shadow:inset 4px 0 0 var(--payment-status-color)}
+.admin-table tr.payment-paid input,.admin-table tr.payment-paid select{border-color:rgba(100,181,108,.48)}
+.admin-table tr.payment-partial input,.admin-table tr.payment-partial select{border-color:rgba(222,160,60,.55)}
+.admin-table tr.payment-open input,.admin-table tr.payment-open select{border-color:rgba(217,107,95,.34)}
+.admin-table td.participant-complete b{color:var(--green);text-shadow:0 0 12px rgba(100,181,108,.34)}
+.admin-table tr.final-payment-row td.sticky-name,.admin-table tr.final-payment-row td.sticky-role{background:linear-gradient(180deg,rgba(88,169,157,.18),rgba(88,169,157,.10)),#11100f!important}
+
 .settlement-direction{display:inline-block;margin-top:5px;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900;font-style:normal}
 .settlement-direction.incoming{background:rgba(255,211,110,.16);color:#ffd36e;border:1px solid rgba(255,211,110,.42)}
 .settlement-direction.refund{background:rgba(120,220,168,.14);color:var(--green);border:1px solid rgba(120,220,168,.38)}
@@ -942,13 +960,44 @@ function renderParticipantManagement(c){
   body.innerHTML='';
   const roleOrder=['Giftmann','Vollzahler','Nur Fixkosten','Nur Sonstige','Schenker'];
   const rowByName={};
+  const paymentTolerance=0.005;
   (c.rows||[]).forEach(r=>rowByName[r.name]=r);
   const people=(data.people||[]).filter(p=>p[0]).slice().sort((a,b)=>{
     const ar=normalizeRole(a[1]),br=normalizeRole(b[1]);
     const ra=roleOrder.indexOf(ar), rb=roleOrder.indexOf(br);
     return (ra<0?99:ra)-(rb<0?99:rb) || String(a[0]).localeCompare(String(b[0]),'de');
   });
-  const rateRow=(name,role,calcRow,number,extraClass='',showName=true)=>{
+  const paymentStatusClass=(requested,completed)=>{
+    requested=Math.max(0,+requested||0);
+    completed=Math.max(0,+completed||0);
+    if(requested<=paymentTolerance)return 'payment-neutral';
+    if(completed+paymentTolerance>=requested)return 'payment-paid';
+    if(completed>paymentTolerance)return 'payment-partial';
+    return 'payment-open';
+  };
+  const participantPaymentState=(name,role,calcRow)=>{
+    const info=data.participantInfo[participantKey(name)]||{};
+    const payments=[];
+    const rateNumbers=role==='Schenker'?[1]:[1,2,3];
+    rateNumbers.forEach(number=>{
+      const prefix='rate'+number;
+      payments.push({
+        requested:installmentRequested(info,prefix,installmentSuggestion(calcRow,role,number)),
+        completed:Math.max(0,+info[prefix+'ReceivedAmount']||0)
+      });
+    });
+    if(role==='Vollzahler'){
+      const plan=installmentSettlementPlan(calcRow,role,info);
+      payments.push({
+        requested:installmentRequested(info,'rate4',plan.suggestedAmount),
+        completed:Math.max(0,+info.rate4ReceivedAmount||0)
+      });
+    }
+    const relevant=payments.filter(payment=>payment.requested>paymentTolerance);
+    return{complete:relevant.length>0&&relevant.every(payment=>payment.completed+paymentTolerance>=payment.requested)};
+  };
+  const identityCells=(name,role,nameComplete)=>`<td class="sticky-name ${nameComplete?'participant-complete':''}"><b>${escapeHtml(name)}</b></td><td class="sticky-role">${escapeHtml(roleDisplayName(role))}</td>`;
+  const rateRow=(name,role,calcRow,number,extraClass='',nameComplete=false)=>{
     const info=data.participantInfo[participantKey(name)]||{};
     const prefix='rate'+number;
     const suggested=installmentSuggestion(calcRow,role,number);
@@ -960,11 +1009,11 @@ function renderParticipantManagement(c){
       ? `<span class="installment-title">${escapeHtml(standardTitle)}</span><input class="installment-custom-label" type="text" value="${escapeHtml(info.rate3Label||'3. Anzahlung / frei')}" placeholder="Bezeichnung der 3. Anzahlung" onchange="setParticipantInfo('${escapeJs(name)}','rate3Label',this.value)">`
       : `<span class="installment-title">${escapeHtml(standardTitle)}</span>`;
     const tr=document.createElement('tr');
-    tr.className=roleClass(role)+' '+extraClass;
-    tr.innerHTML=`<td>${showName?`<b>${escapeHtml(name)}</b>`:''}</td><td>${showName?escapeHtml(roleDisplayName(role)):''}</td><td>${titleHtml}<span class="installment-suggestion">Berechneter Vorschlag: ${eur(suggested)}</span></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Frei änderbar; leer lassen setzt wieder den berechneten Vorschlag ein" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
+    tr.className=roleClass(role)+' '+extraClass+' '+paymentStatusClass(requested,received);
+    tr.innerHTML=`${identityCells(name,role,nameComplete)}<td>${titleHtml}<span class="installment-suggestion">Berechneter Vorschlag: ${eur(suggested)}</span></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Frei änderbar; leer lassen setzt wieder den berechneten Vorschlag ein" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" ${info[prefix+'RequestSent']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'RequestDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}RequestDate',this.value)"></td><td class="center"><input type="checkbox" ${info[prefix+'MoneyReceived']?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','${prefix}MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info[prefix+'ReceivedDate']||'')}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${received}" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info[prefix+'Note']||'')}" placeholder="Notiz / Erinnerung" onchange="setParticipantInfo('${escapeJs(name)}','${prefix}Note',this.value)"></td>`;
     body.appendChild(tr);
   };
-  const settlementRow=(name,role,calcRow)=>{
+  const settlementRow=(name,role,calcRow,nameComplete=false)=>{
     const info=data.participantInfo[participantKey(name)]||{};
     const plan=installmentSettlementPlan(calcRow,role,info);
     const prefix='rate4';
@@ -975,11 +1024,11 @@ function renderParticipantManagement(c){
     const directionClass=plan.direction==='incoming'?'incoming':plan.direction==='refund'?'refund':'balanced';
     const autoText=installmentDirectionLabel(plan.automaticDirection);
     const tr=document.createElement('tr');
-    tr.className=roleClass(role)+' rate-four';
-    tr.innerHTML=`<td></td><td></td><td><span class="installment-title">4. Restzahlung</span><span class="settlement-direction ${directionClass}">${escapeHtml(directionLabel)}</span><span class="installment-suggestion">Berechneter Vorschlag aus Gesamtbetrag minus 1.–3. Anzahlung: ${plan.automaticDirection==='balanced'?'0,00 €':escapeHtml(autoText)+' '+eur(plan.suggestedAmount)}</span><select class="settlement-direction-select" onchange="setParticipantInfo('${escapeJs(name)}','rate4Direction',this.value)"><option value="" ${info.rate4Direction?'':'selected'}>Richtung automatisch</option><option value="incoming" ${info.rate4Direction==='incoming'?'selected':''}>Nachzahlung vom Teilnehmer</option><option value="refund" ${info.rate4Direction==='refund'?'selected':''}>Rückzahlung an Teilnehmer</option></select></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Betrag der Nachzahlung oder Rückzahlung; frei änderbar" onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" title="Restzahlung mitgeteilt" ${info.rate4RequestSent?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info.rate4RequestDate||'')}" onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestDate',this.value)"></td><td class="center"><input type="checkbox" title="Nachzahlung eingegangen bzw. Rückzahlung ausgeführt" ${info.rate4MoneyReceived?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','rate4MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info.rate4ReceivedDate||'')}" onchange="setParticipantInfo('${escapeJs(name)}','rate4ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${completed}" title="Tatsächlich eingegangener oder zurückgezahlter Betrag" onchange="setParticipantInfo('${escapeJs(name)}','rate4ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info.rate4Note||'')}" placeholder="Nachzahlung / Rückzahlung" onchange="setParticipantInfo('${escapeJs(name)}','rate4Note',this.value)"></td>`;
+    tr.className=roleClass(role)+' rate-four '+paymentStatusClass(requested,completed);
+    tr.innerHTML=`${identityCells(name,role,nameComplete)}<td><span class="installment-title">4. Restzahlung</span><span class="settlement-direction ${directionClass}">${escapeHtml(directionLabel)}</span><span class="installment-suggestion">Berechneter Vorschlag aus Gesamtbetrag minus 1.–3. Anzahlung: ${plan.automaticDirection==='balanced'?'0,00 €':escapeHtml(autoText)+' '+eur(plan.suggestedAmount)}</span><select class="settlement-direction-select" onchange="setParticipantInfo('${escapeJs(name)}','rate4Direction',this.value)"><option value="" ${info.rate4Direction?'':'selected'}>Richtung automatisch</option><option value="incoming" ${info.rate4Direction==='incoming'?'selected':''}>Nachzahlung vom Teilnehmer</option><option value="refund" ${info.rate4Direction==='refund'?'selected':''}>Rückzahlung an Teilnehmer</option></select></td><td><input type="email" value="${escapeHtml(info.email||'')}" placeholder="name@mail.de" onchange="setParticipantInfo('${escapeJs(name)}','email',this.value)"></td><td><input type="text" value="${escapeHtml(info.paypal||'')}" placeholder="Wise / IBAN" onchange="setParticipantInfo('${escapeJs(name)}','paypal',this.value)"></td><td><input class="requested-input" type="number" min="0" step="0.01" value="${requested.toFixed(2)}" title="Betrag der Nachzahlung oder Rückzahlung; frei änderbar" onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestedAmount',this.value===''?null:(+this.value||0))"></td><td class="center"><input type="checkbox" title="Restzahlung mitgeteilt" ${info.rate4RequestSent?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestSent',this.checked)"></td><td><input type="date" value="${escapeHtml(info.rate4RequestDate||'')}" onchange="setParticipantInfo('${escapeJs(name)}','rate4RequestDate',this.value)"></td><td class="center"><input type="checkbox" title="Nachzahlung eingegangen bzw. Rückzahlung ausgeführt" ${info.rate4MoneyReceived?'checked':''} onchange="setParticipantInfo('${escapeJs(name)}','rate4MoneyReceived',this.checked)"></td><td><input type="date" value="${escapeHtml(info.rate4ReceivedDate||'')}" onchange="setParticipantInfo('${escapeJs(name)}','rate4ReceivedDate',this.value)"></td><td><input type="number" min="0" step="0.01" value="${completed}" title="Tatsächlich eingegangener oder zurückgezahlter Betrag" onchange="setParticipantInfo('${escapeJs(name)}','rate4ReceivedAmount',+this.value||0)"></td><td class="money"><b>${eur(open)}</b></td><td><input type="text" value="${escapeHtml(info.rate4Note||'')}" placeholder="Nachzahlung / Rückzahlung" onchange="setParticipantInfo('${escapeJs(name)}','rate4Note',this.value)"></td>`;
     body.appendChild(tr);
   };
-  const totalRow=(name,role,calcRow)=>{
+  const totalRow=(name,role,calcRow,nameComplete=false)=>{
     const info=data.participantInfo[participantKey(name)]||{};
     const suggestions=[1,2,3].map(n=>installmentSuggestion(calcRow,role,n));
     const requestedBefore=[1,2,3].reduce((sum,n)=>sum+installmentRequested(info,'rate'+n,suggestions[n-1]),0);
@@ -998,7 +1047,7 @@ function renderParticipantManagement(c){
     const saldoClass=finalSaldo>0.005?'saldo-positive':finalSaldo<-.005?'saldo-negative':'';
     const tr=document.createElement('tr');
     tr.className=roleClass(role)+' final-payment-row rate-summary person-end';
-    tr.innerHTML=`<td></td><td>${escapeHtml(roleDisplayName(role))}</td><td><b>Ratenübersicht</b><span class="installment-suggestion">Aktuell endgültig berechnet: ${eur(finalDue)}</span></td><td colspan="2" class="small ${saldoClass}">${escapeHtml(saldoText)}</td><td class="money"><b>${eur(requestedNet)}</b></td><td colspan="4" class="small">Zahlungsplan netto / tatsächlich netto</td><td class="money"><b>${eur(receivedNet)}</b></td><td class="money"><b>${eur(rateOpen)}</b></td><td class="small">Die 4. Restzahlung gleicht Rundungen der 1.–3. Anzahlung aus.</td>`;
+    tr.innerHTML=`${identityCells(name,role,nameComplete)}<td><b>Ratenübersicht</b><span class="installment-suggestion">Aktuell endgültig berechnet: ${eur(finalDue)}</span></td><td colspan="2" class="small ${saldoClass}">${escapeHtml(saldoText)}</td><td class="money"><b>${eur(requestedNet)}</b></td><td colspan="4" class="small">Zahlungsplan netto / tatsächlich netto</td><td class="money"><b>${eur(receivedNet)}</b></td><td class="money"><b>${eur(rateOpen)}</b></td><td class="small">Die 4. Restzahlung gleicht Rundungen der 1.–3. Anzahlung aus.</td>`;
     body.appendChild(tr);
   };
   let currentRole=null;
@@ -1012,13 +1061,14 @@ function renderParticipantManagement(c){
       body.appendChild(sep);
     }
     const calcRow=rowByName[name]||{fixedDue:0,crewFundDue:0,otherDue:0,deposit:0,giftDue:0,adminDue:0};
-    rateRow(name,role,calcRow,1,'person-start rate-one',true);
+    const nameComplete=participantPaymentState(name,role,calcRow).complete;
+    rateRow(name,role,calcRow,1,'person-start rate-one',nameComplete);
     if(role!=='Schenker'){
-      rateRow(name,role,calcRow,2,'rate-two',false);
-      rateRow(name,role,calcRow,3,'rate-three',false);
+      rateRow(name,role,calcRow,2,'rate-two',nameComplete);
+      rateRow(name,role,calcRow,3,'rate-three',nameComplete);
     }
-    if(role==='Vollzahler')settlementRow(name,role,calcRow);
-    totalRow(name,role,calcRow);
+    if(role==='Vollzahler')settlementRow(name,role,calcRow,nameComplete);
+    totalRow(name,role,calcRow,nameComplete);
   });
 }
 function escapeJs(s){return String(s??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n').replace(/\r/g,'')}
