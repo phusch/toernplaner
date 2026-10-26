@@ -233,8 +233,57 @@ button.secondary{color:var(--trip-accent)}
 @media(max-width:760px){.help-fab{top:auto;bottom:calc(14px + env(safe-area-inset-bottom));right:calc(14px + env(safe-area-inset-right));padding:11px 13px!important}.help-dialog{max-height:calc(100vh - 22px);border-radius:18px}.help-body{grid-template-columns:1fr}.help-nav{display:flex;gap:8px;overflow:auto;border-right:0;border-bottom:1px solid rgba(231,215,184,.16);padding:10px}.help-nav button{width:auto;margin:0;flex:0 0 auto}.help-content{padding:12px}.help-head{padding:14px}.help-head h2{font-size:17px}}
 
 </style>
+<link rel="stylesheet" href="huschel-toern-speicher.css?v=1.5.8" />
 </head>
 <body>
+<button id="hsToernOpen" type="button" aria-label="Huschel App Speicher öffnen" title="Huschel App Speicher">💾</button>
+<div id="hsToernPanel" hidden role="dialog" aria-modal="true" aria-labelledby="hsTitle">
+  <div class="hst-wrap">
+    <div class="hst-head"><button type="button" id="hsBack">← Zurück zum Törnplaner</button><h2 id="hsTitle">Speichern &amp; Backup</h2></div>
+    <div id="hsLamp" class="hst-lamp hst-warn" role="status" aria-live="polite">🟡 GitHub-Speicherstand noch nicht geprüft</div>
+    <section class="hst-card" id="hsAuthCard">
+      <div class="hst-authline" id="hsAuthStatus">⚪ Nicht angemeldet</div>
+      <p class="hst-muted" id="hsAccountLabel">Huschel App Speicher · getrennt vom bisherigen Törnplaner-Supabase</p>
+      <div id="hsLoginArea">
+        <label for="hsKey">Supabase Publishable Key (nur huschel-speicher-pilot)</label>
+        <input id="hsKey" type="password" autocomplete="off" placeholder="sb_publishable_…" />
+        <label for="hsEmail">E-Mail</label><input id="hsEmail" type="email" autocomplete="username" placeholder="E-Mail" />
+        <label for="hsPassword">Passwort (wird nicht gespeichert)</label><input id="hsPassword" type="password" autocomplete="current-password" />
+        <button type="button" id="hsLogin">Anmelden</button>
+      </div>
+      <button type="button" id="hsLogout" class="hst-minor" hidden>Abmelden</button>
+    </section>
+    <section class="hst-card hst-preferred">
+      <h3>GitHub – bevorzugter Speicher</h3>
+      <p class="hst-muted">Privates Repository: <code>phusch/huschel-app-data</code> · <code>toernplaner/data.json</code></p>
+      <div class="hst-buttons"><button type="button" id="hsCloudSave">☁️ GitHub Speichern</button><button type="button" id="hsCloudLoad">☁️ GitHub Laden / Vorschau</button></div>
+      <p class="hst-meta" id="hsMeta">Revision: nicht geprüft · letzte Speicherung: –</p>
+    </section>
+    <section class="hst-card">
+      <h3>Lokaler Speicher – unabhängige Sicherheitskopie</h3>
+      <div class="hst-buttons"><button type="button" id="hsLocalSave">Lokal Speichern</button><button type="button" id="hsLocalLoad">Lokal Laden / Vorschau</button></div>
+      <p class="hst-muted">Verwendet einen zusätzlichen eigenen Speicherschlüssel. Der bisherige lokale Törnplaner-Speicher wird nicht ersetzt.</p>
+    </section>
+    <section class="hst-card">
+      <h3>JSON-Backup</h3>
+      <div class="hst-buttons"><button type="button" id="hsExport">⬇️ JSON-Backup erstellen</button><button type="button" id="hsImport">⬆️ JSON-Backup laden / Vorschau</button></div>
+      <input id="hsFile" type="file" accept=".json,application/json" hidden />
+      <p class="hst-muted">Enthält alle Törns und Zahlungsdaten. Backup sicher aufbewahren.</p>
+    </section>
+    <section class="hst-card" id="hsPreview" hidden>
+      <h3 id="hsPreviewTitle">Gesicherte Törns prüfen</h3>
+      <p class="hst-muted">Das Laden hat noch nichts verändert. Für eine Übernahme werden neue Kopien erzeugt; vorhandene Törns bleiben bestehen.</p>
+      <div id="hsTripChoices" class="hst-choices"></div>
+      <label class="hst-check"><input type="checkbox" id="hsBackupConfirm" /> Ich habe ein aktuelles JSON-Backup der laufenden Törnplaner-Daten erstellt.</label>
+      <button type="button" id="hsCopyTrips">Ausgewählte Törns als neue Kopien übernehmen</button>
+      <button type="button" id="hsRestoreFresh" class="hst-minor" hidden>Nur auf leerem Gerät: vollständigen Originalstand wiederherstellen</button>
+      <p class="hst-muted" id="hsFreshHint">Original-IDs, aktiver Törn und Zahlungsdaten bleiben beim sicheren Erstimport erhalten. Nur auf einer neuen, noch nicht genutzten Browser-Installation möglich. Niemals automatische Übernahme.</p>
+      <button type="button" id="hsCancelPreview" class="hst-minor">Vorschau schließen – nichts ändern</button>
+    </section>
+    <p class="hst-message" id="hsMessage" role="status" aria-live="polite">Beim Öffnen und Laden werden keine vorhandenen Törn- oder Zahlungsdaten verändert.</p>
+  </div>
+</div>
+
 <button id="helpButton" class="help-fab" onclick="openHelpModal()">ℹ️ Hilfe & Handbuch</button>
 <header class="wrap hero"><img class="logo" src="assets/logo.png" alt="Chillout Pirates Logo"><div class="brand"><h1 id="activeTripHeadline">Chillout Pirates</h1><div class="divider">★</div><p class="sub">Kostenaufteilung · Love me Fender</p></div></header>
 <main class="wrap">
@@ -1342,6 +1391,68 @@ document.addEventListener('click',e=>{const modal=document.getElementById('helpM
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 cloudLoadConfig();syncInputs();update();showTab('trips',document.querySelector('.tab'));saveGuardInit();if(window.__loadedFromShare){saveGuardMarkDirty();toast('Geteilter Stand geladen – Speichern drücken, um ihn auf diesem Gerät zu sichern')}
 
+// Huschel Speicher V1.5.8: NUR additive Datenschnittstelle; Berechnungen und bisherige Cloud bleiben unverändert.
+window.HuschelToernBridge = Object.freeze({
+  readSnapshot(){ return clone(appState); },
+  isDirty(){ return hasUnsavedChanges(); },
+  isFreshStorage(){
+    // Bestehender Browser-Datenstand hat immer Vorrang. Auch das alte Schlüsselformat blockiert.
+    return localStorage.getItem(STORE_KEY) === null &&
+      localStorage.getItem(OLD_KEY) === null &&
+      localStorage.getItem('huschel-toernplaner-extra-snapshot-v1') === null &&
+      !window.__loadedFromShare && !hasUnsavedChanges() && appState.trips.length === 1;
+  },
+  restoreOnFreshStorage(backup){
+    if(!this.isFreshStorage())throw new Error('Vollständige Wiederherstellung nur auf einer frischen, leeren Browser-Installation möglich. Bestehende Törns bleiben unangetastet; bitte stattdessen als Kopien übernehmen.');
+    if(!backup || Array.isArray(backup) || !Array.isArray(backup.trips) ||
+       !backup.trips.length || backup.trips.length>200 ||
+       typeof backup.activeTripId!=='string' ||
+       !backup.trips.some(t=>t && t.id===backup.activeTripId) ||
+       new Set(backup.trips.map(t=>t.id)).size !== backup.trips.length ||
+       !backup.trips.every(t=>t && typeof t.id==='string' &&
+         t.data && Array.isArray(t.data.people) && Array.isArray(t.data.costs)))
+      throw new Error('Sicherungsdaten ungültig: keine Daten übernommen.');
+    const serialized=JSON.stringify(backup); // Original-Sicherungsformat/IDs unverändert beibehalten.
+    const previous=appState;
+    try{
+      localStorage.setItem(STORE_KEY,serialized); // Einzige dauerhafte Datenänderung, nur nach Bestätigung.
+      appState=JSON.parse(serialized);
+      setActiveData();syncInputs();update();saveGuardSetClean();
+      return {count:appState.trips.length,active:getActiveTrip()?.name||''};
+    }catch(e){
+      localStorage.removeItem(STORE_KEY);
+      appState=previous;setActiveData();syncInputs();update();saveGuardSetClean();
+      throw new Error('Erstimport fehlgeschlagen: keine Sicherung übernommen. '+(e.message||e));
+    }
+  },
+  addCopies(trips){
+    if(hasUnsavedChanges())throw new Error('Zunächst im Törnplaner den aktuellen Törn lokal speichern.');
+    if(!Array.isArray(trips)||!trips.length)throw new Error('Keine Törns ausgewählt.');
+    const nameSet=new Set(appState.trips.map(t=>String(t.name||'')));
+    const ids=new Set(appState.trips.map(t=>t.id));
+    const copies=trips.map(raw=>{
+      if(!raw||!raw.data||!Array.isArray(raw.data.people)||!Array.isArray(raw.data.costs))
+        throw new Error('Ungültige Törn-Daten: Import vollständig abgebrochen.');
+      const copy=clone(raw);
+      let id=uid();while(ids.has(id))id=uid();ids.add(id);copy.id=id;
+      const stem=String(copy.name||'Törn')+' – Sicherungskopie';
+      let name=stem,i=2;while(nameSet.has(name))name=stem+' ('+(i++)+')';
+      nameSet.add(name);copy.name=name;
+      copy.createdAt=nowIso();copy.updatedAt=nowIso();
+      delete copy.cloudMeta; // Keine alte Supabase-Revision einer unabhängigen Kopie zuordnen.
+      return copy;
+    });
+    const next={...appState,trips:appState.trips.concat(copies)};
+    // Erst erfolgreich im bestehenden Browser-Speicher schreiben, DANN den Arbeitsspeicher aktualisieren.
+    localStorage.setItem(STORE_KEY,JSON.stringify(next));
+    appState=next;
+    renderTripHome();updateStatus();
+    return copies.map(t=>t.name);
+  }
+});
+
+
 </script>
+<script src="huschel-toern-speicher.js?v=1.5.8" defer></script>
 </body>
 </html>

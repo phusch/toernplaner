@@ -1,8 +1,9 @@
-const CACHE_NAME = 'chillout-pirates-kosten-v156-payment-status-sticky-v1';
+const CACHE_NAME = 'chillout-pirates-kosten-v158-huschel-speicher-v1';
 const ASSETS = [
   './',
   './index.html',
-  './app.js',
+  './huschel-toern-speicher.js',
+  './huschel-toern-speicher.css',
   './manifest.webmanifest',
   './assets/logo.png',
   './assets/icon-180.png',

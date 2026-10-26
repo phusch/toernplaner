@@ -1,0 +1,8 @@
+NUR FALLS NOCH NICHT VORHANDEN:
+
+In bestehender Supabase Edge Function github-app-storage im Objekt APPS ergänzen:
+
+"toernplaner": "toernplaner/data.json",
+
+Niemals alte APP-IDs entfernen, den alten Törnplaner-Supabase-Code ersetzen oder Secrets offenlegen.
+Vorher den bestehenden Function-Code sichern. Anschließend genau einen kontrollierten Deploy.

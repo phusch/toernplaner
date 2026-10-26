@@ -1,0 +1,640 @@
+diff --git a/DATEIVERGLEICH.txt b/DATEIVERGLEICH.txt
+new file mode 100644
+index 0000000..855f670
+--- /dev/null
++++ b/DATEIVERGLEICH.txt
+@@ -0,0 +1,28 @@
++Originalquelle: toernplaner.zip (Upload 26.10.2026)
++Unverändert (SHA-256 pro Datei identisch): 20 Dateien
++  README.md · 685093d5f47544c133c866c05858dca1fe111b445ceacdb0185df08a2a1ad714
++  README_Toernplaner_V1.4.2_storage_status.md · ee19a1fd0c734003337be1bf167277c143e4f08b9bee99f62ab5f32d8a05f153
++  README_Toernplaner_V1.4.2_storage_status_PATCH.diff · b831f628c35ec7b8fcbfd215c5c9c9ab29783fd48b8dbd52a950ad72e1a5c442
++  SUPABASE_EINFACH_EINRICHTUNG_V1.1.md · be5468eac063545db79e50e244f7ec22540d57757a1f70297fac5144f1c9e0fd
++  Toernplaner_V1.4.2_giftmann_logic_fix_PATCH.diff · 1e7ffcfcde155210e994ac71ea4f52a39e25ff28960ef537c4f04890c00bb14d
++  Toernplaner_V1.4.2_overview_gesamtbetrag_PATCH.diff · b9d3be490362ca6e3e5b32b8664f237bc2bf367d157d4b11f2c5aafa7a2b98b0
++  Toernplaner_V1.4.2_storage_status_PATCH.diff · e0aea9b7022cc7baa24874c6042b0475e5ba0508e5690ba429c23dc70ad68cf9
++  Toernplaner_V1.4.4_dynamic_trip_title_PATCH.diff · dcd218f95012f1b71258438244a599c766cb2179f3d3ca57cb4933a3dc7c04ff
++  Toernplaner_V1.5.2_overview_installment_summary_PATCH.diff · 84f7738581f3718afc2720b5d7b36b3a4993925097b26631c9402083bac8722e
++  Toernplaner_V1.5.3_installments_per_traveler_PATCH.diff · 56d31fe6d7705b2e2c9ac0815a37c0eb727308325e5b8911070a297fc44a41f9
++  Toernplaner_V1.5.4_gift_total_PATCH.diff · b9e69a41f2616d5771170e5a79476e4a53a32f8323d87bdb00da3232064eda46
++  Toernplaner_V1.5.5_final_payment_PATCH.diff · d08618556b35783b07a9a35f745b62bca0d9068c66b6419d7e00149ed8a96353
++  Toernplaner_V1.5.6_payment_status_sticky_PATCH.diff · c22b541b62b03b8d5d0a5e09e8743d90638ed1fad8822b8f8086bf6a1fb0a98d
++  assets/icon-180.png · fa3689efa0f4caec2d33b9739c709dd53de850b630604605f35a31e72ded6698
++  assets/icon-192.png · bff986b4839961ffb268f93004fb435d78cffa4fe1f62d2a56ca722989d2aa21
++  assets/icon-512.png · fb5cb0f99148021539f081736620da1d04182da11410bd373d3550e009289ad3
++  assets/logo.png · b83fa52a0d1a18e28313ca396c0356d3ff3801d5cca09ed8a5daeb980ba70c0e
++  assets/toernplaner.png · c24bc56baae3b4a250472d496e1644f34652fb57e812241bc1e047c2bed0e1ec
++  manifest.webmanifest · ce95f2f1086803fd288183418e8771e90fb44b82458f1b038588e29356782072
++  supabase_migration_001_initial_sync_schema.sql · 66ffc55d48f2cba37428a26a96d6e2c872b86de580c2bb625fce8da6d73ec577
++
++Geänderte vorhandene Dateien: index.html, sw.js
++Nur zusätzliche Speicherlogik in index.html; SW-Cache aktualisiert und fehlenden app.js-Eintrag durch die zwei neuen Moduldateien ersetzt.
++Alle Berechnungsfunktionen einschließlich calc(), Wise- und Giftmann-Logik unverändert.
++Neue Dateien: huschel-toern-speicher.js, huschel-toern-speicher.css, README_HUSCHEL_SPEICHER_V1.5.7.md, SUPABASE_ALLOWLIST_NUR_EINE_ZEILE.txt.
++Kein echter Live-GitHub-/Supabase-Schreibtest durchgeführt.
+diff --git a/README_AKTUELLER_DATENSTAND_V1.5.8.md b/README_AKTUELLER_DATENSTAND_V1.5.8.md
+new file mode 100644
+index 0000000..573b988
+--- /dev/null
++++ b/README_AKTUELLER_DATENSTAND_V1.5.8.md
+@@ -0,0 +1,43 @@
++# Törnplaner V1.5.8 – aktuelle Daten sicher übernehmen
++
++## Zweck
++Die App basiert **nur** auf der vom Nutzer hochgeladenen `toernplaner.zip` und auf der daraus erstellten separaten V1.5.7-Speichertestversion. **Keine Änderungen an Kostenformeln, Giftmann-Logik, Teilnehmerverwaltung, Wise-Berechnung oder bisheriger Supabase-Cloud.**
++
++**WICHTIG: Die aktuelle Sicherung enthält persönliche Kontaktangaben und konkrete Zahlungsdaten. Deshalb ist sie NICHT im öffentlichen GitHub-Pages-Paket enthalten!** Sie wird als separat herunterladbare **private** Sicherung ausgeliefert.
++
++## Übernommene Originaldaten
++- Basisdatei: `Bup vor Appspeicherumbau-chillout-pirates-toerns-backup.json` (unverändert und bytegleich).
++- Enthält **2 Törns**, einschließlich aktivem Törn, Teilnehmern, Rollen, Zahlungsdaten, Kostenarten, Wise-Kontrolle, Bemerkungen, Datumsangaben, Cloud-Metadaten und allen weiteren Originalfeldern.
++- Original-SHA256: `33a1c2993234d0e140796dc52a60f663e0f4bd77cd5b2ae7f334a07487c67b0e`
++- **Kein automatisches Laden bei App-Start.** Eine ZIP-Datei im App-Repository ersetzt keine Browserdaten und keine private GitHub-Sicherung.
++
++## Sicherer Einmalimport auf einem frischen Gerät
++1. Das ÖFFENTLICHE V1.5.8-App-Paket separat unter einer Test-URL veröffentlichen. Niemals die private Sicherung ins öffentliche Repo laden.
++2. App öffnen und auf den Speicherbutton klicken.
++3. „JSON-Backup laden / Vorschau“ wählen und die **PRIVATE** JSON-Datei vom lokalen Mac/iPhone auswählen.
++4. Die Törns und deren Zahl prüfen. **Nur wenn im Browser noch kein Törn gespeichert ist**, erscheint der Button „Nur auf leerem Gerät: vollständigen Originalstand wiederherstellen“.
++5. Nach Bestätigung werden **alle Törns, IDs und der aktive Törn** lokal eingerichtet. Bestehende alte Supabase-Cloud wird nicht verändert.
++6. Zusätzlich ein JSON-Backup der jetzt eingerichteten Daten erstellen. Erst dann ggf. „GitHub Speichern“ anklicken und den Inhalt in `phusch/huschel-app-data/toernplaner/data.json` sichern. Server-APP-ID `toernplaner` muss freigegeben sein.
++
++## Bestehende produktive Installation
++- Wenn `chillout-pirates-trips-v1`, der zusätzliche Huschel-Lokalspeicher oder das alte Speicherformat bereits belegt ist, ist der vollständige Erstimport **gesperrt**.
++- In diesem Fall bleibt nur die schon getestete sicherheitsorientierte Funktion **„Ausgewählte Törns als neue Kopien übernehmen“**. Diese vergibt neue IDs/Namen und ersetzt keine Zahlungen.
++- Auch das alte normale App-Menü „Backup importieren“ existiert weiterhin, kann jedoch den gesamten Datenbestand überschreiben. Für den laufenden Betrieb **nicht verwenden**, solange du den Originalstand nicht ausdrücklich ersetzen willst.
++- Nicht dieselbe produktive URL ungeprüft durch eine Testinstallation ersetzen. Lokale Daten hängen an Domain und Browser.
++
++## Dauerhafte Aufbewahrung
++- Die private JSON-Datei auf Mac/iCloud/externem Datenträger außerhalb öffentlicher Repositories aufbewahren.
++- GitHub als verschlüsselt über HTTPS erreichbaren, **privaten** Cloud-Speicher erst nach bewusster Anmeldung und „GitHub Speichern“ verwenden (Server-Secret, Benutzerprüfung, Konfliktschutz bleiben Bestandteil des bekannten Huschel-Moduls).
++- Die Archiv-ZIP ist eine feste Momentaufnahme des Uploads. **Spätere Änderungen** in der laufenden App werden dadurch nicht automatisch aktualisiert. Regelmäßig manuell auf GitHub speichern sowie neue JSON-Backups erstellen.
++- ChatGPT speichert die persönlichen JSON-Daten nicht automatisch dauerhaft in deiner privaten GitHub-Ablage.
++
++## Änderungen zu V1.5.7
++- `index.html`: rein additive Schaltfläche für vollständige Wiederherstellung ausschließlich auf einem nachweislich noch leeren Gerät. Gesicherte IDs und aktiver Törn bleiben unverändert. Zusätzliche Browser-Sicherheitsprüfungen und Rückfall bei Speicherfehler.
++- `huschel-toern-speicher.js`: Vorschau erklärt den neuen Erstimport und ermöglicht ihn nur nach ausdrücklicher Bestätigung.
++- `sw.js`: neuer Cache-Name für die Testversion.
++- Unverändert: Kosten-/Giftmann-/Wise-Berechnung, alle übrigen Fachfunktionen, bestehende Supabase-Cloud, bisherige lokale Speicherung, Backup-Export, Bilddateien und Texte.
++
++## Installation
++Die Dateien **im Ordner `Toernplaner_V1.5.8_Datenstand_SicherheitsTest/`** sind das öffentliche App-Paket. Dieses ZIP enthält KEINE individuellen hochgeladenen Zahlungsdaten. Die separate private Daten-ZIP NIEMALS ins öffentliche Repository hochladen.
++
++Diese Version ist eine **separate Testversion** und keine produktive Umstellung. Erst nach Prüfung des Einmalimports und des Speicherstands freigeben.
+diff --git a/README_HUSCHEL_SPEICHER_V1.5.7.md b/README_HUSCHEL_SPEICHER_V1.5.7.md
+new file mode 100644
+index 0000000..11edbf6
+--- /dev/null
++++ b/README_HUSCHEL_SPEICHER_V1.5.7.md
+@@ -0,0 +1,99 @@
++# Törnplaner / Chillout Pirates – Huschel App Speicher V1.5.7 (SICHERHEITS-TEST)
++
++**Verbindliche Quelle:** Ausschließlich die am 26.10.2026 hochgeladene `toernplaner.zip`.
++Die vorhandene Anwendung trägt laut README den Stand V1.5.6 (Wise-/Zahlungsstatus).
++V1.5.7 ergänzt **nur** den separat erreichbaren Huschel App Speicher.
++
++## WICHTIG: Laufende echte Daten schützen
++
++Die ZIP enthält **Programmdateien**, nicht zwangsläufig deinen aktuell im Browser gespeicherten Arbeitsstand. Deine realen Törns/Zahlungen liegen im bisherigen Browser-Speicher sowie gegebenenfalls in deinem bisherigen separaten Supabase-Projekt. Die ZIP darf **niemals** als vollständige Sicherung deiner Live-Daten verstanden werden.
++
++**Bevor du Dateien im produktiven GitHub-Repository ersetzt:**
++1. Aktuelle produktive App auf dem Gerät öffnen, auf dem die echten Daten liegen.
++2. Offene Eingaben über die vorhandene Funktion **Speichern** sichern.
++3. Unter **Hilfe & Handbuch → Backup → Backup erstellen** das vorhandene Gesamt-JSON herunterladen.
++4. Heruntergeladenes JSON im Finder prüfen und an einem sicheren Ort verwahren.
++5. Original-Repositories/ZIP und bisherigen Supabase-Stand nicht löschen oder überschreiben.
++6. Erst danach den neuen **Code** in einem sicheren Test-/Wartungszeitpunkt veröffentlichen; nicht während einer laufenden Eingabe.
++
++**Nicht** Safari-Websitedaten/LocalStorage löschen, nicht „zurücksetzen“, nicht die alte Supabase-Datenbank neu aufsetzen. Bei Tests auf einer neuen GitHub-Pages-URL/anderem Ursprung liegen üblicherweise **nicht** deine Live-Browserdaten. Dort können nur Beispieldaten sichtbar sein – **diese niemals auf GitHub über deine echten Daten speichern**.
++
++## Neue Oberfläche
++
++- Gut sichtbarer 💾-Symbolbutton oben rechts (mobil) / links neben der Hilfe (Desktop)
++- Separate Seite mit Zurück-Button
++- Auffällige Speicherampel und unabhängiger, grüner Status „Angemeldet“
++- GitHub Speichern / GitHub Laden (bevorzugt), lokale Sicherheitskopie, JSON Backup
++- GitHub-Revision, letzter Speicherzeitpunkt, Konfliktschutz
++- Supabase-Login mit persistierter Sitzung – **separat vom alten Törnplaner-Supabase**
++
++Die GitHub-Sicherung umfasst **sämtliche Törns** aus `appState`, inklusive `data.people`, `data.costs`, `participantInfo`, Raten-/Zahlungseinträge, Giftmann-Logikdaten, Wise-Journal, Notizen und Zeiträumen. Sie ist ein **JSON-Schnappschuss**. Die bisherige App-Berechnung wird nicht neu implementiert oder umgestellt.
++
++### GitHub Laden ist absichtlich nicht-destruktiv
++
++- **„GitHub Laden / Vorschau“ verändert keinen einzigen Törn.**
++- Die Vorschau zeigt verfügbare Törns und deren Zeitstempel.
++- Die Aktion **„Ausgewählte Törns als neue Kopien übernehmen“** ist separat und erfordert: aktuelle JSON-Backup-Bestätigung, ausdrücklich ausgewählte Törns, keine offenen ungespeicherten Eingaben und eine zweite Bestätigung.
++- Beim Kopieren erhält jeder Törn eine **neue ID** und einen Namen mit „– Sicherungskopie“. Vorhandene Törns, der aktive Törn, Zahlungen und Supabase-Einträge bleiben erhalten. `cloudMeta` wird in den neuen Kopien bewusst nicht von der früheren Supabase-Revision übernommen.
++- Die neue Kopie wird zuerst in den bisherigen lokalen Browser-Speicher geschrieben, dann erst im Arbeitsspeicher ergänzt. Scheitert die lokale Speicherung (z. B. Speicherplatz), wird der laufende App-Zustand nicht umgestellt.
++- Das **alte** `importBackup()` und die **alte** Supabase-Synchronisierung werden nicht ersetzt oder verändert. Bitte bei einer laufenden Abrechnung die neue „als Kopie“-Option verwenden, nicht den alten ggf. überschreibenden Cloud-Import.
++
++### GitHub Speichern
++
++- Nur auf ausdrücklichen Klick; es gibt **keinen automatischen GitHub-Schreibzugriff**.
++- Bei ungespeicherten Eingaben wird abgebrochen und auf das vorhandene lokale „Speichern“ verwiesen.
++- Vor jedem Schreibversuch wird der aktuelle GitHub-Stand frisch abgefragt; bei abweichenden Daten wird ausdrücklich bestätigt.
++- Beim Schreiben nutzt die bestehende Supabase Edge Function den aktuellen GitHub-Datei-`sha`, damit keine stille Überschreibung nach Zwischenänderung möglich ist.
++- Identische Daten erzeugen keine neue Revision.
++- Die bisherige Törnplaner-Supabase-Tabelle `trips` / `trip_states` wird weder geschrieben noch verändert.
++
++## Supabase / GitHub – nur ein Eintrag
++
++Bestehendes Huschel-Speicherprojekt: `huschel-speicher-pilot`  
++URL: `https://qijordwpbwwbizfcslrv.supabase.co`  
++Edge Function: `github-app-storage`  
++Privates Repository: `phusch/huschel-app-data`  
++Neuer Dateipfad: `toernplaner/data.json`
++
++**Prüfe** im bestehenden Servercode der Edge Function, ob im Objekt `APPS` schon der Eintrag vorhanden ist. Wenn nicht, **nur** diese eine Zeile zum existierenden Objekt hinzufügen:
++
++```ts
++"toernplaner": "toernplaner/data.json",
++```
++
++**Alle anderen App-IDs, Serverfunktionen, Token-Secrets, Benutzer-UIDs, JWT-Einstellungen erhalten.** Änderungen an der Edge Function können andere Apps betreffen; den Code vorher sichern und den eingefügten Eintrag genau prüfen. GitHub-Token `GITHUB_TOKEN` bleibt ausschließlich als Supabase-Secret; **niemals** im Browser. Im HTML wird ausschließlich der Publishable Key des Huschel-Projekts eingegeben. Keine Zugangsdaten in die ZIP schreiben.
++
++Die alte Törnplaner-Supabase-Cloud benötigt weiterhin ihre **eigenen** bisherigen Zugangsdaten. Diese nicht durch die des neuen Huschel-Projekts ersetzen.
++
++## Geänderte / neue Dateien
++
++- `index.html`: nur drei additive Bestandteile (CSS-Einbindung, 💾-Button mit separater Speicherseite, kleine Datenbrücke am Ende des bestehenden Skripts sowie Einbindung des neuen Moduls). **Keine bestehende Berechnungs- oder Fachfunktion verändert.**
++- `huschel-toern-speicher.js`: neues, separates Speichermodul.
++- `huschel-toern-speicher.css`: gekapselte Darstellung ohne Styling-Änderungen an bestehenden Seiten.
++- `sw.js`: ausschließlich neues Cache-Kennzeichen sowie Vorladen der beiden neuen Speicherdateien statt eines in der Original-ZIP nicht vorhandenen `app.js`. Keine Änderung des Fetch-/Offline-Verhaltens.
++- `README_HUSCHEL_SPEICHER_V1.5.7.md`: diese Anleitung.
++
++Alle übrigen mitgelieferten Originaldateien sind bytegleich geblieben. Die vorhandenen Historien-Patches sind nur als Referenzdateien enthalten; nicht ausführen. Das Git-Verzeichnis und macOS-Metadatendateien gehören nicht zum Runtime-Paket und wurden nicht übernommen.
++
++## Kontrollierter Test (nach Original-Backup)
++
++1. Vor der neuen Version ein **echtes** JSON-Backup des produktiven Stands sichern.
++2. Neue Dateien im GitHub-Repository veröffentlichen, im Browser neu laden **ohne Browserdaten zu löschen**.
++3. Kontrollieren, dass bestehende Törns, Wise-Buchungen und Teilnehmerzahlungen unverändert erscheinen.
++4. 💾 öffnen: bisherige Supabase-Cloud bleibt im Reiter **Törns**, neue Huschel-Seite ist davon getrennt.
++5. Bei der ersten Anmeldung den Publishable Key von `huschel-speicher-pilot`, die bereits genutzte E-Mail und das Passwort verwenden.
++6. **Zuerst JSON-Backup erstellen**, dann „GitHub Laden / Vorschau“ (falls Speicherordner leer, klare Meldung).
++7. „GitHub Speichern“ nur auf dem **Originalgerät mit aktuellem Live-Datenstand** ausführen; nicht aus einer Test-URL mit Beispieldaten. Den gespeicherten Stand danach über „GitHub Laden / Vorschau“ überprüfen; nichts importieren müssen.
++8. App schließen und wieder öffnen: Supabase-Anmeldung sollte automatisch erhalten bleiben.
++9. Optional auf einem anderen Gerät einen gesicherten Törn als **Kopie** übernehmen – bestehende Törns bleiben erhalten.
++
++## Grenzen / Sicherheit
++
++- GitHub ist hier ein zusätzliches **manuell ausgelöstes Backup**, keine automatische Zwei-Wege-Synchronisierung.
++- GitHub-Revisionsschutz schützt Cloud-Schreibkonflikte. Die neue Importfunktion überschreibt niemals bestehende Törns.
++- Der ursprüngliche Törnplaner und dessen bestehende Supabase-Cloud können bisher wie gewohnt weiterhin schreibende Aktionen ausführen; deren eigene bestehende Importfunktionen werden absichtlich nicht verändert.
++- Bei Verlust der Browserdaten ohne vorherige Sicherung können nicht auf GitHub/Lokal/JSON gesicherte neue Änderungen verloren gehen.
++- Das private Repository enthält nach einer Speicherung **sensible Teilnehmer- und Zahlungsinformationen**. GitHub-Kontozugriff mit 2FA schützen und Repository privat lassen.
++- Wenn du nicht auf einem Live-Gerät testest, enthält die hochgeladene Code-ZIP möglicherweise nur Demo-/Ursprungsdaten. Kein GitHub-Speichern damit durchführen!
++
++**Status:** Sicherheits-Testversion, nicht produktiv freigegeben; echter GitHub-Test steht aus. Die originale `toernplaner.zip` bleibt unberührt.
+diff --git a/SUPABASE_ALLOWLIST_NUR_EINE_ZEILE.txt b/SUPABASE_ALLOWLIST_NUR_EINE_ZEILE.txt
+new file mode 100644
+index 0000000..cffdf9f
+--- /dev/null
++++ b/SUPABASE_ALLOWLIST_NUR_EINE_ZEILE.txt
+@@ -0,0 +1,8 @@
++NUR FALLS NOCH NICHT VORHANDEN:
++
++In bestehender Supabase Edge Function github-app-storage im Objekt APPS ergänzen:
++
++"toernplaner": "toernplaner/data.json",
++
++Niemals alte APP-IDs entfernen, den alten Törnplaner-Supabase-Code ersetzen oder Secrets offenlegen.
++Vorher den bestehenden Function-Code sichern. Anschließend genau einen kontrollierten Deploy.
+diff --git a/huschel-toern-speicher.css b/huschel-toern-speicher.css
+new file mode 100644
+index 0000000..251943c
+--- /dev/null
++++ b/huschel-toern-speicher.css
+@@ -0,0 +1,37 @@
++/* Huschel Törnplaner Speicher V1.5.7 – vollständig gekapselter Zusatzbereich */
++#hsToernOpen{position:fixed;z-index:110;top:calc(14px + env(safe-area-inset-top));right:calc(196px + env(safe-area-inset-right));display:flex;align-items:center;justify-content:center;width:47px;height:45px;min-width:47px;line-height:1;font-size:24px;padding:5px;border:2px solid #a2d3ca;border-radius:13px;background:#103b37;color:#fff;box-shadow:0 10px 25px #0009;text-transform:none}
++#hsToernOpen:focus-visible{outline:3px solid #fff;outline-offset:2px}
++#hsToernPanel[hidden],#hsPreview[hidden],#hsLoginArea[hidden],#hsLogout[hidden],#hsRestoreFresh[hidden]{display:none!important}
++#hsToernPanel{position:fixed;z-index:150;inset:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;background:#050707;color:#e7d7b8;padding:calc(14px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.45}
++#hsToernPanel *{box-sizing:border-box}
++#hsToernPanel .hst-wrap{max-width:670px;margin:0 auto}
++#hsToernPanel .hst-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
++#hsToernPanel h2{color:#e7d7b8;margin:0;font:800 21px Georgia,serif;letter-spacing:.02em;text-transform:none}
++#hsToernPanel h3{color:#e7d7b8;margin:0 0 12px;font-size:16px;text-transform:none;font-family:inherit;letter-spacing:0}
++#hsToernPanel .hst-card{margin:12px 0;padding:17px;border:1px solid #36504a;background:linear-gradient(180deg,#171d1b,#0a0f0e);border-radius:15px;box-shadow:0 10px 23px #0006}
++#hsToernPanel .hst-preferred{border-color:#5caaa0;background:linear-gradient(180deg,#163730,#0b1715)}
++#hsToernPanel .hst-lamp{padding:18px 14px;border-radius:14px;font-size:17px;font-weight:850;margin:12px 0;border:2px solid;letter-spacing:0}
++#hsToernPanel .hst-ok{background:#103a2c;border-color:#44ad7d;color:#c5ffdf}
++#hsToernPanel .hst-warn{background:#4a3513;border-color:#d1a45a;color:#fff1c7}
++#hsToernPanel .hst-error{background:#502322;border-color:#d96b5f;color:#ffe0d9}
++#hsToernPanel .hst-authline{display:inline-block;padding:10px 12px;border-radius:12px;border:1px solid #5d6562;background:#222826;font-weight:800}
++#hsToernPanel .hst-authline.is-in{border-color:#3bb876;background:#0e4b30;color:#d6ffe2}
++#hsToernPanel .hst-muted,#hsToernPanel .hst-meta{font-size:13px;color:#b2c7c1;margin:10px 0;overflow-wrap:anywhere}
++#hsToernPanel .hst-meta{font-weight:700}
++#hsToernPanel label{display:block;font-size:13px;font-weight:800;margin-top:9px}
++#hsToernPanel input:not([type="checkbox"]){width:100%;min-height:43px;margin-top:5px;padding:10px 12px;background:#091310;border:1px solid #4b6860;border-radius:10px;color:#f7fbf9;font-size:16px}
++#hsToernPanel input[type="checkbox"]{width:18px;height:18px;accent-color:#58a99d;flex:none}
++#hsToernPanel button{white-space:normal;min-height:43px;border:1px solid #5db6a4;border-radius:10px;background:#174c43;color:#f1fff9;padding:11px 12px;cursor:pointer;text-transform:none;letter-spacing:0;font-weight:800;font-size:14px;box-shadow:none}
++#hsToernPanel button:disabled{opacity:.56;cursor:wait}
++#hsToernPanel button.hst-minor{background:#252d2a;border-color:#52635d;color:#deece4}
++#hsToernPanel .hst-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
++#hsToernPanel .hst-preferred button{font-size:16px;padding:15px 10px;background:#22695c}
++#hsToernPanel .hst-message{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.5;padding:13px;border:1px solid #4a625a;border-radius:12px;background:#13211d}
++#hsToernPanel .hst-choices{display:grid;gap:8px;margin:12px 0}
++#hsToernPanel .hst-choice{display:flex;align-items:flex-start;gap:10px;border:1px solid #38514b;border-radius:9px;padding:10px;background:#0c1a16;word-break:break-word}
++#hsToernPanel .hst-choice input{margin-top:3px}
++#hsToernPanel .hst-choice span{display:block;font-size:12px;color:#b2c7c1}
++#hsToernPanel .hst-check{display:flex;align-items:flex-start;gap:9px;margin:12px 0;font-size:13px;line-height:1.4}
++#hsToernPanel #hsCopyTrips,#hsToernPanel #hsCancelPreview{width:100%;margin-top:9px}
++@media(max-width:760px){#hsToernOpen{right:calc(12px + env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));width:46px;height:46px}#hsToernPanel .hst-buttons{grid-template-columns:1fr}#hsToernPanel .hst-card{padding:14px}}
++@media print{#hsToernOpen,#hsToernPanel{display:none!important}}
+diff --git a/huschel-toern-speicher.js b/huschel-toern-speicher.js
+new file mode 100644
+index 0000000..f061463
+--- /dev/null
++++ b/huschel-toern-speicher.js
+@@ -0,0 +1,242 @@
++/* Huschel App Speicher – Törnplaner V1.5.8. Ausschließlich additive Sicherung.
++   KEIN automatischer Datenimport, KEINE Änderung der Kalkulation/alten Supabase-Funktionen. */
++(() => {
++  'use strict';
++  const B = window.HuschelToernBridge;
++  const PROJECT_URL = 'https://qijordwpbwwbizfcslrv.supabase.co';
++  const APP_ID = 'toernplaner';
++  const USER_ID = '9be7d1bc-4d69-4cb8-bb42-cb2d3c705f75';
++  const KEY_PUB = 'huschel-toernplaner-publishable-v1';
++  const KEY_EMAIL = 'huschel-toernplaner-email-v1';
++  const KEY_LOCAL = 'huschel-toernplaner-extra-snapshot-v1';
++  const $ = id => document.getElementById(id);
++  const panel = $('hsToernPanel');
++  if (!B || !panel || !window.supabase?.createClient) {
++    console.warn('Huschel Speicher: Datenschnittstelle oder Supabase-Bibliothek fehlt.');
++    return;
++  }
++  let client = null, logged = false, busy = false, sha = undefined;
++  let revision = 0, savedAt = null, remote = null, preview = null, previewSource = '';
++  let oldScroll = 0;
++  const originalOverflow = () => document.body.style.overflow;
++  let previousOverflow = '';
++  const date = v => { try { return v ? new Date(v).toLocaleString('de-DE') : '–'; } catch { return '–'; } };
++  const lamp = (msg, mode='warn') => {
++    const el = $('hsLamp');el.className = 'hst-lamp hst-' + mode;
++    el.textContent = (mode === 'ok' ? '🟢 ' : mode === 'error' ? '🔴 ' : '🟡 ') + msg;
++  };
++  const log = msg => $('hsMessage').textContent = msg;
++  const meta = () => $('hsMeta').textContent = 'GitHub-Revision: ' + (sha === undefined ? 'nicht geprüft' : revision) + ' · letzte Speicherung: ' + date(savedAt);
++  const same = (a,b) => JSON.stringify(a) === JSON.stringify(b);
++  function valid(data) {
++    return !!(data && !Array.isArray(data) && Array.isArray(data.trips) && data.trips.length > 0 &&
++      data.trips.length <= 200 && data.trips.every(t => t && typeof t.id === 'string' &&
++        t.data && Array.isArray(t.data.people) && Array.isArray(t.data.costs)));
++  }
++  function getSnapshot() {
++    if (B.isDirty()) throw Error('Es gibt möglicherweise ungespeicherte Eingaben. Bitte zuerst im Törnplaner auf „Speichern“ klicken, dann erneut versuchen.');
++    const data = B.readSnapshot();
++    if (!valid(data)) throw Error('Der lokale Törn-Datenstand ist ungültig. Kein Speichervorgang durchgeführt.');
++    return data;
++  }
++  function setAuth(ok, email='') {
++    logged = !!ok;
++    $('hsAuthStatus').classList.toggle('is-in', !!ok);
++    $('hsAuthStatus').textContent = ok ? '🟢 Angemeldet · Supabase-Zugang aktiv' : '⚪ Nicht angemeldet';
++    $('hsLoginArea').hidden = !!ok;
++    $('hsLogout').hidden = !ok;
++    $('hsAccountLabel').textContent = ok ? 'Angemeldet als ' + email + ' · getrennt von der bisherigen Törnplaner-Cloud' : 'Huschel App Speicher · getrennt vom bisherigen Törnplaner-Supabase';
++  }
++  async function ensureClient() {
++    if (client) return client;
++    const key = $('hsKey').value.trim();
++    if (!key.startsWith('sb_publishable_') && !key.startsWith('eyJ')) throw Error('Bitte den Publishable/anon Key des Projekts huschel-speicher-pilot eingeben.');
++    client = window.supabase.createClient(PROJECT_URL, key, {
++      auth: { persistSession:true, autoRefreshToken:true, detectSessionInUrl:false,
++        storageKey:'huschel-toernplaner-auth-v1' }
++    });
++    return client;
++  }
++  async function user() {
++    const c = await ensureClient();
++    const { data, error } = await c.auth.getUser();
++    if (error || !data?.user || data.user.id !== USER_ID) {
++      setAuth(false);
++      throw Error('Bitte zuerst mit dem freigegebenen Huschel-Supabase-Konto anmelden.');
++    }
++    setAuth(true, data.user.email || '');
++    return data.user;
++  }
++  async function invoke(payload) {
++    const c = await ensureClient();
++    await user();
++    const {data,error} = await c.functions.invoke('github-app-storage',{body:payload});
++    if (error) {
++      let detail = error.message || String(error);
++      if (error.context instanceof Response) {
++        const response = error.context;
++        try { const obj = await response.clone().json();detail = obj?.error || obj?.message || detail; }
++        catch { detail += ' (HTTP ' + response.status + ')'; }
++        if (response.status === 409) detail = 'Versionskonflikt: ' + detail;
++      }
++      throw Error(detail);
++    }
++    if (!data?.ok) throw Error(data?.error || 'Keine gültige Antwort der Speicherfunktion.');
++    return data;
++  }
++  function setRemote(response) {
++    sha = response.sha ?? null;
++    revision = Number(response.revision || 0);
++    savedAt = response.savedAt || null;
++    remote = response.exists ? response.data : null;
++    meta();
++  }
++  async function getRemote() {
++    const r = await invoke({action:'load',app:APP_ID});
++    if (r.exists && !valid(r.data)) throw Error('GitHub enthält ein unerwartetes Törn-Datenformat. Nichts importiert oder überschrieben.');
++    setRemote(r);
++    return r;
++  }
++  const doTask = async (action, fn) => {
++    if (busy) return;
++    busy = true;
++    panel.querySelectorAll('button').forEach(b=>b.disabled=true);
++    try { await fn(); }
++    catch (e) {
++      const message = String(e?.message || e);
++      lamp(action === 'GitHub Speichern' ? 'GitHub-Speicherung nicht bestätigt' : action + ' fehlgeschlagen','error');
++      log(action + ': ' + message + (action === 'GitHub Speichern' ? '\nBitte vor erneutem Speichern den GitHub-Stand prüfen; eine unterbrochene Antwort beweist nicht, dass nichts gespeichert wurde.' : '\nDer laufende Törnplaner wurde nicht durch diese Aktion ersetzt.'));
++    } finally {
++      busy = false;panel.querySelectorAll('button').forEach(b=>b.disabled=false);
++    }
++  };
++  function showPreview(data, source) {
++    if (!valid(data)) throw Error('Ungültiger Sicherungsstand. Keine Törns übernommen.');
++    preview = JSON.parse(JSON.stringify(data));
++    previewSource = source;
++    $('hsPreviewTitle').textContent = 'Vorschau: ' + source + ' · ' + data.trips.length + ' Törn(e)';
++    const box=$('hsTripChoices');box.replaceChildren();
++    data.trips.forEach((t,i)=>{
++      const label=document.createElement('label');label.className='hst-choice';
++      const input=document.createElement('input');input.type='checkbox';input.value=String(i);
++      const text=document.createElement('div');const bold=document.createElement('strong');bold.textContent=t.name || '(ohne Namen)';
++      const info=document.createElement('span');info.textContent=(t.startDate || '?') + ' – ' + (t.endDate || '?') + ' · ' + t.data.people.length + ' Teilnehmer · zuletzt: ' + date(t.updatedAt);
++      text.append(bold,info);label.append(input,text);box.append(label);
++    });
++    $('hsBackupConfirm').checked = false;
++    $('hsPreview').hidden=false;
++    const fresh = typeof B.isFreshStorage === 'function' && B.isFreshStorage();
++    $('hsRestoreFresh').hidden = !fresh;
++    $('hsFreshHint').textContent = fresh
++      ? 'Neues, noch leeres Gerät: Du kannst die vollständige Sicherung mit allen Original-Törn-IDs und dem aktiven Törn übernehmen. Erst nach ausdrücklicher Bestätigung; kein automatischer Import.'
++      : 'Dein Gerät enthält bereits einen Datenstand. Eine vollständige Wiederherstellung ist hier gesperrt, um alle bestehenden Törns und Zahlungen zu schützen. Du kannst einzelne Törns als Kopien hinzufügen.';
++    lamp('Sicherung geladen: nur Vorschau – vorhandene Daten unverändert','warn');
++    log('Wähle bei Bedarf einzelne Törns aus. Übernommen wird ausschließlich als zusätzliche Sicherungskopie. Die bisherigen Törns und die frühere Supabase-Cloud bleiben unverändert.');
++    $('hsPreview').scrollIntoView({behavior:'smooth',block:'start'});
++  }
++  function hidePreview() { preview=null;previewSource='';$('hsPreview').hidden=true;$('hsBackupConfirm').checked=false; }
++  $('hsToernOpen').addEventListener('click',()=>{
++    oldScroll = window.scrollY;previousOverflow=originalOverflow();panel.hidden=false;document.body.style.overflow='hidden';$('hsBack').focus();
++    void doTask('Anmeldestatus', async()=>{
++      try { await user(); }
++      catch { setAuth(false); log('Bitte anmelden. Die vorhandenen Törn-Daten wurden nicht verändert.'); }
++    });
++  });
++  $('hsBack').addEventListener('click',()=>{panel.hidden=true;hidePreview();document.body.style.overflow=previousOverflow;window.scrollTo(0,oldScroll);$('hsToernOpen').focus();});
++  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden&& !busy) $('hsBack').click();});
++  $('hsKey').value=localStorage.getItem(KEY_PUB)||'';
++  $('hsEmail').value=localStorage.getItem(KEY_EMAIL)||'huschka@eventdesign.com';
++  $('hsLogin').addEventListener('click',()=>doTask('Anmeldung',async()=>{
++    const c=await ensureClient();const email=$('hsEmail').value.trim();
++    const {data,error}=await c.auth.signInWithPassword({email,password:$('hsPassword').value});
++    $('hsPassword').value='';
++    if(error) throw error;
++    if(!data.user || data.user.id !== USER_ID){await c.auth.signOut();throw Error('Dieses Benutzerkonto ist nicht für Huschel App Speicher freigegeben.');}
++    localStorage.setItem(KEY_PUB,$('hsKey').value.trim());localStorage.setItem(KEY_EMAIL,email);
++    setAuth(true,email);lamp('Angemeldet · GitHub-Speicherstand noch nicht geprüft','warn');
++    log('Anmeldung erfolgreich. Deine bisherige Törnplaner-Cloud und alle Daten bleiben unverändert.');
++  }));
++  $('hsLogout').addEventListener('click',()=>doTask('Abmelden',async()=>{if(client){const {error}=await client.auth.signOut();if(error)throw error;}setAuth(false);lamp('Abgemeldet','warn');log('Huschel-Sitzung beendet. Vorhandene Törns unverändert.');}));
++  $('hsCloudLoad').addEventListener('click',()=>doTask('GitHub Laden',async()=>{
++    const result=await getRemote();
++    if(!result.exists){hidePreview();lamp('Für den Törnplaner noch kein GitHub-Speicherstand vorhanden','warn');log('Es wurde nichts geladen oder verändert. Du kannst die aktuellen Törns bei Bedarf auf GitHub sichern.');return;}
++    showPreview(result.data,'GitHub (Revision '+revision+', '+date(savedAt)+')');
++  }));
++  $('hsCloudSave').addEventListener('click',()=>doTask('GitHub Speichern',async()=>{
++    const snapshot=getSnapshot();
++    const response=await getRemote(); // vor jedem PUT frisch prüfen, keine Übernahme in die App
++    if(response.exists && same(snapshot,response.data)){
++      lamp('GitHub ist bereits auf diesem Datenstand','ok');log('Keine neue GitHub-Revision nötig. Bestehende Törns unverändert.');return;
++    }
++    const size=new TextEncoder().encode(JSON.stringify(snapshot)).byteLength;
++    const msg=response.exists
++      ? 'Auf GitHub liegt Revision '+revision+' vom '+date(savedAt)+'.\n\nDu möchtest sie durch den aktuellen lokalen Stand mit '+snapshot.trips.length+' Törns ('+Math.round(size/1024)+' KB) ersetzen.\n\nDas ändert NICHT die bisherigen Törns oder die andere Supabase-Cloud.\n\nVorher bitte ein JSON-Backup erstellen. GitHub-Speicherung jetzt ausführen?'
++      : 'Erste GitHub-Sicherung aller '+snapshot.trips.length+' Törns ('+Math.round(size/1024)+' KB) anlegen?\n\nVorher bitte ein JSON-Backup erstellen.';
++    if(!confirm(msg)) {lamp('GitHub Speichern von dir abgebrochen – kein Speichern angefordert','warn');log('Der bestehende lokale Datenstand bleibt unverändert.');return;}
++    const saved=await invoke({action:'save',app:APP_ID,sha:sha,revision:revision,data:snapshot});
++    sha=saved.sha;revision=Number(saved.revision||revision+1);savedAt=saved.savedAt||null;remote=snapshot;meta();
++    lamp('Aktuelle Törns sicher auf GitHub gespeichert','ok');log(snapshot.trips.length+' Törn(e) gesichert · Revision '+revision+' · '+date(savedAt)+'. Lokaler Speicher und alte Supabase-Cloud nicht verändert.');
++  }));
++  $('hsLocalSave').addEventListener('click',()=>doTask('Lokal Speichern',async()=>{
++    const snapshot=getSnapshot();
++    localStorage.setItem(KEY_LOCAL,JSON.stringify({format:'huschel-toern-backup-v1',savedAt:new Date().toISOString(),data:snapshot}));
++    lamp('Zusätzliche lokale Sicherung erstellt','ok');log('Eigener Sicherheits-Speicherschlüssel. Der bisherige Törnplaner-Speicher wurde nicht verändert.');
++  }));
++  $('hsLocalLoad').addEventListener('click',()=>doTask('Lokal Laden',async()=>{
++    const raw=localStorage.getItem(KEY_LOCAL);if(!raw)throw Error('Noch keine zusätzliche lokale Sicherung vorhanden.');
++    const saved=JSON.parse(raw);if(saved.format!=='huschel-toern-backup-v1')throw Error('Unbekanntes Sicherungsformat.');
++    showPreview(saved.data,'lokale Sicherung ('+date(saved.savedAt)+')');
++  }));
++  $('hsExport').addEventListener('click',()=>doTask('JSON Backup',async()=>{
++    const snapshot=getSnapshot();const text=JSON.stringify(snapshot,null,2);
++    const link=document.createElement('a');const url=URL.createObjectURL(new Blob([text],{type:'application/json'}));
++    link.href=url;link.download='toernplaner-sicherheitsbackup-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),15000);
++    lamp('JSON-Backup als Download angeboten','ok');log('Bitte kontrolliere im Download-Ordner, dass die JSON-Datei tatsächlich vorhanden ist. Sie enthält sämtliche Törns und Zahlungsdaten.');
++  }));
++  $('hsImport').addEventListener('click',()=>{$('hsFile').value='';$('hsFile').click();});
++  $('hsFile').addEventListener('change',()=>doTask('JSON Backup laden',async()=>{
++    const file=$('hsFile').files?.[0];if(!file)return;
++    if(file.size>10_000_000)throw Error('Diese Sicherungsdatei ist unerwartet groß (maximal 10 MB).');
++    const data=JSON.parse(await file.text());
++    const actual=data?.format==='huschel-toern-backup-v1' ? data.data : data;
++    showPreview(actual,'JSON-Backup '+file.name);
++  }));
++    $('hsRestoreFresh').addEventListener('click',()=>doTask('Originalstand auf neuem Gerät einrichten',async()=>{
++    if(!preview)throw Error('Zunächst eine gültige JSON-Sicherung zur Vorschau auswählen.');
++    if(typeof B.isFreshStorage!=='function' || !B.isFreshStorage())
++      throw Error('Dieses Gerät besitzt bereits lokale Daten. Die Wiederherstellung ist gesperrt; nur Kopien sind möglich.');
++    const message='VOLLSTÄNDIGEN ORIGINALSTAND AUF DIESEM NEUEN, LEEREN GERÄT EINRICHTEN?\n\n'+
++      preview.trips.length+' Törns inklusive Teilnehmer, Zahlungen, Wise-Daten und ursprünglichem aktiven Törn.\n\n'+
++      'Die vorhandene bisherige Supabase-Cloud und GitHub werden NICHT verändert.\n'+
++      'Dieser Vorgang ist NUR erlaubt, weil auf diesem Gerät noch keine Törn-Daten gespeichert sind.';
++    if(!confirm(message)){
++      lamp('Originalstand-Übernahme von dir abgebrochen – keine Daten geändert','warn');
++      log('Die Sicherung wurde nicht übernommen.');return;
++    }
++    const restored=B.restoreOnFreshStorage(preview);
++    hidePreview();
++    lamp('Originalstand sicher lokal eingerichtet – GitHub noch nicht gespeichert','ok');
++    log(restored.count+' Törns aus deiner privaten JSON-Sicherung übernommen, aktiver Törn: '+restored.active+'. Die bisherige Törnplaner-Supabase-Cloud ist unverändert. Für die dauerhafte private GitHub-Sicherung bitte anschließend bewusst „GitHub Speichern“ ausführen.');
++  }));
++$('hsCopyTrips').addEventListener('click',()=>doTask('Törns als Kopien übernehmen',async()=>{
++    if(!preview)throw Error('Keine gültige Sicherungsvorschau geöffnet.');
++    if(! $('hsBackupConfirm').checked)throw Error('Bitte zuerst ein aktuelles JSON-Backup erstellen und die Bestätigung aktivieren.');
++    const chosen=Array.from($('hsTripChoices').querySelectorAll('input:checked')).map(input=>preview.trips[Number(input.value)]);
++    if(!chosen.length)throw Error('Bitte mindestens einen Törn auswählen.');
++    if(B.isDirty())throw Error('Bitte erst die laufenden Eingaben im Törnplaner lokal speichern.');
++    if(!confirm(chosen.length+' Törn(e) aus '+previewSource+' als NEUE KOPIEN übernehmen?\n\nAlle bestehenden Törns einschließlich Zahlungen bleiben erhalten.')){
++      lamp('Übernahme von dir abgebrochen – keine Törns ergänzt','warn');log('Die laufenden Törns sind unverändert.');return;
++    }
++    const names=B.addCopies(chosen);
++    hidePreview();
++    lamp(names.length+' Sicherungskopie(n) hinzugefügt – bestehende Törns erhalten','ok');
++    log('Erfolgreich ergänzt: '+names.join(', ')+'. Öffne die Törn-Verwaltung, wenn du eine Kopie prüfen möchtest. Die bestehende Supabase-Cloud bleibt unverändert.');
++  }));
++  $('hsCancelPreview').addEventListener('click',()=>{hidePreview();lamp('Vorschau geschlossen – keine Daten übernommen','warn');log('Bestehende Törns und Zahlungen sind unverändert.');});
++  meta();
++  // Keine automatische Aktion auf den Originaldaten. Nur vorhandene Huschel-Sitzung prüfen.
++  void (async () => {
++    try { if($('hsKey').value)await user(); }
++    catch { setAuth(false); }
++  })();
++})();
+diff --git a/index.html b/index.html
+index baac5c3..a8d7311 100644
+--- a/index.html
++++ b/index.html
+@@ -233,8 +233,57 @@ button.secondary{color:var(--trip-accent)}
+ @media(max-width:760px){.help-fab{top:auto;bottom:calc(14px + env(safe-area-inset-bottom));right:calc(14px + env(safe-area-inset-right));padding:11px 13px!important}.help-dialog{max-height:calc(100vh - 22px);border-radius:18px}.help-body{grid-template-columns:1fr}.help-nav{display:flex;gap:8px;overflow:auto;border-right:0;border-bottom:1px solid rgba(231,215,184,.16);padding:10px}.help-nav button{width:auto;margin:0;flex:0 0 auto}.help-content{padding:12px}.help-head{padding:14px}.help-head h2{font-size:17px}}
+ 
+ </style>
++<link rel="stylesheet" href="huschel-toern-speicher.css?v=1.5.8" />
+ </head>
+ <body>
++<button id="hsToernOpen" type="button" aria-label="Huschel App Speicher öffnen" title="Huschel App Speicher">💾</button>
++<div id="hsToernPanel" hidden role="dialog" aria-modal="true" aria-labelledby="hsTitle">
++  <div class="hst-wrap">
++    <div class="hst-head"><button type="button" id="hsBack">← Zurück zum Törnplaner</button><h2 id="hsTitle">Speichern &amp; Backup</h2></div>
++    <div id="hsLamp" class="hst-lamp hst-warn" role="status" aria-live="polite">🟡 GitHub-Speicherstand noch nicht geprüft</div>
++    <section class="hst-card" id="hsAuthCard">
++      <div class="hst-authline" id="hsAuthStatus">⚪ Nicht angemeldet</div>
++      <p class="hst-muted" id="hsAccountLabel">Huschel App Speicher · getrennt vom bisherigen Törnplaner-Supabase</p>
++      <div id="hsLoginArea">
++        <label for="hsKey">Supabase Publishable Key (nur huschel-speicher-pilot)</label>
++        <input id="hsKey" type="password" autocomplete="off" placeholder="sb_publishable_…" />
++        <label for="hsEmail">E-Mail</label><input id="hsEmail" type="email" autocomplete="username" placeholder="E-Mail" />
++        <label for="hsPassword">Passwort (wird nicht gespeichert)</label><input id="hsPassword" type="password" autocomplete="current-password" />
++        <button type="button" id="hsLogin">Anmelden</button>
++      </div>
++      <button type="button" id="hsLogout" class="hst-minor" hidden>Abmelden</button>
++    </section>
++    <section class="hst-card hst-preferred">
++      <h3>GitHub – bevorzugter Speicher</h3>
++      <p class="hst-muted">Privates Repository: <code>phusch/huschel-app-data</code> · <code>toernplaner/data.json</code></p>
++      <div class="hst-buttons"><button type="button" id="hsCloudSave">☁️ GitHub Speichern</button><button type="button" id="hsCloudLoad">☁️ GitHub Laden / Vorschau</button></div>
++      <p class="hst-meta" id="hsMeta">Revision: nicht geprüft · letzte Speicherung: –</p>
++    </section>
++    <section class="hst-card">
++      <h3>Lokaler Speicher – unabhängige Sicherheitskopie</h3>
++      <div class="hst-buttons"><button type="button" id="hsLocalSave">Lokal Speichern</button><button type="button" id="hsLocalLoad">Lokal Laden / Vorschau</button></div>
++      <p class="hst-muted">Verwendet einen zusätzlichen eigenen Speicherschlüssel. Der bisherige lokale Törnplaner-Speicher wird nicht ersetzt.</p>
++    </section>
++    <section class="hst-card">
++      <h3>JSON-Backup</h3>
++      <div class="hst-buttons"><button type="button" id="hsExport">⬇️ JSON-Backup erstellen</button><button type="button" id="hsImport">⬆️ JSON-Backup laden / Vorschau</button></div>
++      <input id="hsFile" type="file" accept=".json,application/json" hidden />
++      <p class="hst-muted">Enthält alle Törns und Zahlungsdaten. Backup sicher aufbewahren.</p>
++    </section>
++    <section class="hst-card" id="hsPreview" hidden>
++      <h3 id="hsPreviewTitle">Gesicherte Törns prüfen</h3>
++      <p class="hst-muted">Das Laden hat noch nichts verändert. Für eine Übernahme werden neue Kopien erzeugt; vorhandene Törns bleiben bestehen.</p>
++      <div id="hsTripChoices" class="hst-choices"></div>
++      <label class="hst-check"><input type="checkbox" id="hsBackupConfirm" /> Ich habe ein aktuelles JSON-Backup der laufenden Törnplaner-Daten erstellt.</label>
++      <button type="button" id="hsCopyTrips">Ausgewählte Törns als neue Kopien übernehmen</button>
++      <button type="button" id="hsRestoreFresh" class="hst-minor" hidden>Nur auf leerem Gerät: vollständigen Originalstand wiederherstellen</button>
++      <p class="hst-muted" id="hsFreshHint">Original-IDs, aktiver Törn und Zahlungsdaten bleiben beim sicheren Erstimport erhalten. Nur auf einer neuen, noch nicht genutzten Browser-Installation möglich. Niemals automatische Übernahme.</p>
++      <button type="button" id="hsCancelPreview" class="hst-minor">Vorschau schließen – nichts ändern</button>
++    </section>
++    <p class="hst-message" id="hsMessage" role="status" aria-live="polite">Beim Öffnen und Laden werden keine vorhandenen Törn- oder Zahlungsdaten verändert.</p>
++  </div>
++</div>
++
+ <button id="helpButton" class="help-fab" onclick="openHelpModal()">ℹ️ Hilfe & Handbuch</button>
+ <header class="wrap hero"><img class="logo" src="assets/logo.png" alt="Chillout Pirates Logo"><div class="brand"><h1 id="activeTripHeadline">Chillout Pirates</h1><div class="divider">★</div><p class="sub">Kostenaufteilung · Love me Fender</p></div></header>
+ <main class="wrap">
+@@ -1342,6 +1391,68 @@ document.addEventListener('click',e=>{const modal=document.getElementById('helpM
+ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+ cloudLoadConfig();syncInputs();update();showTab('trips',document.querySelector('.tab'));saveGuardInit();if(window.__loadedFromShare){saveGuardMarkDirty();toast('Geteilter Stand geladen – Speichern drücken, um ihn auf diesem Gerät zu sichern')}
+ 
++// Huschel Speicher V1.5.8: NUR additive Datenschnittstelle; Berechnungen und bisherige Cloud bleiben unverändert.
++window.HuschelToernBridge = Object.freeze({
++  readSnapshot(){ return clone(appState); },
++  isDirty(){ return hasUnsavedChanges(); },
++  isFreshStorage(){
++    // Bestehender Browser-Datenstand hat immer Vorrang. Auch das alte Schlüsselformat blockiert.
++    return localStorage.getItem(STORE_KEY) === null &&
++      localStorage.getItem(OLD_KEY) === null &&
++      localStorage.getItem('huschel-toernplaner-extra-snapshot-v1') === null &&
++      !window.__loadedFromShare && !hasUnsavedChanges() && appState.trips.length === 1;
++  },
++  restoreOnFreshStorage(backup){
++    if(!this.isFreshStorage())throw new Error('Vollständige Wiederherstellung nur auf einer frischen, leeren Browser-Installation möglich. Bestehende Törns bleiben unangetastet; bitte stattdessen als Kopien übernehmen.');
++    if(!backup || Array.isArray(backup) || !Array.isArray(backup.trips) ||
++       !backup.trips.length || backup.trips.length>200 ||
++       typeof backup.activeTripId!=='string' ||
++       !backup.trips.some(t=>t && t.id===backup.activeTripId) ||
++       new Set(backup.trips.map(t=>t.id)).size !== backup.trips.length ||
++       !backup.trips.every(t=>t && typeof t.id==='string' &&
++         t.data && Array.isArray(t.data.people) && Array.isArray(t.data.costs)))
++      throw new Error('Sicherungsdaten ungültig: keine Daten übernommen.');
++    const serialized=JSON.stringify(backup); // Original-Sicherungsformat/IDs unverändert beibehalten.
++    const previous=appState;
++    try{
++      localStorage.setItem(STORE_KEY,serialized); // Einzige dauerhafte Datenänderung, nur nach Bestätigung.
++      appState=JSON.parse(serialized);
++      setActiveData();syncInputs();update();saveGuardSetClean();
++      return {count:appState.trips.length,active:getActiveTrip()?.name||''};
++    }catch(e){
++      localStorage.removeItem(STORE_KEY);
++      appState=previous;setActiveData();syncInputs();update();saveGuardSetClean();
++      throw new Error('Erstimport fehlgeschlagen: keine Sicherung übernommen. '+(e.message||e));
++    }
++  },
++  addCopies(trips){
++    if(hasUnsavedChanges())throw new Error('Zunächst im Törnplaner den aktuellen Törn lokal speichern.');
++    if(!Array.isArray(trips)||!trips.length)throw new Error('Keine Törns ausgewählt.');
++    const nameSet=new Set(appState.trips.map(t=>String(t.name||'')));
++    const ids=new Set(appState.trips.map(t=>t.id));
++    const copies=trips.map(raw=>{
++      if(!raw||!raw.data||!Array.isArray(raw.data.people)||!Array.isArray(raw.data.costs))
++        throw new Error('Ungültige Törn-Daten: Import vollständig abgebrochen.');
++      const copy=clone(raw);
++      let id=uid();while(ids.has(id))id=uid();ids.add(id);copy.id=id;
++      const stem=String(copy.name||'Törn')+' – Sicherungskopie';
++      let name=stem,i=2;while(nameSet.has(name))name=stem+' ('+(i++)+')';
++      nameSet.add(name);copy.name=name;
++      copy.createdAt=nowIso();copy.updatedAt=nowIso();
++      delete copy.cloudMeta; // Keine alte Supabase-Revision einer unabhängigen Kopie zuordnen.
++      return copy;
++    });
++    const next={...appState,trips:appState.trips.concat(copies)};
++    // Erst erfolgreich im bestehenden Browser-Speicher schreiben, DANN den Arbeitsspeicher aktualisieren.
++    localStorage.setItem(STORE_KEY,JSON.stringify(next));
++    appState=next;
++    renderTripHome();updateStatus();
++    return copies.map(t=>t.name);
++  }
++});
++
++
+ </script>
++<script src="huschel-toern-speicher.js?v=1.5.8" defer></script>
+ </body>
+ </html>
+diff --git a/sw.js b/sw.js
+index ea53cf0..cc911a4 100644
+--- a/sw.js
++++ b/sw.js
+@@ -1,8 +1,9 @@
+-const CACHE_NAME = 'chillout-pirates-kosten-v156-payment-status-sticky-v1';
++const CACHE_NAME = 'chillout-pirates-kosten-v158-huschel-speicher-v1';
+ const ASSETS = [
+   './',
+   './index.html',
+-  './app.js',
++  './huschel-toern-speicher.js',
++  './huschel-toern-speicher.css',
+   './manifest.webmanifest',
+   './assets/logo.png',
+   './assets/icon-180.png',

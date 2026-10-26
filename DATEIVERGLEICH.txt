@@ -1,0 +1,28 @@
+Originalquelle: toernplaner.zip (Upload 26.10.2026)
+Unverändert (SHA-256 pro Datei identisch): 20 Dateien
+  README.md · 685093d5f47544c133c866c05858dca1fe111b445ceacdb0185df08a2a1ad714
+  README_Toernplaner_V1.4.2_storage_status.md · ee19a1fd0c734003337be1bf167277c143e4f08b9bee99f62ab5f32d8a05f153
+  README_Toernplaner_V1.4.2_storage_status_PATCH.diff · b831f628c35ec7b8fcbfd215c5c9c9ab29783fd48b8dbd52a950ad72e1a5c442
+  SUPABASE_EINFACH_EINRICHTUNG_V1.1.md · be5468eac063545db79e50e244f7ec22540d57757a1f70297fac5144f1c9e0fd
+  Toernplaner_V1.4.2_giftmann_logic_fix_PATCH.diff · 1e7ffcfcde155210e994ac71ea4f52a39e25ff28960ef537c4f04890c00bb14d
+  Toernplaner_V1.4.2_overview_gesamtbetrag_PATCH.diff · b9d3be490362ca6e3e5b32b8664f237bc2bf367d157d4b11f2c5aafa7a2b98b0
+  Toernplaner_V1.4.2_storage_status_PATCH.diff · e0aea9b7022cc7baa24874c6042b0475e5ba0508e5690ba429c23dc70ad68cf9
+  Toernplaner_V1.4.4_dynamic_trip_title_PATCH.diff · dcd218f95012f1b71258438244a599c766cb2179f3d3ca57cb4933a3dc7c04ff
+  Toernplaner_V1.5.2_overview_installment_summary_PATCH.diff · 84f7738581f3718afc2720b5d7b36b3a4993925097b26631c9402083bac8722e
+  Toernplaner_V1.5.3_installments_per_traveler_PATCH.diff · 56d31fe6d7705b2e2c9ac0815a37c0eb727308325e5b8911070a297fc44a41f9
+  Toernplaner_V1.5.4_gift_total_PATCH.diff · b9e69a41f2616d5771170e5a79476e4a53a32f8323d87bdb00da3232064eda46
+  Toernplaner_V1.5.5_final_payment_PATCH.diff · d08618556b35783b07a9a35f745b62bca0d9068c66b6419d7e00149ed8a96353
+  Toernplaner_V1.5.6_payment_status_sticky_PATCH.diff · c22b541b62b03b8d5d0a5e09e8743d90638ed1fad8822b8f8086bf6a1fb0a98d
+  assets/icon-180.png · fa3689efa0f4caec2d33b9739c709dd53de850b630604605f35a31e72ded6698
+  assets/icon-192.png · bff986b4839961ffb268f93004fb435d78cffa4fe1f62d2a56ca722989d2aa21
+  assets/icon-512.png · fb5cb0f99148021539f081736620da1d04182da11410bd373d3550e009289ad3
+  assets/logo.png · b83fa52a0d1a18e28313ca396c0356d3ff3801d5cca09ed8a5daeb980ba70c0e
+  assets/toernplaner.png · c24bc56baae3b4a250472d496e1644f34652fb57e812241bc1e047c2bed0e1ec
+  manifest.webmanifest · ce95f2f1086803fd288183418e8771e90fb44b82458f1b038588e29356782072
+  supabase_migration_001_initial_sync_schema.sql · 66ffc55d48f2cba37428a26a96d6e2c872b86de580c2bb625fce8da6d73ec577
+
+Geänderte vorhandene Dateien: index.html, sw.js
+Nur zusätzliche Speicherlogik in index.html; SW-Cache aktualisiert und fehlenden app.js-Eintrag durch die zwei neuen Moduldateien ersetzt.
+Alle Berechnungsfunktionen einschließlich calc(), Wise- und Giftmann-Logik unverändert.
+Neue Dateien: huschel-toern-speicher.js, huschel-toern-speicher.css, README_HUSCHEL_SPEICHER_V1.5.7.md, SUPABASE_ALLOWLIST_NUR_EINE_ZEILE.txt.
+Kein echter Live-GitHub-/Supabase-Schreibtest durchgeführt.
